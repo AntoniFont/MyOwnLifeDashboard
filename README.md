@@ -16,4 +16,5 @@ _to be continued..._
 
 To be done:
 - Build the frontend of the main page for data entry (Let's call it system 100)
+    - In this frontend i need a way to add planned activities, such as planned studying from 1pm to 2pm 
 - Create a way to import the data from the previous system of data reporting (the android app) (Let's call it system 99)
