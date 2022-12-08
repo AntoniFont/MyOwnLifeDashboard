@@ -3,26 +3,54 @@ $(document).ready(function () {
     let timerVar;
     let totalSeconds = 0
     let timerStarted = false;
+    let initialTime = 0;
 
-    $("#timerButton").click(function(){
-        if(timerStarted == false){
+    let xmlhttpGetOptions = new XMLHttpRequest();
+    xmlhttpGetOptions.onreadystatechange = function () { //Callback function
+        if(this.readyState == 4){ //IF it has ended
+            console.log(this.responseText)
+            $("#prueba").html(this.responseText);
+        }
+    }
+    xmlhttpGetOptions.open("GET", "./backend/getOptions.php", true);
+    xmlhttpGetOptions.send();
+
+    $("#timerButton").click(function () {
+        if (timerStarted == false) {
             timerVar = setInterval(countTimer, 1000);
             $("#timerButton p").text("Stop Timer");
             timerStarted = true;
-            $("#timerButton").attr("class","btn btn-info");
-        }else{
+            $("#timerButton").attr("class", "btn btn-info");
+            initialTime = Date.now();
+        } else {
             //We save the seconds elapsed
             console.log("Total Seconds: " + totalSeconds);
             clearInterval(timerVar);
             timerStarted = false;
             totalSeconds = 0;
-            $("#timerButton").attr("class","btn btn-primary");
+            $("#timerButton").attr("class", "btn btn-primary");
             $("#timerButton p").text("Start Timer");
             $("#timer").html("00:00:00");
         }
     });
 
-    
+    function saveTime(seconds,idCourse,idType,idProject) {
+        let xmlhttp = new XMLHttpRequest();
+        
+
+        let parametros = "?initialTime=" + + "&totaltime=" + seconds; 
+        xmlhttp.onreadystatechange = function () { //Callback function
+            if(this.readyState == 4){ //SI HA FINALIZADO
+                alert("Time send correctly");
+            }
+            
+        }
+        //?fname=Henry&lname=Ford
+        xmlhttp.open("GET", "./backend.php", true);
+        xmlhttp.send();
+    }
+
+
     function countTimer() {
         ++totalSeconds;
         var hour = Math.floor(totalSeconds / 3600);

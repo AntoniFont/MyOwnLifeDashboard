@@ -77,7 +77,7 @@
         </div>
 
         <div class="col">
-
+            <p id="prueba"> </p>
         </div>
 
     </div>
