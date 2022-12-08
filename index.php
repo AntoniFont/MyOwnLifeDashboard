@@ -1,24 +1,29 @@
 <?php include 'header.php'; ?>
-<div class="row">
-    <div class="col">
-        <div class="container">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                Selecciona asignatura
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">ADIIU</a></li>
-                <li><a class="dropdown-item" href="#">Xarxes</a></li>
-                <li><a class="dropdown-item" href="#">Solucions</a></li>
-                <li><a class="dropdown-item" href="#">Qualitat</a></li>
-                <li><a class="dropdown-item" href="#">GP</a></li>
-                <li><a class="dropdown-item" href="#">Concurrent</a></li>
-            </ul>
+<div class="container">
+    <div class="row justify-content-end gy-6    ">
+        <div class="col-xxl-6">
+            <div class="d-flex justify-content-center">
+                <h1 id="timer">00:00:00</h1>
+            </div>
         </div>
-    </div>
 
-    <div class="col">
-        <div class="container">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        <div class="col-xxl-6">
+            <div class="d-flex xxl-6">
+                <button class="btn btn-secondary w-100 text-start dropdown-toggle " type="button" data-bs-toggle="dropdown">
+                    Selecciona asignatura
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">ADIIU</a></li>
+                    <li><a class="dropdown-item" href="#">Xarxes</a></li>
+                    <li><a class="dropdown-item" href="#">Solucions</a></li>
+                    <li><a class="dropdown-item" href="#">Qualitat</a></li>
+                    <li><a class="dropdown-item" href="#">GP</a></li>
+                    <li><a class="dropdown-item" href="#">Concurrent</a></li>
+                </ul>
+            </div>
+            <div class="d-flex xxl-6">
+            
+            <button class="btn btn-secondary text-start w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown">
                 Selecciona proyecto
             </button>
             <ul class="dropdown-menu">
@@ -29,12 +34,11 @@
                 <li><a class="dropdown-item" href="#">Placeholder 4</a></li>
                 <li><a class="dropdown-item" href="#">Placeholder 5</a></li>
             </ul>
-        </div>
-    </div>
+            </div>
 
-    <div class="col">
-        <div class="container">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            <div class="d-flex xxl-6">
+
+            <button class="btn btn-secondary text-start w-100 dropdown-toggle" type="button" data-bs-toggle="dropdown">
                 Selecciona tipo de trabajo
             </button>
             <ul class="dropdown-menu">
@@ -45,13 +49,20 @@
                 <li><a class="dropdown-item">Placeholder 2</a></li>
                 <li><a class="dropdown-item">Placeholder 3</a></li>
             </ul>
-        </div>
-    </div>
+            </div>
 
-</div>
-<div class="row">
-    <div class="col">
-        <div class="container">
+
+        </div>
+
+        <div class="col">
+
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+
             <button type="button" class="btn btn-primary" id="timerButton">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-stopwatch" viewBox="0 0 16 16">
@@ -62,14 +73,14 @@
                 </svg>
                 <p>Start Timer</p>
             </button>
+
         </div>
+
+        <div class="col">
+
+        </div>
+
     </div>
 
-    <div class="col">
-        <div class="container">
-            <h1 id="timer">00:00:00</h1>
-        </div>
-    </div>
 </div>
-
 <?php include 'footer.php'; ?>
