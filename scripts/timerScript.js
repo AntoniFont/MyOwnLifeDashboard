@@ -11,7 +11,10 @@ $(document).ready(function () {
             $("#timerButton p").text("Stop Timer");
             timerStarted = true;
             $("#timerButton").attr("class", "btn btn-info");
-            initialTime = Date.now();
+            initialTime = Math.floor(Date.now() / 1000);
+            $("#selectCourseTitle").prop('disabled', true);
+            $("#selectProjectTitle").prop('disabled', true);
+            $("#selectTypeOfStudyTitle").prop('disabled', true);
         } else {
             //We save the seconds elapsed
             clearInterval(timerVar);
@@ -21,17 +24,19 @@ $(document).ready(function () {
             $("#timerButton").attr("class", "btn btn-primary");
             $("#timerButton p").text("Start Timer");
             $("#timer").html("00:00:00");
+            $("#selectCourseTitle").prop('disabled', false);
+            $("#selectProjectTitle").prop('disabled', false);
+            $("#selectTypeOfStudyTitle").prop('disabled', false);
         }
     });
 
     function saveTime(seconds) {
         let data = getSelectedThings();
         let xmlhttp = new XMLHttpRequest();
-        let parametros = "?initialTime=" + Date.now() + "&totaltime=" + seconds + "&courseID=" + data["courseID"] 
+        let parametros = "?initialTime=" + initialTime + "&totaltime=" + seconds + "&courseID=" + data["courseID"] 
         + "&projectID=" + data["projectID"] + "&typeOfStudyID=" + data["typeOfStudyID"] ; 
         xmlhttp.onreadystatechange = function () { //Callback function
             if(this.readyState == 4){ //SI HA FINALIZADO
-                $("#timerButton").text(this.responseText);
                 alert("Time send correctly, queda pendiente la parte de añadir comentarios");
             }
         }
