@@ -5,7 +5,6 @@ PUTTING IT INSIDE THE RIGHT HTML ELEMENT
     -ONCE THE PAGE LOADS, GET THE STUDY DATA TYPES AND PUT THEM IN THE RIGHT PLACE IN HTML
     -ONCE A COURSE IS SELECTED, GET THE PROJECTS FROM THE COURSE AND PUT THEM IN THE RIGHT PLACE IN HTML
 */
-
 let courses;
 let typeOfStudyData;
 let projectsFromSelectedCourse;
@@ -14,7 +13,9 @@ let courseID = -1;
 let typeOfStudyID = -1;
 let projectID = -1;
 
+
 $(document).ready(function () {
+
     //GET COURSES AND STUDY TYPES FROM THE DATABASE
     let xmlhttpGetOptions = new XMLHttpRequest();
     xmlhttpGetOptions.onreadystatechange = function () { //Callback function
@@ -45,13 +46,15 @@ $(document).ready(function () {
 });
 
 
+
+
 //SAVE THE COURSE SELECTED FOR LATER, LOAD THE PROJECTS LINKED TO THAT PROJECT, AND CHANGE THE DROPDOWN PLACEHOLDER
-function courseClicked(courseID) {
-    this.courseID = courseID;
-    if (courseID == -1) {
+function courseClicked(courseIDparam) {
+    courseID = courseIDparam;
+    if (courseIDparam == -1) {
         $("#selectCourseTitle").text("Undefined");
     } else {
-        index = getArrayIndexFromID(courses, courseID);
+        index = getArrayIndexFromID(courses, courseIDparam);
         $("#selectCourseTitle").text(courses[index][1]);
         let xmlhttpGetOptions = new XMLHttpRequest();
         xmlhttpGetOptions.onreadystatechange = function () { //Callback function
@@ -68,36 +71,37 @@ function courseClicked(courseID) {
             }
         }
 
-        xmlhttpGetOptions.open("GET", "./backend/getProjectsFromCourse.php" + "?courseID=" + courseID, true);
+        xmlhttpGetOptions.open("GET", "./backend/getProjectsFromCourse.php" + "?courseID=" + courseIDparam, true);
         xmlhttpGetOptions.send();
     }
 }
 //SAVE THE TYPE OF STUDY SELECTED FOR LATER AND CHANGE THE DROPDOWN PLACEHOLDER
-function typeOfStudyClicked(typeOfStudyID) {
-    this.typeOfStudyID = typeOfStudyID;
-    if (typeOfStudyID == -1) {
+function typeOfStudyClicked(typeOfStudyIDparam) {
+    typeOfStudyID = typeOfStudyIDparam;
+    if (typeOfStudyIDparam == -1) {
         $("#selectTypeOfStudyTitle").text("Undefined");
     } else {
-        index = getArrayIndexFromID(typeOfStudyData, typeOfStudyID);
+        index = getArrayIndexFromID(typeOfStudyData, typeOfStudyIDparam);
         $("#selectTypeOfStudyTitle").text(typeOfStudyData[index][1]);
     }
 }
 //SAVE THE PROJECT SELECTED FOR LATER AND CHANGE THE DROPDOWN PLACEHOLDER
-function projectClicked(projectID) {
-    this.projectID = projectID;
-    if (projectID == -1) {
+function projectClicked(projectIDparam) {
+    projectID = projectIDparam;
+    if (projectIDparam == -1) {
         $("#selectProjectTitle").text("Undefined");
     } else {
-        index = getArrayIndexFromID(projectsFromSelectedCourse, projectID);
+        index = getArrayIndexFromID(projectsFromSelectedCourse, projectIDparam);
         $("#selectProjectTitle").text(projectsFromSelectedCourse[index][1]);
     }
 }
 
 function getSelectedThings() {
-    let result = {} ;
-    result["courseID"] = this.courseID;
-    result["typeOfStudyID"] = this.typeOfStudyID;
-    result["projectID"] = this.projectID;
+    let result = {};
+    result["courseID"] = courseID.toString();
+    result["typeOfStudyID"] = typeOfStudyID.toString();
+    result["projectID"]= projectID.toString();
+    console.log("courseid" + courseID);
     return result;
 }
 
@@ -112,7 +116,7 @@ index: ["id","name"]
 2: ["3","nameC"]
 3: ["0","nameD"]
 in this case the index of id=3 is 2.
-
+ 
 I could fix this with a dict but that's too much work
 */
 function getArrayIndexFromID(array, id) {
@@ -127,3 +131,4 @@ function getArrayIndexFromID(array, id) {
     }
     return index;
 }
+

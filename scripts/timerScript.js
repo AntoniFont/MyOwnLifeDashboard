@@ -25,9 +25,8 @@ $(document).ready(function () {
     });
 
     function saveTime(seconds) {
-        data = getSelectedThings();
+        let data = getSelectedThings();
         let xmlhttp = new XMLHttpRequest();
-        console.log(Date.now())
         let parametros = "?initialTime=" + Date.now() + "&totaltime=" + seconds + "&courseID=" + data["courseID"] 
         + "&projectID=" + data["projectID"] + "&typeOfStudyID=" + data["typeOfStudyID"] ; 
         xmlhttp.onreadystatechange = function () { //Callback function
