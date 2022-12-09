@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 08, 2022 at 08:36 PM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 09-12-2022 a las 21:11:25
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `myowndashboard`
+-- Base de datos: `myowndashboard`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `courses100`
+-- Estructura de tabla para la tabla `courses100`
 --
 
 CREATE TABLE `courses100` (
@@ -36,7 +36,7 @@ CREATE TABLE `courses100` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `courses100`
+-- Volcado de datos para la tabla `courses100`
 --
 
 INSERT INTO `courses100` (`courseID`, `name`, `initialDate`, `finalDate`, `description`) VALUES
@@ -50,7 +50,7 @@ INSERT INTO `courses100` (`courseID`, `name`, `initialDate`, `finalDate`, `descr
 -- --------------------------------------------------------
 
 --
--- Table structure for table `projects100`
+-- Estructura de tabla para la tabla `projects100`
 --
 
 CREATE TABLE `projects100` (
@@ -61,7 +61,7 @@ CREATE TABLE `projects100` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `projects100`
+-- Volcado de datos para la tabla `projects100`
 --
 
 INSERT INTO `projects100` (`projectID`, `name`, `description`, `courseID`) VALUES
@@ -71,7 +71,7 @@ INSERT INTO `projects100` (`projectID`, `name`, `description`, `courseID`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `studydata100`
+-- Estructura de tabla para la tabla `studydata100`
 --
 
 CREATE TABLE `studydata100` (
@@ -79,7 +79,7 @@ CREATE TABLE `studydata100` (
   `courseID` int(11) DEFAULT NULL,
   `typeID` int(11) DEFAULT NULL,
   `projectID` int(11) DEFAULT NULL,
-  `initialTime` datetime DEFAULT NULL,
+  `initialTime` bigint(20) DEFAULT NULL,
   `duration` int(11) DEFAULT NULL COMMENT 'in seconds',
   `comments` text DEFAULT NULL,
   `planned` tinyint(1) NOT NULL COMMENT 'true if it is not a real activity, just a plan to do something at a specific time'
@@ -88,7 +88,7 @@ CREATE TABLE `studydata100` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `typesstudydata100`
+-- Estructura de tabla para la tabla `typesstudydata100`
 --
 
 CREATE TABLE `typesstudydata100` (
@@ -98,7 +98,7 @@ CREATE TABLE `typesstudydata100` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `typesstudydata100`
+-- Volcado de datos para la tabla `typesstudydata100`
 --
 
 INSERT INTO `typesstudydata100` (`typeStudyDataID`, `name`, `description`) VALUES
@@ -109,24 +109,24 @@ INSERT INTO `typesstudydata100` (`typeStudyDataID`, `name`, `description`) VALUE
 (5, 'Organizing', 'You\'re organizing the day or some activity');
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `courses100`
+-- Indices de la tabla `courses100`
 --
 ALTER TABLE `courses100`
   ADD PRIMARY KEY (`courseID`);
 
 --
--- Indexes for table `projects100`
+-- Indices de la tabla `projects100`
 --
 ALTER TABLE `projects100`
   ADD PRIMARY KEY (`projectID`),
   ADD KEY `IDcourse` (`courseID`);
 
 --
--- Indexes for table `studydata100`
+-- Indices de la tabla `studydata100`
 --
 ALTER TABLE `studydata100`
   ADD PRIMARY KEY (`id`),
@@ -135,51 +135,51 @@ ALTER TABLE `studydata100`
   ADD KEY `typeStudyDataID` (`typeID`);
 
 --
--- Indexes for table `typesstudydata100`
+-- Indices de la tabla `typesstudydata100`
 --
 ALTER TABLE `typesstudydata100`
   ADD PRIMARY KEY (`typeStudyDataID`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `courses100`
+-- AUTO_INCREMENT de la tabla `courses100`
 --
 ALTER TABLE `courses100`
   MODIFY `courseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `projects100`
+-- AUTO_INCREMENT de la tabla `projects100`
 --
 ALTER TABLE `projects100`
   MODIFY `projectID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `studydata100`
+-- AUTO_INCREMENT de la tabla `studydata100`
 --
 ALTER TABLE `studydata100`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `typesstudydata100`
+-- AUTO_INCREMENT de la tabla `typesstudydata100`
 --
 ALTER TABLE `typesstudydata100`
   MODIFY `typeStudyDataID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `projects100`
+-- Filtros para la tabla `projects100`
 --
 ALTER TABLE `projects100`
   ADD CONSTRAINT `IDcourse` FOREIGN KEY (`courseID`) REFERENCES `courses100` (`courseID`);
 
 --
--- Constraints for table `studydata100`
+-- Filtros para la tabla `studydata100`
 --
 ALTER TABLE `studydata100`
   ADD CONSTRAINT `courseID` FOREIGN KEY (`courseID`) REFERENCES `courses100` (`courseID`),
