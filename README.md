@@ -1,5 +1,5 @@
 # My own life dashboard
-Throughout my life i've had a lot of systems and methodologies for keeping my habits, routines and thoughts well kept and organized. This project is an attempt at making a unified app that includes all of the subsystems that I use for self-organization in one place.
+Throughout my life i've had a lot of systems and methodologies for keeping my habits, routines and thoughts well kept and organized. This project is an attempt at making a unified app that includes all of the subsystems that I use for self-organization in one place. This way i can add all of the features that I want.
 
 As Lord Kelvin once said: 
  > If you cannot measure it, you cannot improve it.
