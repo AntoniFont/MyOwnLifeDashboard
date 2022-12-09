@@ -62,7 +62,7 @@ function courseClicked(courseID) {
                 projectsFromSelectedCourse.forEach(element => {
                     //add the name of the course to the dropdown and, when clicked, call the function to load the projects linked to that
                     //course
-                    string = "<li><a class=\"dropdown-item\" onclick=\"projectSelected(" + element[0] + ")\">" + element[1] + "</a></li>";
+                    string = "<li><a class=\"dropdown-item\" onclick=\"projectClicked(" + element[0] + ")\">" + element[1] + "</a></li>";
                     $("#selectProject").append(string);
                 });
             }
@@ -95,9 +95,9 @@ function projectClicked(projectID) {
 
 function getSelectedThings() {
     let result = {} ;
-    result["courseID"] = courseID;
-    result["typeOfStudyID"] = typeOfStudyID;
-    result["projectID"] = projectID;
+    result["courseID"] = this.courseID;
+    result["typeOfStudyID"] = this.typeOfStudyID;
+    result["projectID"] = this.projectID;
     return result;
 }
 

@@ -27,11 +27,12 @@ $(document).ready(function () {
     function saveTime(seconds) {
         data = getSelectedThings();
         let xmlhttp = new XMLHttpRequest();
-        let parametros = "?initialTime=" +Date.now()+ "&totaltime=" + seconds + "&courseID=" + data["courseID"] 
+        console.log(Date.now())
+        let parametros = "?initialTime=" + Date.now() + "&totaltime=" + seconds + "&courseID=" + data["courseID"] 
         + "&projectID=" + data["projectID"] + "&typeOfStudyID=" + data["typeOfStudyID"] ; 
         xmlhttp.onreadystatechange = function () { //Callback function
             if(this.readyState == 4){ //SI HA FINALIZADO
-                $("#prueba").text(this.responseText);
+                $("#timerButton").text(this.responseText);
                 alert("Time send correctly, queda pendiente la parte de añadir comentarios");
             }
         }
