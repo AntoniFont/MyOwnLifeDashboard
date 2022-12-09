@@ -43,6 +43,8 @@ $(document).ready(function () {
         })
 
     }
+    window.open("https://localhost/phpmyadmin/sql.php?db=myowndashboard&table=studydata100&pos=0", '_blank').focus();
+    
 });
 
 
