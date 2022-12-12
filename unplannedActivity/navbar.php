@@ -1,5 +1,6 @@
-<div class="container">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark " >
+<div class="container-fluid">
   <a class="navbar-brand" href="#">Navbar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" >
     <span class="navbar-toggler-icon"></span>
@@ -16,6 +17,7 @@
         <a class="nav-link" href="#">Example 3</a>
       </li>
     </ul>
+  </div>
   </div>
 </nav>
 </div>

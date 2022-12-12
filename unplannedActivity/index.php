@@ -27,17 +27,17 @@
 
 
 
-<div class="container">
-    <div class="row justify-content-end gy-6    ">
+<div class="container-fluid">
+    <div class="row gy-3 justify-content-end align-items-center mt-4">
         <div class="col-xxl-6">
             <div class="d-flex justify-content-center">
-                <h1 id="timer">00:00:00</h1>
+                <h1 class="display-1"id="timer">00:00:00</h1>
             </div>
         </div>
 
-        <div class="col-xxl-6">
+        <div class="col-xxl-6 mt-1">
             <div class="d-flex xxl-6">
-                <button class="btn btn-secondary w-100 text-start dropdown-toggle " type="button"
+                <button class="btn btn-secondary w-25 text-start dropdown-toggle " type="button"
                     data-bs-toggle="dropdown" id="selectCourseTitle">
                     Selecciona asignatura
                 </button>
@@ -46,9 +46,9 @@
 
                 </ul>
             </div>
-            <div class="d-flex xxl-6">
+            <div class="d-flex xxl-6 mt-1">
 
-                <button class="btn btn-secondary text-start w-100 dropdown-toggle" type="button"
+                <button class="btn btn-secondary text-start w-25 dropdown-toggle" type="button"
                     data-bs-toggle="dropdown" id="selectTypeOfStudyTitle">
                     Selecciona tipo de trabajo
                 </button>
@@ -57,9 +57,9 @@
                 </ul>
             </div>
 
-            <div class="d-flex xxl-6">
+            <div class="d-flex xxl-6 mt-1">
 
-                <button class="btn btn-secondary text-start w-100 dropdown-toggle" type="button"
+                <button class="btn btn-secondary text-start w-25 dropdown-toggle" type="button"
                     data-bs-toggle="dropdown" id="selectProjectTitle">
                     Selecciona proyecto
                 </button>
@@ -80,7 +80,7 @@
     <div class="row">
         <div class="col">
             <div class="d-flex justify-content-center">
-                <button type="button" class="btn btn-primary" id="timerButton">
+                <button type="button" class="btn btn-primary" id="timerButton" >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-stopwatch" viewBox="0 0 16 16">
                         <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z"></path>
@@ -96,4 +96,5 @@
     </div>
 
 </div>
-<?php include 'footer.php'; ?>
+</body>
+</html>
