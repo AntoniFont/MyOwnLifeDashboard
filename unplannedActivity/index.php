@@ -18,12 +18,12 @@
     
     <script src="./scripts/getAndAddDataScript.js"></script>
     <script src="./scripts/timerScript.js"></script>
-
+    <script src="./scripts/updateNavbar.js"> </script>
 </head>
 
 <body>
     
-<?php include 'navbar.php'; ?>
+<?php include '../navbar.php'; ?>
 
 
 
