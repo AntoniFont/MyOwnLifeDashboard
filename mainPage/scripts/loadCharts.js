@@ -22,7 +22,7 @@ $(document).ready(function() {
             data.push(
                 {
                     "name": resposta[i][1],
-                    "y": parseInt(resposta[i][0])
+                    "y": parseFloat(resposta[i][0])
                 }
             )
         }
