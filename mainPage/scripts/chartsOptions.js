@@ -1,4 +1,4 @@
-let chart1Options =  {
+let chart2Options =  {
     chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -6,13 +6,13 @@ let chart1Options =  {
         type: 'pie'
     },
     title: {
-        text: '¿Estas olvidando alguna asignatura?'
+        text: ''//'¿Estas olvidando alguna asignatura?'
     },
     subtitle: {
-        text: 'Cantidad de horas por asignatura de las últimas 2 semanas'
+        text: ''
     },
     tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '<b>{point.y} h</b><br><b>{point.percentage:.1f} %</b>'
     },
     accessibility: {
         point: {
@@ -24,14 +24,71 @@ let chart1Options =  {
             allowPointSelect: true,
             cursor: 'pointer',
             dataLabels: {
+                overflow: "allow",
                 enabled: true,
-                format: '<b>{point.name}</b>:{point.percentage:.1f} %<br>{point.y} horas'
+                format: '{point.name} <br> {point.percentage: .1f} % , {point.y} h'
             }
         }
     },
     series: [{
-        name: 'Brands',
+        name: 'Courses',
         colorByPoint: true,
-        data: [] //TO BE FILLED
-    }]
+        data: [], //TO BE FILLED
+    }],
+    credits: {
+        enabled: false
+      },
+    
+};
+
+let chart1Options =  {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'column'
+    },
+    title: {
+        text: ' '
+    },
+    subtitle: {
+        text: ' '
+    },
+    xAxis: {
+        visible : false
+    },
+    yAxis: {
+        title: "Numero de horas",
+        visible: true
+    },
+    tooltip: {
+        pointFormat: '<b>{point.y} h</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        column: {
+            allowPointSelect: true,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y} h'
+            }
+        }
+    },
+    series: [{
+        name: 'Courses',
+        colorByPoint: true,
+        data: [], //TO BE FILLED
+        dataSorting: {
+            enabled:  true
+        },
+        legendType: "point"
+    }],
+    credits: {
+        enabled: false
+      },
+    
 };

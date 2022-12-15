@@ -1,31 +1,33 @@
 $(document).ready(function() {
 
-    let resposta;
-    let data = [];
-
-
     let xmlhttpGetOptions = new XMLHttpRequest();
     xmlhttpGetOptions.onreadystatechange = function () { //Callback function
         if (this.readyState == 4) { //IF it has ended
-            resposta = JSON.parse(this.responseText);
-            formatData();
+            let responseJSON;
+            let data = [];
+            responseJSON = JSON.parse(this.responseText);
+            data = formatData(data,responseJSON);
+            //FILLED BOTH OPTIONS OBJECT WITH THE DATA (both objects share the same data but different configs)
             chart1Options.series[0].data = data;
+            chart2Options.series[0].data = data;
+            //CREATE THE 2 CHARTS FROM THE SHARED OPTIONS
             Highcharts.chart("chart1Container",chart1Options);
-            console.log(resposta[0][0])
+            Highcharts.chart("chart2Container",chart2Options);
         }
     }
-    xmlhttpGetOptions.open("GET", "./backend/chart1.php", true);
+    xmlhttpGetOptions.open("GET", "./backend/chart1And2getData.php", true);
     xmlhttpGetOptions.send();
 
-    function formatData(){
-        for(let i=0;i<resposta.length;i++){
+    function formatData(data,responseJSON){
+        for(let i=0;i<responseJSON.length;i++){
             data.push(
                 {
-                    "name": resposta[i][1],
-                    "y": parseFloat(resposta[i][0])
+                    "name": responseJSON[i][1],
+                    "y": parseFloat(responseJSON[i][0])
                 }
             )
         }
+        return data;
     }
 
 
