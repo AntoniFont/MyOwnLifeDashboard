@@ -44,10 +44,10 @@
     </div>
     
     <div class="row mt-3">
-        <div class="col xxl-6">
+        <div class="col sm-6">
             <div id="chart1Container"></div>
         </div>
-        <div class="col xxl-6">
+        <div class="col sm-6">
             <div id="chart2Container"></div>
         </div>
     </div>
