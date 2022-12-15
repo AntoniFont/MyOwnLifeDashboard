@@ -1,8 +1,8 @@
 <div class="container-fluid">
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark " >
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark " >
 <div class="container-fluid">
   <a class="navbar-brand" href="/myownlifedashboard">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" >
+  <button class="navbar-toggler bg-dark" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" >
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
