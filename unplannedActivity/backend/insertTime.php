@@ -22,8 +22,11 @@ if ((strcmp($typeOfStudyData, "-1") == 0) ||(!isset($typeOfStudyData))) {
 if ((strcmp($projectID, "-1") == 0) ||(!isset($projectID))) {
     $projectID = "null";
 }
+$query = "select id from user100 where nickname=\"".$_GET["name"]."\"" ;
+$idCon = mysqli_query($conection, $query);
+$id = mysqli_fetch_all($idCon)[0][0];
 
-$query = "insert into studydata100 (courseID,typeID,projectID,initialTime,duration,comments,planned) values(".$courseID.",".$typeOfStudyData.",".$projectID.",\"".$initialTime."\",".$totalTime.",null".",0".")";
+$query = "insert into studydata100 (courseID,typeID,projectID,initialTime,duration,descripción,planned,userID) values(".$courseID.",".$typeOfStudyData.",".$projectID.",\"".$initialTime."\",".$totalTime.",null".",0".",\"".$id."\"".")";
 echo $query;
 $projectsCon = mysqli_query($conection, $query);
 mysqli_close($conection);

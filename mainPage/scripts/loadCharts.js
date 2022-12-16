@@ -1,5 +1,6 @@
 $(document).ready(function() {
-
+    let params = new URLSearchParams(document.location.search);
+    let name = params.get("name"); 
     let xmlhttpGetOptions = new XMLHttpRequest();
     xmlhttpGetOptions.onreadystatechange = function () { //Callback function
         if (this.readyState == 4) { //IF it has ended
@@ -15,7 +16,8 @@ $(document).ready(function() {
             Highcharts.chart("chart2Container",chart2Options);
         }
     }
-    xmlhttpGetOptions.open("GET", "./backend/chart1And2getData.php", true);
+    xmlhttpGetOptions.open("GET", "./backend/chart1And2getData.php?name="+name, true);
+    console.log("./backend/chart1And2getData.php?name="+name);
     xmlhttpGetOptions.send();
 
     function formatData(data,responseJSON){

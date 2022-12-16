@@ -8,7 +8,7 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="/myownlifedashboard" id="mainpage">Main page</a>
+        <a class="nav-link" href="/myownlifedashboard/mainPage/index.php" id="mainpage">Main page</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/myownlifedashboard/unplannedActivity" id="unplannedActivityNavbar">Unplanned Activity</a>
@@ -21,3 +21,10 @@
   </div>
 </nav>
 </div>
+
+<script>
+    let params = new URLSearchParams(document.location.search);
+    let name = params.get("name"); 
+    $("#mainpage").attr("href",$("#mainpage").attr("href") + "?name=" + name)
+    $("#unplannedActivityNavbar").attr("href",$("#unplannedActivityNavbar").attr("href") + "?name=" + name)
+</script>

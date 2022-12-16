@@ -35,6 +35,7 @@ $(document).ready(function () {
         let xmlhttp = new XMLHttpRequest();
         let parametros = "?initialTime=" + initialTime + "&totaltime=" + seconds + "&courseID=" + data["courseID"] 
         + "&projectID=" + data["projectID"] + "&typeOfStudyID=" + data["typeOfStudyID"] ; 
+        console.log(parametros);
         xmlhttp.onreadystatechange = function () { //Callback function
             if(this.readyState == 4){ //SI HA FINALIZADO
                 alert("Time send correctly, queda pendiente la parte de añadir comentarios");

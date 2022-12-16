@@ -17,13 +17,15 @@ let projectID = -1;
 $(document).ready(function () {
 
     //GET COURSES AND STUDY TYPES FROM THE DATABASE
+    let params = new URLSearchParams(document.location.search);
+    let name = params.get("name"); 
     let xmlhttpGetOptions = new XMLHttpRequest();
     xmlhttpGetOptions.onreadystatechange = function () { //Callback function
         if (this.readyState == 4) { //IF it has ended
             addCoursesAndStudyTypes(JSON.parse(this.responseText));
         }
     }
-    xmlhttpGetOptions.open("GET", "./backend/getCoursesAndStudyTypes.php", true);
+    xmlhttpGetOptions.open("GET", "./backend/getCoursesAndStudyTypes.php?name="+name, true);
     xmlhttpGetOptions.send();
 
     //ADD COURSES AND STUDY TYPES TO WEBPAGE
@@ -53,6 +55,8 @@ $(document).ready(function () {
 //SAVE THE COURSE SELECTED FOR LATER, LOAD THE PROJECTS LINKED TO THAT PROJECT, AND CHANGE THE DROPDOWN PLACEHOLDER
 function courseClicked(courseIDparam) {
     courseID = courseIDparam;
+    let params = new URLSearchParams(document.location.search);
+    let name = params.get("name"); 
     if (courseIDparam == -1) {
         $("#selectCourseTitle").text("Undefined");
     } else {
@@ -73,7 +77,7 @@ function courseClicked(courseIDparam) {
             }
         }
 
-        xmlhttpGetOptions.open("GET", "./backend/getProjectsFromCourse.php" + "?courseID=" + courseIDparam, true);
+        xmlhttpGetOptions.open("GET", "./backend/getProjectsFromCourse.php" + "?courseID=" + courseIDparam + "&name=" + name, true);
         xmlhttpGetOptions.send();
     }
 }

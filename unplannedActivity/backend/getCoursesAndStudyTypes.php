@@ -5,7 +5,7 @@ require dirname(__DIR__, 2)."/connectToTheDatabase.php";
 //CONNECT TO THE DB
 $conection = connectToTheDatabase();
 ///GET THE DATA INTO VARIABLES 
-$query = "select courseID,name from courses100";
+$query = "select courseID,name from courses100 JOIN user100 ON courses100.user = user100.id where nickname=\"". $_GET["name"]."\"";
 $coursesCon = mysqli_query($conection, $query);
 $courses = mysqli_fetch_all($coursesCon);
 $query = "select typeStudyDataID ,name from typesstudydata100 ";
