@@ -31,10 +31,12 @@ $(document).ready(function () {
     });
 
     function saveTime(seconds) {
+        let params = new URLSearchParams(document.location.search);
+        let name = params.get("name"); 
         let data = getSelectedThings();
         let xmlhttp = new XMLHttpRequest();
         let parametros = "?initialTime=" + initialTime + "&totaltime=" + seconds + "&courseID=" + data["courseID"] 
-        + "&projectID=" + data["projectID"] + "&typeOfStudyID=" + data["typeOfStudyID"] ; 
+        + "&projectID=" + data["projectID"] + "&typeOfStudyID=" + data["typeOfStudyID"] + "&name=" + name; 
         console.log(parametros);
         xmlhttp.onreadystatechange = function () { //Callback function
             if(this.readyState == 4){ //SI HA FINALIZADO
