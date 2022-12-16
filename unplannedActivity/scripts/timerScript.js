@@ -3,7 +3,7 @@ $(document).ready(function () {
     let timerVar;
     let totalSeconds = 0
     let timerStarted = false;
-    let initialTime = 0;
+    let initialTimeDate = 0;
 
     $("#timerButton").click(function () {
         if (timerStarted == false) {
@@ -11,7 +11,7 @@ $(document).ready(function () {
             $("#timerButton p").text("Stop Timer");
             timerStarted = true;
             $("#timerButton").attr("class", "btn btn-info");
-            initialTime = Math.floor(Date.now() / 1000);
+            initialTimeDate = Math.floor(Date.now() / 1000);
             $("#selectCourseTitle").prop('disabled', true);
             $("#selectProjectTitle").prop('disabled', true);
             $("#selectTypeOfStudyTitle").prop('disabled', true);
@@ -35,7 +35,7 @@ $(document).ready(function () {
         let name = params.get("name"); 
         let data = getSelectedThings();
         let xmlhttp = new XMLHttpRequest();
-        let parametros = "?initialTime=" + initialTime + "&totaltime=" + seconds + "&courseID=" + data["courseID"] 
+        let parametros = "?initialTime=" + initialTimeDate + "&totaltime=" + seconds + "&courseID=" + data["courseID"] 
         + "&projectID=" + data["projectID"] + "&typeOfStudyID=" + data["typeOfStudyID"] + "&name=" + name; 
         console.log(parametros);
         xmlhttp.onreadystatechange = function () { //Callback function
@@ -60,6 +60,29 @@ $(document).ready(function () {
         if (seconds < 10)
             seconds = "0" + seconds;
         $("#timer").html(hour + ":" + minute + ":" + seconds);
+        currentTimeDate = Math.floor(Date.now() / 1000)
+        var totalSecondsEllapsed = currentTimeDate - Math.floor(initialTimeDate)
+        var debugString ="<p><b>DEBUG:</b><br>";
+        debugString+= "totalSecondsCounted=" + totalSeconds + "(" + totalSeconds/60 + "minutes)";
+        debugString+= "<br> totalSecondsEllapsed=" + totalSecondsEllapsed + "(" + totalSecondsEllapsed/60 + "minutes)" ;
+        debugString+= "<br> initialTimeDate=" + initialTimeDate;
+        debugString+= "(" + DEBUGtimeConverter(initialTimeDate) + ")";
+        debugString+= "<br> currentTimeDate=" + currentTimeDate + "(" + DEBUGtimeConverter(currentTimeDate) + ")";
+        $("#DEBUG").html(debugString);
     }
+
+
+    function DEBUGtimeConverter(UNIX_timestamp){
+        var a = new Date(UNIX_timestamp * 1000);
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        var year = a.getFullYear();
+        var month = months[a.getMonth()];
+        var date = a.getDate();
+        var hour = a.getHours();
+        var min = a.getMinutes();
+        var sec = a.getSeconds();
+        var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+        return time;
+      }
 
 })
