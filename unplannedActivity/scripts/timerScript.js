@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     let timerVar;
-    let totalSeconds = 0
+    let secondsEllapsed = 0
     let timerStarted = false;
     let initialTimeDate = 0;
 
@@ -19,8 +19,8 @@ $(document).ready(function () {
             //We save the seconds elapsed
             clearInterval(timerVar);
             timerStarted = false;
-            saveTime(totalSeconds);
-            totalSeconds = 0;
+            saveTime(secondsEllapsed);
+            secondsEllapsed = 0;
             $("#timerButton").attr("class", "btn btn-primary");
             $("#timerButton p").text("Start Timer");
             $("#timer").html("00:00:00");
@@ -49,10 +49,10 @@ $(document).ready(function () {
 
 
     function countTimer() {
-        ++totalSeconds;
-        var hour = Math.floor(totalSeconds / 3600);
-        var minute = Math.floor((totalSeconds - hour * 3600) / 60);
-        var seconds = totalSeconds - (hour * 3600 + minute * 60);
+        secondsEllapsed = Math.floor(Date.now()/1000) - initialTimeDate;
+        var hour = Math.floor(secondsEllapsed / 3600);
+        var minute = Math.floor((secondsEllapsed - hour * 3600) / 60);
+        var seconds = secondsEllapsed - (hour * 3600 + minute * 60);
         if (hour < 10)
             hour = "0" + hour;
         if (minute < 10)
@@ -60,18 +60,18 @@ $(document).ready(function () {
         if (seconds < 10)
             seconds = "0" + seconds;
         $("#timer").html(hour + ":" + minute + ":" + seconds);
-        currentTimeDate = Math.floor(Date.now() / 1000)
-        var totalSecondsEllapsed = currentTimeDate - Math.floor(initialTimeDate)
-        var debugString ="<p><b>DEBUG:</b><br>";
-        debugString+= "totalSecondsCounted=" + totalSeconds + "(" + totalSeconds/60 + "minutes)";
-        debugString+= "<br> totalSecondsEllapsed=" + totalSecondsEllapsed + "(" + totalSecondsEllapsed/60 + "minutes)" ;
+
+        //DEBUG FUNCTIONS
+        let currentTimeDate = Math.floor(Date.now() / 1000);
+        var debugString ="<p><b>DEBUG:</b>";
+        debugString+= "<br> totalSecondsEllapsed=" + secondsEllapsed + "(" + (secondsEllapsed/60).toFixed(2) + "minutes)" ;
         debugString+= "<br> initialTimeDate=" + initialTimeDate;
         debugString+= "(" + DEBUGtimeConverter(initialTimeDate) + ")";
         debugString+= "<br> currentTimeDate=" + currentTimeDate + "(" + DEBUGtimeConverter(currentTimeDate) + ")";
         $("#DEBUG").html(debugString);
     }
 
-
+    //DEBUG FUNCTIONS
     function DEBUGtimeConverter(UNIX_timestamp){
         var a = new Date(UNIX_timestamp * 1000);
         var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
