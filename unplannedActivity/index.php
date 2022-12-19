@@ -29,9 +29,6 @@
 <body>
 
     <?php include '../navbar.php'; ?>
-
-
-
     <div class="container-fluid">
         <div class="row gy-3 justify-content-end align-items-center mt-4">
             <div class="col-sm-6">
@@ -95,10 +92,7 @@
             </div>
         </div>
 
-        
-        <div class="row">
-            <p id="DEBUG">DEBUG: </p>
-        </div>
+    
 
     </div>
 </body>

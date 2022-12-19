@@ -60,29 +60,5 @@ $(document).ready(function () {
         if (seconds < 10)
             seconds = "0" + seconds;
         $("#timer").html(hour + ":" + minute + ":" + seconds);
-
-        //DEBUG FUNCTIONS
-        let currentTimeDate = Math.floor(Date.now() / 1000);
-        var debugString ="<p><b>DEBUG:</b>";
-        debugString+= "<br> totalSecondsEllapsed=" + secondsEllapsed + "(" + (secondsEllapsed/60).toFixed(2) + "minutes)" ;
-        debugString+= "<br> initialTimeDate=" + initialTimeDate;
-        debugString+= "(" + DEBUGtimeConverter(initialTimeDate) + ")";
-        debugString+= "<br> currentTimeDate=" + currentTimeDate + "(" + DEBUGtimeConverter(currentTimeDate) + ")";
-        $("#DEBUG").html(debugString);
     }
-
-    //DEBUG FUNCTIONS
-    function DEBUGtimeConverter(UNIX_timestamp){
-        var a = new Date(UNIX_timestamp * 1000);
-        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-        var year = a.getFullYear();
-        var month = months[a.getMonth()];
-        var date = a.getDate();
-        var hour = a.getHours();
-        var min = a.getMinutes();
-        var sec = a.getSeconds();
-        var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-        return time;
-      }
-
 })
