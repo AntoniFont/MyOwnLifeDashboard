@@ -102,6 +102,11 @@
                 </div>
             </div>
 
+            <div class ="row">
+                <div class="col">
+                    <input type="text" placeholder="Descripción de la actividad realizada" >
+                </div>
+            </div>
 
             <div class="row">
             <div class="col">
