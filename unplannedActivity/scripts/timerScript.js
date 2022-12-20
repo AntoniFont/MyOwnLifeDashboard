@@ -1,5 +1,12 @@
-$(document).ready(function () {
+/*
+ALL OF THE FUNCTIONS RELATED TO FEATURES OF THE TIMER, SUCH AS CHANGING THE LAYOUT OF THE 
+WEB PAGE FROM "START TIMER" MODE TO "STOP TIMER", THE LOGIC OF THE TICKING OF THE TIMER CLOCK
+AND THE FUNCTION THAT SENDS THE TIME(AND OTHER DATA) TO THE BACKEND, THAT WILL PROCESS IT AND
+SAVE IT TO THE DATABSE
+*/
 
+
+$(document).ready(function () {
     let timerVar;
     let secondsEllapsed = 0
     let timerStarted = false;
@@ -7,27 +14,37 @@ $(document).ready(function () {
 
     $("#timerButton").click(function () {
         if (timerStarted == false) {
-            timerVar = setInterval(countTimer, 1000);
-            $("#timerButton p").text("Stop Timer");
-            timerStarted = true;
-            $("#timerButton").attr("class", "btn btn-info");
+            //start the timer and get starting time
+            timerVar = setInterval(countTimer, 1000); //start the ticking
             initialTimeDate = Math.floor(Date.now() / 1000);
+            timerStarted = true;
+            //change the start timer text and color from start timer to stop timer
+            $("#timerButton p").text("Stop Timer");
+            $("#timerButton").attr("class", "btn btn-info");
+            //disable all the options buttons
             $("#selectCourseTitle").prop('disabled', true);
             $("#selectProjectTitle").prop('disabled', true);
             $("#selectTypeOfStudyTitle").prop('disabled', true);
+            //ADD A "ARE YOU SURE YOU WANT TO EXIT?" popup
+            window.onbeforeunload = function() {
+                return true;
+            };
         } else {
             //We save the seconds elapsed
-            clearInterval(timerVar);
-            timerStarted = false;
             saveTime(secondsEllapsed);
+            clearInterval(timerVar); //stop the ticking
+            timerStarted = false;
             secondsEllapsed = 0;
+            //Re enable options and change the text from "stop timer" to "start timer"
             $("#timerButton").attr("class", "btn btn-primary");
             $("#timerButton p").text("Start Timer");
             $("#timer").html("00:00:00");
             $("#selectCourseTitle").prop('disabled', false);
             $("#selectProjectTitle").prop('disabled', false);
             $("#selectTypeOfStudyTitle").prop('disabled', false);
-        }
+            //remove the "are you sure you want to exit" popup
+            window.onbeforeunload = null;
+            }
     });
 
     function saveTime(seconds) {
@@ -37,12 +54,6 @@ $(document).ready(function () {
         let xmlhttp = new XMLHttpRequest();
         let parametros = "?initialTime=" + initialTimeDate + "&totaltime=" + seconds + "&courseID=" + data["courseID"] 
         + "&projectID=" + data["projectID"] + "&typeOfStudyID=" + data["typeOfStudyID"] + "&name=" + name; 
-        console.log(parametros);
-        xmlhttp.onreadystatechange = function () { //Callback function
-            if(this.readyState == 4){ //SI HA FINALIZADO
-                alert("Time send correctly, queda pendiente la parte de añadir comentarios");
-            }
-        }
         xmlhttp.open("GET", "./backend/insertTime.php" + parametros, true);
         xmlhttp.send();
     }

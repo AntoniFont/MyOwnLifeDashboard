@@ -13,19 +13,15 @@ let courseID = -1;
 let typeOfStudyID = -1;
 let projectID = -1;
 
-
 $(document).ready(function () {
-
     //GET COURSES AND STUDY TYPES FROM THE DATABASE
-    let params = new URLSearchParams(document.location.search);
-    let name = params.get("name"); 
     let xmlhttpGetOptions = new XMLHttpRequest();
     xmlhttpGetOptions.onreadystatechange = function () { //Callback function
         if (this.readyState == 4) { //IF it has ended
             addCoursesAndStudyTypes(JSON.parse(this.responseText));
         }
     }
-    xmlhttpGetOptions.open("GET", "./backend/getCoursesAndStudyTypes.php?name="+name, true);
+    xmlhttpGetOptions.open("GET", "./backend/getCoursesAndStudyTypes.php?name="+username, true);
     xmlhttpGetOptions.send();
 
     //ADD COURSES AND STUDY TYPES TO WEBPAGE
@@ -102,12 +98,15 @@ function projectClicked(projectIDparam) {
     }
 }
 
+
 function getSelectedThings() {
     let result = {};
+    result["description"] = $("#description").val();
+    result["workingAlone"] = $("#workingAlone").val();
+    result["beingAlone"] = $("#beingAlone").val();
     result["courseID"] = courseID.toString();
     result["typeOfStudyID"] = typeOfStudyID.toString();
     result["projectID"]= projectID.toString();
-    console.log("courseid" + courseID);
     return result;
 }
 
