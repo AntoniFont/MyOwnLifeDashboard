@@ -101,9 +101,32 @@ function projectClicked(projectIDparam) {
 
 function getSelectedThings() {
     let result = {};
+
+    let workingAloneTrue = $('#workingAloneTrue').prop('checked');
+    let workingAloneFalse = $('#workingAloneFalse').prop('checked');
+
+    if (workingAloneTrue == workingAloneFalse){ //there is an error,
+        result["workingAlone"] = "NULL";
+    }
+    else if(workingAloneTrue == true){
+        result["workingAlone"] = "true";
+    }else{
+        result["workingAlone"] = "false";
+    }
+
+    let beingAloneTrue = $('#beingAloneTrue').prop('checked');
+    let beingAloneFalse = $('#beingAloneFalse').prop('checked');
+
+    if (beingAloneTrue == beingAloneFalse){ //there is an error,
+        result["beingAlone"] = "NULL";
+    }
+    else if(beingAloneTrue == true){
+        result["beingAlone"] = "true";
+    }else{
+        result["beingAlone"] = "false";
+    }
+
     result["description"] = $("#description").val();
-    result["workingAlone"] = $("#workingAlone").val();
-    result["beingAlone"] = $("#beingAlone").val();
     result["courseID"] = courseID.toString();
     result["typeOfStudyID"] = typeOfStudyID.toString();
     result["projectID"]= projectID.toString();

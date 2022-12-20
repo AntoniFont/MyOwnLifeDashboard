@@ -104,8 +104,7 @@
                         FEATURES TO BE FINISHED
                     </button>
                 </h2>
-                <div id="collapseOne" class="accordion-collapse collapse" 
-                    data-bs-parent="#acordeon">
+                <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#acordeon">
                     <div class="accordion-body">
 
 
@@ -118,31 +117,35 @@
                         <div class="row">
                             <div class="col">
                                 <textarea placeholder="Descripción de la actividad realizada" cols="50" rows="3"
-                                    id=""></textarea>
+                                    id="description"></textarea>
                             </div>
                         </div>
 
-                        <br><br>
+                        <br>
                         <div class="row">
                             <div class="col">
-
-
-                                <p>Marque según corresponda: </p>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="beingAlone">
-                                    <label class="form-check-label" for="beingAlone">
-                                        Estaba trabajando individualmente, pero en compañia de otros (online o
-                                        presencial).
-                                    </label>
+        
+                                <p>¿Estabas trabajando individualmente, pero en compañia de otros (online o
+                                        presencial)?</p>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="beingAloneTrue" value="option1" name="r1">
+                                    <label class="form-check-label" for="inlineRadio1">Sí</label>
                                 </div>
-
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="workingAlone">
-                                    <label class="form-check-label" for="workingAlone">
-                                        Estabamos mas de una persona trabajando en lo mismo juntos.
-                                    </label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="beingAloneFalse" value="option2" name="r1">
+                                    <label class="form-check-label" for="inlineRadio2">No</label>
                                 </div>
+              
 
+                                <p>¿Estabais mas de una persona trabajando en lo mismo juntos?</p>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="workingAloneTrue" value="option3" name="r2">
+                                    <label class="form-check-label" for="inlineRadio3">Sí</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="workingAloneFalse" value="option4" name="r2">
+                                    <label class="form-check-label" for="inlineRadio4">No</label>
+                                </div>
                             </div>
 
 

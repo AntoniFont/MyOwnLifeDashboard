@@ -22,11 +22,20 @@ if ((strcmp($typeOfStudyData, "-1") == 0) ||(!isset($typeOfStudyData))) {
 if ((strcmp($projectID, "-1") == 0) ||(!isset($projectID))) {
     $projectID = "null";
 }
+
+$descripcion = mysqli_real_escape_string($conection,$_GET["description"]);
+
+$workingAlone = $_GET["workingAlone"];
+$beingAlone = $_GET["beingAlone"];
+if ($workingAlone == "false") { 
+    $beingAlone = "false";
+}
+
 $query = "select id from user100 where nickname=\"".$_GET["name"]."\"" ;
 $idCon = mysqli_query($conection, $query);
 $id = mysqli_fetch_all($idCon)[0][0];
 
-$query = "insert into studydata100 (courseID,typeID,projectID,initialTime,duration,descripción,planned,userID) values(".$courseID.",".$typeOfStudyData.",".$projectID.",\"".$initialTime."\",".$totalTime.",null".",0".",\"".$id."\"".")";
+$query = "insert into studydata100 (courseID,typeID,projectID,initialTime,duration,descripción,planned,userID,workingAlone,beingAlone) values(".$courseID.",".$typeOfStudyData.",".$projectID.",\"".$initialTime."\",".$totalTime.",\"".$descripcion."\",0".",\"".$id."\"".",".$workingAlone.",".$beingAlone.")";
 echo $query;
 $projectsCon = mysqli_query($conection, $query);
 mysqli_close($conection);
