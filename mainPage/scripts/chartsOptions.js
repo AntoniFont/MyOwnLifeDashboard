@@ -3,6 +3,7 @@ THE POINTER FORMAT, THE COLORS, ETC0 */
 
 let chart2Options =  {
     chart: {
+        backgroundColor: "#FCFCF8",
         plotBackgroundColor: null,
         plotBorderWidth: null,
         plotShadow: false,
@@ -46,6 +47,7 @@ let chart2Options =  {
 
 let chart1Options =  {
     chart: {
+        backgroundColor: "#FCFCF8",
         plotBackgroundColor: null,
         plotBorderWidth: null,
         plotShadow: false,
@@ -98,38 +100,33 @@ let chart1Options =  {
 
 let chart3Options = {
 
-    title: {
-        text: 'U.S Solar Employment Growth by Job Category, 2010-2020'
+    chart: {
+        backgroundColor: "#FCFCF8"
     },
-
+    title: {
+        text: 'Percentage of baseline completed, by day'
+    },
     subtitle: {
-        text: 'Source: <a href="https://irecusa.org/programs/solar-jobs-census/" target="_blank">IREC</a>'
+        text: "Time greater than the baseline is displayed as 100%"
     },
 
     xAxis: {
         type: 'datetime',
         tickInterval: 24 * 3600 * 1000 ,
-        //startOnTick: true,
-     //endOnTick: true,
-        /*dateTimeLabelFormats: { // don't display the year
-            day: '%e. %b',
-            week: '%e. %b',
-            month: '%e. %b',
-        },*/
         title: {
             text: 'Date'
         }
     },
     yAxis: {
         title: {
-            text: 'Number of Employees'
-        }
+            enabled: false
+        },
+        ceiling: 100,
+        floor: 0
     },
 
     legend: {
-        layout: 'vertical',
-        align: 'right',
-        verticalAlign: 'middle'
+        enabled: false,
     },
 
     plotOptions: {
@@ -141,24 +138,12 @@ let chart3Options = {
     },
 
     series: [{
-        name: 'Installation & Developers',
+        name: 'Percentage of baseline completed',
         data: []
     }],
-
-    /*responsive: {
-        rules: [{
-            condition: {
-                maxWidth: 500
-            },
-            chartOptions: {
-                legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                }
-            }
-        }]
-    }*/
+    credits: {
+        enabled: false
+      }
 
 };
         

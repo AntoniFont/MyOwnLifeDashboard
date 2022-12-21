@@ -25,13 +25,48 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="./scripts/otherThingsScript.js"></script>
+    <script src="./scripts/number-rush.js"></script>
     <script src="./scripts/loadCharts.js"></script>
     <script src="./scripts/chartsOptions.js"></script>
 </head>
 
 <body>
     <?php include '../navbar.php'; ?>
-    <div class="container mt-5">
+    <div class="container mt-3">
+        <div style="background-color:rgb(252, 252, 248)">
+            <div class="row">
+                <div class="d-flex justify-content-center ">
+                    <h1>Be perseverant! Do a little bit of work everyday</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <p>You must do a minimum (baseline) of work everyday </p>
+                </div>
+            </div>
+
+
+            <div class="row mt-3">
+                <div class="col-xs-12 col-sm-6 ">
+                    <div id="chart3Container"></div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6">
+                    <div class="row h-50">
+                        <div class="d-flex justify-content-center align-items-end">
+                            <div class="display-1"><span id="chart4Container"></span>%</div>
+                        </div>
+                    </div>
+                    <div class="row h-50">
+                        <div class="d-flex justify-content-center">
+                            <p>Average baseline completed in the last 2 weeks </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class ="mt-5 mb-5"style="background-color:rgb(252, 252, 248)">
         <div class="row">
             <div class="d-flex justify-content-center">
                 <h1>Don't leave behind any courses!</h1>
@@ -51,12 +86,9 @@
                 <div id="chart2Container"></div>
             </div>
         </div>
-
-        <div class="row mt-3">
-            <div class="col-xs-12 col-sm-12">
-                <div id="chart3Container"></div>
-            </div>
         </div>
+
+
     </div>
 
 
