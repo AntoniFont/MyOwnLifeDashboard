@@ -59,7 +59,7 @@ $(document).ready(function () {
             Highcharts.chart("chart3Container", chart3Options);
             //display chart 4 using the number-rush library
             new numberRush('chart4Container',{
-                speed : 3,
+                speed : 15,
                 steps: 1,
                 maxNumber: dataChart4
             })
@@ -101,6 +101,7 @@ $(document).ready(function () {
         let average = sumOfAllTimes / responseJSON.length;
         let averagePercentageOfBaseline = (average /baseline) * 100
         return averagePercentageOfBaseline.toFixed(2);
+        //return 100
     }
 
 
