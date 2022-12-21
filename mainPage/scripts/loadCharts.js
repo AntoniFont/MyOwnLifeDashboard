@@ -66,7 +66,7 @@ $(document).ready(function () {
         }
     }
 
-    xmlhttpGetOptions.open("GET", "./backend/chart3and4getData.php?name=" + username + "&baseline=" + baseline, true);
+    xmlhttpGetOptions.open("GET", "./backend/chart3And4getData.php?name=" + username + "&baseline=" + baseline, true);
     xmlhttpGetOptions.send();
 
 
