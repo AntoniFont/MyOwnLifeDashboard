@@ -95,3 +95,70 @@ let chart1Options =  {
       },
     
 };
+
+let chart3Options = {
+
+    title: {
+        text: 'U.S Solar Employment Growth by Job Category, 2010-2020'
+    },
+
+    subtitle: {
+        text: 'Source: <a href="https://irecusa.org/programs/solar-jobs-census/" target="_blank">IREC</a>'
+    },
+
+    xAxis: {
+        type: 'datetime',
+        tickInterval: 24 * 3600 * 1000 ,
+        //startOnTick: true,
+     //endOnTick: true,
+        /*dateTimeLabelFormats: { // don't display the year
+            day: '%e. %b',
+            week: '%e. %b',
+            month: '%e. %b',
+        },*/
+        title: {
+            text: 'Date'
+        }
+    },
+    yAxis: {
+        title: {
+            text: 'Number of Employees'
+        }
+    },
+
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            }
+        }
+    },
+
+    series: [{
+        name: 'Installation & Developers',
+        data: []
+    }],
+
+    /*responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }*/
+
+};
+        

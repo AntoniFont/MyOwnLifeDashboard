@@ -19,11 +19,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
-        
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/10.3.2/highcharts.js"
         integrity="sha512-JVzXlL1mZb/G0YNUJtPqUzA/QtPMQLNpCtEBOV9R8P3Uskp4W0C+6SVZ3rpwnKcp/V/59YQoGNUYmB/N6do1sA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
+
     <script src="./scripts/otherThingsScript.js"></script>
     <script src="./scripts/loadCharts.js"></script>
     <script src="./scripts/chartsOptions.js"></script>
@@ -31,26 +31,32 @@
 
 <body>
     <?php include '../navbar.php'; ?>
-    <div class= "container mt-5">
-    <div class="row">
-        <div class="d-flex justify-content-center">
-        <h1>Don't leave behind any courses!</h1>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="d-flex justify-content-center">
+                <h1>Don't leave behind any courses!</h1>
+            </div>
         </div>
-    </div>
-    <div class="row">
-    <div class="d-flex justify-content-center">
-        <p>Number of hours per course in the last 2 weeks</p>
+        <div class="row">
+            <div class="d-flex justify-content-center">
+                <p>Number of hours per course in the last 2 weeks</p>
+            </div>
         </div>
-    </div>
-    
-    <div class="row mt-3">
-        <div class="col-xs-12 col-sm-6">
-            <div id="chart1Container"></div>
+
+        <div class="row mt-3">
+            <div class="col-xs-12 col-sm-6">
+                <div id="chart1Container"></div>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <div id="chart2Container"></div>
+            </div>
         </div>
-        <div class="col-xs-12 col-sm-6">
-            <div id="chart2Container"></div>
+
+        <div class="row mt-3">
+            <div class="col-xs-12 col-sm-12">
+                <div id="chart3Container"></div>
+            </div>
         </div>
-    </div>
     </div>
 
 
