@@ -1,7 +1,7 @@
 <div class="container-fluid">
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark " >
 <div class="container-fluid">
-  <a class="navbar-brand" href="/myownlifedashboard">Navbar</a>
+<a class="navbar-brand" href="">Dashboard academico y personal</a>
   <button class="navbar-toggler bg-dark" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" >
     <span class="navbar-toggler-icon"></span>
   </button>
