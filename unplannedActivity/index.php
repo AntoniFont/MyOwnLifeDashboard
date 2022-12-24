@@ -122,33 +122,31 @@
                         </div>
 
                         <br>
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col">
-        
-                                <p>¿Estabas trabajando individualmente, pero en compañia de otros (online o
-                                        presencial)?</p>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="beingAloneTrue" value="option1" name="r1">
-                                    <label class="form-check-label" for="inlineRadio1">Sí</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="beingAloneFalse" value="option2" name="r1">
-                                    <label class="form-check-label" for="inlineRadio2">No</label>
-                                </div>
-              
-
-                                <p>¿Estabais mas de una persona trabajando en lo mismo juntos?</p>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="workingAloneTrue" value="option3" name="r2">
+                            <span>¿Estaban tus amigos en la misma habitación o sala de chat de voz de discord y os comunicabais? </span>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="question1Yes" value="option1" name="r1">
                                     <label class="form-check-label" for="inlineRadio3">Sí</label>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" id="workingAloneFalse" value="option4" name="r2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="question1No" value="option2" name="r1">
                                     <label class="form-check-label" for="inlineRadio4">No</label>
                                 </div>
                             </div>
-
-
+                        </div>
+                        <div class="row mt-3" id="secondQuestion" style="display:none"> <!-- invisible until question1Yes is clicked -->
+                            <div class="col">
+                                <span>¿Que hacían tus amigos?</span>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="question2Answer1" value="option3" name="r2">
+                                    <label class="form-check-label" for="inlineRadio1">Cada uno con lo suyo o con su parte, con la posibilidad de pedir ayuda o comentar</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="question2Answer2" value="option4" name="r2">
+                                    <label class="form-check-label" for="inlineRadio2">Trabajabamos juntos en una misma tarea </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -54,7 +54,7 @@ $(document).ready(function () {
         let xmlhttp = new XMLHttpRequest();
         let parametros = "?initialTime=" + initialTimeDate + "&totaltime=" + seconds + "&courseID=" + data["courseID"] 
         + "&projectID=" + data["projectID"] + "&typeOfStudyID=" + data["typeOfStudyID"] + "&name=" + name + "&description=" +encodeURI(data["description"]) +
-        "&workingAlone=" + data["workingAlone"] + "&beingAlone=" + data["beingAlone"]; 
+        "&question1=" + data["question1"] + "&question2=" + data["question2"]; 
         console.log(parametros)
         xmlhttp.open("GET", "./backend/insertTime.php" + parametros, true);
         xmlhttp.send();
