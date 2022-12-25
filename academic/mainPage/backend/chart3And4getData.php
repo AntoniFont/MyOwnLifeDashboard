@@ -1,5 +1,5 @@
 <?php
-require dirname(__DIR__, 2)."/connectToTheDatabase.php";
+require dirname(__DIR__, 3)."/connectToTheDatabase.php";
 
 //CONNECT TO THE DB
 $conection = connectToTheDatabase();

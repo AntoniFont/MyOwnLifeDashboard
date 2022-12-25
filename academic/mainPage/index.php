@@ -24,7 +24,7 @@
         integrity="sha512-JVzXlL1mZb/G0YNUJtPqUzA/QtPMQLNpCtEBOV9R8P3Uskp4W0C+6SVZ3rpwnKcp/V/59YQoGNUYmB/N6do1sA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script src="./scripts/otherThingsScript.js"></script>
+    <script src="./scripts/otherThingsScript.js"></script><script src="./scripts/otherThingsScript.js"></script>
     <script src="./scripts/number-rush.js"></script>
     <script src="./scripts/loadCharts.js"></script>
     <script src="./scripts/chartsOptions.js"></script>
