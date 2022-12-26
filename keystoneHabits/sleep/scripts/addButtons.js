@@ -27,7 +27,7 @@ function buttonClicked(id){
     let xmlhttpGetOptions = new XMLHttpRequest();
     xmlhttpGetOptions.onreadystatechange = function () { //Callback function
         if (this.readyState == 4) { //IF it has ended
-            console.log(this.responseText);
+            alert("Enviado!");
         }
     }
     xmlhttpGetOptions.open("GET", "./backend/saveSleepEvent.php?name=" +username + "&id=" + id , true);
