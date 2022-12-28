@@ -21,10 +21,16 @@ $idCon = mysqli_query($conection, $query);
 $userId = mysqli_fetch_all($idCon)[0][0];
 //SELECT ALL THE "FORMALLY STARTING THE DAY MOMENTS"
 $query = "SELECT * FROM sleepevent100 WHERE type=9 AND UNIX_TIMESTAMP(datetime) > (UNIX_TIMESTAMP() - 14*24*60*60) AND user=" .  $userId;
-
 $resultsCon = mysqli_query($conection, $query);
-$results = mysqli_fetch_all($resultsCon);
-echo json_encode($results,JSON_UNESCAPED_UNICODE);
+$startingTheDayMoments = mysqli_fetch_all($resultsCon);
+//SELECT ALL THE "FORMALLY ENDING THE DAY MOMENTS"
+$query = "SELECT * FROM sleepevent100 WHERE type=3 AND UNIX_TIMESTAMP(datetime) > (UNIX_TIMESTAMP() - 14*24*60*60) AND user=" .  $userId;
+$resultsCon = mysqli_query($conection, $query);
+$endingTheDayMoments = mysqli_fetch_all($resultsCon);
+
+//nota: creo que sera necesario usar un objeto especializado porque sino será un caos https://stackoverflow.com/questions/4844223/how-do-i-json-encode-keys-from-php-array
+
+echo json_encode(array($startingTheDayMoments,"espacio espacio espacio espacioespacio espacioespacio espacioespacio espaciovespacio espacioespacio espacioespacio espacioespacio espacioespacio espacioespacio espacioespacio espacioespacio espacioespacio espacioespacio espacioespacio espacioespacio espacioespacio espacioespacio espacioespacio espacioespacio espacio",$endingTheDayMoments),JSON_UNESCAPED_UNICODE);
 mysqli_close($conection);
 
 

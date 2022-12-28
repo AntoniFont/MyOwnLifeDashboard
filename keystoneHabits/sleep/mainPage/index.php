@@ -30,7 +30,8 @@
 <?php include '../navbar.php'; ?>
     <div class = "container">
 		<h1>En proceso</h1>
-        <p id="mainText">Ejemplo de pagina principal </p>
+		<p>Ejemplo de pagina principal. Problemas actuales: 1. Si hay 2 o mas veces el de intento de ir a dormir en un mismo dia me lo muestra 2 veces </p>
+        <p id="mainText"></p>
     </div>
 </body>
 </html>
