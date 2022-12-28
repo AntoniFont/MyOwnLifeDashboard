@@ -20,29 +20,50 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
         crossorigin="anonymous"></script>
 
-    <!--- INCLUDE HIGHCHARTS-->
+    <!--- INCLUDE HIGHCHARTS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/10.3.2/highcharts.js"
         integrity="sha512-JVzXlL1mZb/G0YNUJtPqUzA/QtPMQLNpCtEBOV9R8P3Uskp4W0C+6SVZ3rpwnKcp/V/59YQoGNUYmB/N6do1sA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        <script src="./scripts/otherThingsScript.js"></script>
+    <script src="./scripts/otherThingsScript.js"></script>
     <script src="./scripts/addButtons.js"></script>
 </head>
 
 <body>
-<?php include '../navbar.php'; ?>
+    <?php include '../navbar.php'; ?>
     <div class="container">
         <div class="row mt-3">
-            <h1>Escoge el evento que ha sucedido y se guardará en la base de datos
-            </h1>
+            <h1 class="text-center">Escoge el evento que ha sucedido</h1>
         </div>
-        <div class="row"> 
-            <div class="d-flex" >
-                <ul id="buttonsContainer">
 
+        <div class="row mt-3">
+            <div class="col">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownTexto"
+                        data-bs-toggle="dropdown">
+                        Selecciona un tipo de categoria de eventos de sueño
+                    </button>
+                    <ul class="dropdown-menu" id="contenedorItems">
+                        <li><a class="dropdown-item">Action</a></li>
+                        <li><a class="dropdown-item">Another action</a></li>
+                        <li><a class="dropdown-item">Something else here</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col">
+                <strong><p id="descriptionOfCategory"></p></strong>
+            </div>
+        </div>
+
+        <br>
+        <div class="row">
+            <div class="d-flex">
+                <ul id="buttonsContainer">
+                    <li>Aqui encontraras los diferentes eventos de sueño de la categoria seleccionada</li>
                 </ul>
             </div>
         </div>
+
     </div>
 </body>
 

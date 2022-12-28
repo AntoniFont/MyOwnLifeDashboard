@@ -24,12 +24,13 @@
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="./scripts/otherThingsScript.js"></script>
-
+	<script src="./scripts/getAndAddData.js"></script>
     </head>
 <body>
 <?php include '../navbar.php'; ?>
     <div class = "container">
-        Ejemplo de pagina principal
+		<h1>En proceso</h1>
+        <p id="mainText">Ejemplo de pagina principal </p>
     </div>
 </body>
 </html>

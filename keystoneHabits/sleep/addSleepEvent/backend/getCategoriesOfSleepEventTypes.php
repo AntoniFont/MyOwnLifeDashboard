@@ -5,10 +5,9 @@ require dirname(__DIR__, 4) . "/connectToTheDatabase.php";
 //CONNECT TO THE DB
 $conection = connectToTheDatabase();
 //DO THE QUERY
-$query = "SELECT * FROM `sleepeventtype100` WHERE category=\"".$_GET["categoryName"]."\"";
+$query = "SELECT * FROM sleepeventcategory WHERE 1";
 $resultsCon = mysqli_query($conection, $query);
 $results = mysqli_fetch_all($resultsCon);
-//
-echo json_encode($results,JSON_UNESCAPED_UNICODE); //for the spanish and catalan languages
+echo json_encode($results,JSON_UNESCAPED_UNICODE);
 mysqli_close($conection);
 ?>  
