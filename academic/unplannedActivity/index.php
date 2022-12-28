@@ -94,57 +94,62 @@
             </div>
         </div>
 
-        <br><br><br><br><br><br>
+        <br><br><br>
 
         <div class="accordion" id="acordeon">
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                         data-bs-target="#collapseOne">
-                        FEATURES TO BE FINISHED
+                        Advanced features
                     </button>
                 </h2>
                 <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#acordeon">
                     <div class="accordion-body">
 
-
                         <div class="row">
                             <div class="col">
-                                <h2>FEATURES THAT WORK, BUT SHOULD BE MADE PRETTIER: </h2>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <textarea placeholder="Descripción de la actividad realizada" cols="50" rows="3"
+                                <textarea placeholder="Descripción de la actividad realizada"  cols="70" rows="6"
                                     id="description"></textarea>
                             </div>
-                        </div>
 
-                        <br>
-                        <div class="row mt-3">
                             <div class="col">
-                            <span>¿Estaban tus amigos en la misma habitación o sala de chat de voz de discord y os comunicabais? </span>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="question1Yes" value="option1" name="r1">
-                                    <label class="form-check-label" for="inlineRadio3">Sí</label>
+                                <div class="row ">
+                                    <div class="col">
+                                        <span><strong>¿Estaban tus amigos en la misma habitación o sala de chat de voz
+                                                de discord y
+                                                os comunicabais?</strong> </span>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="question1Yes"
+                                                value="option1" name="r1">
+                                            <label class="form-check-label" for="inlineRadio3">Sí</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="question1No"
+                                                value="option2" name="r1">
+                                            <label class="form-check-label" for="inlineRadio4">No</label>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="question1No" value="option2" name="r1">
-                                    <label class="form-check-label" for="inlineRadio4">No</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-3" id="secondQuestion" style="display:none"> <!-- invisible until question1Yes is clicked -->
-                            <div class="col">
-                                <span>¿Que hacían tus amigos?</span>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="question2Answer1" value="option3" name="r2">
-                                    <label class="form-check-label" for="inlineRadio1">Cada uno con lo suyo o con su parte, con la posibilidad de pedir ayuda o comentar</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="question2Answer2" value="option4" name="r2">
-                                    <label class="form-check-label" for="inlineRadio2">Trabajabamos juntos en una misma tarea </label>
+                                <div class="row" id="secondQuestion" style="display:none">
+                                    <!-- invisible until question1Yes is clicked -->
+                                    <div class="col">
+                                        <span><strong>¿Que hacían tus amigos?</strong></span>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="question2Answer1"
+                                                value="option3" name="r2">
+                                            <label class="form-check-label" for="inlineRadio1">Cada uno con lo suyo o
+                                                con su
+                                                parte, con la posibilidad de pedir ayuda o comentar</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="question2Answer2"
+                                                value="option4" name="r2">
+                                            <label class="form-check-label" for="inlineRadio2">Trabajabamos juntos en
+                                                una
+                                                misma tarea </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
