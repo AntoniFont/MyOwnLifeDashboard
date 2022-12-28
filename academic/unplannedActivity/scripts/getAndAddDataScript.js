@@ -63,7 +63,7 @@ function courseClicked(courseIDparam) {
             if (this.readyState == 4) { //IF it has ended
                 //ADD PROJECTS TO WEBPAGE
                 projectsFromSelectedCourse = JSON.parse(this.responseText);
-                $("selectProject").html("<li><a class=\"dropdown-item\" onclick=\"projectClicked(-1)\">Undefined</a></li>");
+                $("#selectProject").html("<li><a class=\"dropdown-item\" onclick=\"projectClicked(-1)\">Undefined</a></li>");
                 projectsFromSelectedCourse.forEach(element => {
                     //add the name of the course to the dropdown and, when clicked, call the function to load the projects linked to that
                     //course
