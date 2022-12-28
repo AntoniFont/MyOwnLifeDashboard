@@ -1,7 +1,7 @@
 <?php
 header("Content-Type: text/html;charset=utf-8");
 //IMPORT ALL THE AUXILIARY FUNCTIONS
-require dirname(__DIR__, 3) . "/connectToTheDatabase.php";
+require dirname(__DIR__, 4) . "/connectToTheDatabase.php";
 //CONNECT TO THE DB
 $conection = connectToTheDatabase();
 //DO THE QUERY
