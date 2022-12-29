@@ -9,7 +9,7 @@ $query = "select id from user100 where nickname=\"".$_GET["name"]."\"" ;
 $idCon = mysqli_query($conection, $query);
 $id = mysqli_fetch_all($idCon)[0][0];
 
-$query = "insert into sleepevent100 (datetime,type,user) values (\"" . date("Y-m-d H:m:s")."\"," .$_GET["id"]. "," .$id. ")";
+$query = "insert into sleepevent100 (datetime,type,user) values (\"" . date("Y-m-d H:i:s")."\"," .$_GET["id"]. "," .$id. ")";
 echo $query;
 $var = mysqli_query($conection, $query);
 
