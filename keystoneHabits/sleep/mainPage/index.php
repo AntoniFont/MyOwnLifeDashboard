@@ -24,14 +24,16 @@
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="./scripts/otherThingsScript.js"></script>
+	<script src="./scripts/chart1Options.js"></script>
 	<script src="./scripts/getAndAddData.js"></script>
     </head>
 <body>
 <?php include '../navbar.php'; ?>
     <div class = "container">
 		<h1>En proceso</h1>
-		<p>Ejemplo de pagina principal. Problemas actuales: 1. Si hay 2 o mas veces el de intento de ir a dormir en un mismo dia me lo muestra 2 veces </p>
-        <p id="mainText"></p>
+		<p>Ejemplo de pagina principal. </p>
+        <div id="mainText"></div>
+		<div id="chart1Container"></div>
     </div>
 </body>
 </html>
