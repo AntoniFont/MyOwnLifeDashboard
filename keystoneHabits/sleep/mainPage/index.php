@@ -24,7 +24,7 @@
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="./scripts/otherThingsScript.js"></script>
-	<script src="./scripts/chart1Options.js"></script>
+	<script src="./scripts/chart1And2Options.js"></script>
 	<script src="./scripts/getAndAddData.js"></script>
     </head>
 <body>
@@ -33,7 +33,8 @@
 		<h1>En proceso</h1>
 		<p>Ejemplo de pagina principal. </p>
         <div id="mainText"></div>
-		<div id="chart1Container"></div>
+
+		<div id="chart1Container" ></div>
     </div>
 </body>
 </html>

@@ -5,13 +5,14 @@ $(document).ready(function(){
         if (this.readyState == 4) { //IF it has ended
             $("#mainText").html(this.responseText); 
             let JSONdata =JSON.parse(this.responseText);
-            let startingTimes = [];
-            let endingTimes = [];
+            let startingTimesArr = [];
+            let endingTimesArr = [];
 
-            divideData(startingTimes,endingTimes,JSONdata)
+            divideData(startingTimesArr,endingTimesArr,JSONdata)
 
-            chart1Options.series[0].data = startingTimes;
-            chart1Options.series[1].data = endingTimes;
+
+            chart1Options.series[0].data = startingTimesArr;
+            chart1Options.series[1].data = endingTimesArr;
 
             Highcharts.chart("chart1Container", chart1Options);
         }
@@ -21,14 +22,20 @@ $(document).ready(function(){
 
     function divideData(startingTimesArray,endingTimesArray,data){
         for(let i =0 ; i<data.length; i++){
-            let fullDatetimeString1 = data[i]["realWakingUp"];
-            let [onlyDateString1,onlyTimeString1] = fullDatetimeString1.split(" "); 
-            let secondsFromMidnight1 = Date.parse(fullDatetimeString1) - Date.parse(onlyDateString1)  
-            startingTimesArray.push(secondsFromMidnight1);
-
+            fullDatetimeString1 = data[i]["realWakingUp"];
+            [onlyDateString1,onlyTimeString1] = fullDatetimeString1.split(" "); 
+            secondsFromMidnight1 = Date.parse(fullDatetimeString1) - Date.parse(onlyDateString1)  
+            
             fullDatetimeString2 = data[i]["lastAttemptGoingToSleep"];
-            let [onlyDateString2,onlyTimeString2] = fullDatetimeString2.split(" "); 
-            let secondsFromMidnight2 = Date.parse(fullDatetimeString2) - Date.parse(onlyDateString2)  
+            [onlyDateString2,onlyTimeString2] = fullDatetimeString2.split(" "); 
+            secondsFromMidnight2 = Date.parse(fullDatetimeString2) - Date.parse(onlyDateString2)  
+            
+            if(secondsFromMidnight2 <= secondsFromMidnight1){ // you can't go to bed earlier than going to sleep
+                console.log("dentro"); 
+                secondsFromMidnight2 = secondsFromMidnight2 + 24*60*60*1000;
+            }
+            
+            startingTimesArray.push(secondsFromMidnight1);
             endingTimesArray.push(secondsFromMidnight2);
         }
     }
