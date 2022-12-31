@@ -24,7 +24,7 @@
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="./scripts/otherThingsScript.js"></script>
-	<script src="./scripts/chart1And2Options.js"></script>
+	<script src="./scripts/chart1And2options.js"></script>
 	<script src="./scripts/getAndAddData.js"></script>
     </head>
 <body>
