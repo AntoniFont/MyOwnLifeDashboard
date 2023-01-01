@@ -1,4 +1,5 @@
 chart1Options = {
+
   chart:{
     height: "70%",
     //width: 80
