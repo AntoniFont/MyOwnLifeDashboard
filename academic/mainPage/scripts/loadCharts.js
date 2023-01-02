@@ -105,4 +105,17 @@ $(document).ready(function () {
     }
 
 
+    xmlhttpGetOptions = new XMLHttpRequest();
+    xmlhttpGetOptions.onreadystatechange = function () { //Callback function
+        if (this.readyState == 4) { //IF it has ended
+            let resp = JSON.parse(this.responseText)[0];
+            $("#balanceObjective").html(resp);
+        }
+    }
+
+    xmlhttpGetOptions.open("GET", "./backend/getObjective.php?name=" + username + "&goalType=1" , true);
+    xmlhttpGetOptions.send();
+
+
+
 });

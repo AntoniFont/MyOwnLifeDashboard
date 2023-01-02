@@ -24,7 +24,8 @@
         integrity="sha512-JVzXlL1mZb/G0YNUJtPqUzA/QtPMQLNpCtEBOV9R8P3Uskp4W0C+6SVZ3rpwnKcp/V/59YQoGNUYmB/N6do1sA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <script src="./scripts/otherThingsScript.js"></script><script src="./scripts/otherThingsScript.js"></script>
+    <script src="./scripts/otherThingsScript.js"></script>
+    <script src="./scripts/otherThingsScript.js"></script>
     <script src="./scripts/number-rush.js"></script>
     <script src="./scripts/loadCharts.js"></script>
     <script src="./scripts/chartsOptions.js"></script>
@@ -65,27 +66,38 @@
 
                 </div>
             </div>
-        </div>
-        <div class ="mt-5 mb-5"style="background-color:rgb(252, 252, 248)">
-        <div class="row">
-            <div class="d-flex justify-content-center">
-                <h1>Don't leave behind any courses!</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="d-flex justify-content-center">
-                <p>Number of hours per course in the last 2 weeks</p>
-            </div>
-        </div>
 
-        <div class="row mt-3">
-            <div class="col-xs-12 col-sm-6">
-                <div id="chart1Container"></div>
-            </div>
-            <div class="col-xs-12 col-sm-6">
-                <div id="chart2Container"></div>
-            </div>
+
         </div>
+        <div class="mt-5 mb-5" style="background-color:rgb(252, 252, 248)">
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <h1>Don't leave behind any courses!</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <p>Number of hours per course in the last 2 weeks</p>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-xs-12 col-sm-6">
+                    <div id="chart1Container"></div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div id="chart2Container"></div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <h3 class="text-center">My goal is:</h3>
+            </div>
+            <div class="row mt-3">
+                <div class="d-flex">
+                    <p class=""><span id="balanceObjective"></p>
+                </div>
+            </div>
         </div>
 
 
