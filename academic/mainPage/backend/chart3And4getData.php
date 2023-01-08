@@ -13,8 +13,6 @@ FROM studydata100 JOIN user100 ON user100.id = studydata100.userID WHERE initial
 */
 
 $query = "SELECT sum(duration),FROM_UNIXTIME(initialTime, \"%d-%m-%Y\") as dia,FROM_UNIXTIME(UNIX_TIMESTAMP() - UNIX_TIMESTAMP(STR_TO_DATE(FROM_UNIXTIME(initialTime,\"%d-%m-%Y\"),\"%d-%m-%Y\")),\"%d\")  as daysEllapsed FROM studydata100 JOIN user100 ON user100.id = studydata100.userID WHERE initialTime > (UNIX_TIMESTAMP() - (60 * 60 *24 * 7 *2)) AND nickname=\"".$_GET["name"]."\" GROUP BY FROM_UNIXTIME(initialTime, \"%d-%m-%Y\") ORDER BY initialTime ASC";
-echo $query;
-echo "<br>";
 $dataCon = mysqli_query($conection, $query);
 $resultado = mysqli_fetch_all($dataCon);
 mysqli_close($conection);
