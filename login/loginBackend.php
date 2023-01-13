@@ -18,13 +18,13 @@ if($_POST["key"] == "1"){
 // HACKBOTS TRYING TO ENCRYPT MY INFO AND SEARCHING VULNERABILITIES
 
 //1. ADD THE NECESSARY IMPORTS 
-require "./connectToTheDatabase.php";
+require dirname(__DIR__, 1)."/connectToTheDatabase.php";
 //2. CONNECT TO THE DB
 $conection = connectToTheDatabase();
 ///3. INSERT DATA QUERY 
-$stmt = $conection->prepare("INSERT INTO loginAttempts (datetime,text) VALUES ?,?"); ;
-$stmt->bind_param("ss",$now,$key);
-$now = date("d-m-Y H:i:s");
+$stmt = $conection->prepare("INSERT INTO loginAttempts (datetime,text) VALUES (? , ?)"); ;
+$now = date("Y-m-d H:i:s");
 $key = $_POST["key"];
+$stmt->bind_param("ss",$now,$key);
 $stmt->execute();
 ?>
