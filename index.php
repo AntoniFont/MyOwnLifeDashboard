@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (!isset($_SESSION["loggedIn"])) {
+    header("Location: http://".$_SERVER['SERVER_NAME']."/myownlifedashboard"."/login/login.php");
+} 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
