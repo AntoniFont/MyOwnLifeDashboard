@@ -29,6 +29,7 @@ if (!isset($_SESSION["loggedIn"])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/10.3.2/highcharts.js"
         integrity="sha512-JVzXlL1mZb/G0YNUJtPqUzA/QtPMQLNpCtEBOV9R8P3Uskp4W0C+6SVZ3rpwnKcp/V/59YQoGNUYmB/N6do1sA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://code.highcharts.com/modules/drilldown.js"></script>
 
     <script src="./scripts/misc/otherThingsScript.js"></script>
     <script src="./scripts/auxScripts/number-rush.js"></script>
@@ -84,7 +85,7 @@ if (!isset($_SESSION["loggedIn"])) {
             </div>
             <div class="row">
                 <div class="d-flex justify-content-center">
-                    <p>Number of hours per course in the last 2 weeks</p>
+                    <p>Number of hours per course in the last 2 weeks.</p>
                 </div>
             </div>
 
@@ -107,7 +108,7 @@ if (!isset($_SESSION["loggedIn"])) {
             </div>
         </div>
 
-
+        <p id="test"></p>
     </div>
 
 

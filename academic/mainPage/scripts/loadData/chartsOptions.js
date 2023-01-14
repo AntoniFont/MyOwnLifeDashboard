@@ -37,8 +37,13 @@ let chart2Options =  {
     series: [{
         name: 'Courses',
         colorByPoint: true,
+
         data: [], //TO BE FILLED
     }],
+    
+    drilldown : {
+        series : [] //TO BE FILLED
+    },
     credits: {
         enabled: false
       },
@@ -57,7 +62,7 @@ let chart1Options =  {
         text: ' '
     },
     subtitle: {
-        text: ' '
+        text: ''
     },
     xAxis: {
         visible : false
@@ -80,21 +85,31 @@ let chart1Options =  {
             dataLabels: {
                 enabled: true,
                 format: '{point.y} h'
-            }
+            },
+            dataSorting: {
+                enabled:  true
+            },
         }
     },
     series: [{
         name: 'Courses',
         colorByPoint: true,
         data: [], //TO BE FILLED
-        dataSorting: {
-            enabled:  true
-        },
         legendType: "point"
     }],
     credits: {
         enabled: false
       },
+      drilldown: {
+        dataSorting: {
+            enabled:  true
+        },
+        /*activeDataLabelStyle: { TO REMOVE THE UNDERLINE UNCOMMENT THIS
+            textDecoration: "none",
+            color: "#000000"
+        }*/
+        series : [] //TO BE FILLED
+    }
     
 };
 
@@ -146,4 +161,4 @@ let chart3Options = {
       }
 
 };
-        
+
