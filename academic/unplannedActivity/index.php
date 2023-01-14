@@ -27,9 +27,10 @@ if (!isset($_SESSION["loggedIn"])) {
         crossorigin="anonymous"></script>
 
 
-    <script src="./scripts/otherThingsScript.js"> </script>
-    <script src="./scripts/getAndAddDataScript.js"></script>
-    <script src="./scripts/timerScript.js"></script>
+    <script src="./scripts/misc/otherThingsScript.js"> </script>
+    <script src="./scripts/loadStartingData/loadStartingData.js"></script>
+    <script src="./scripts/timer/timerScript.js"></script>
+    <script src="./scripts/eventHandlersData/eventHandlersData.js"></script>
 </head>
 
 <body>
@@ -50,8 +51,7 @@ if (!isset($_SESSION["loggedIn"])) {
                         Selecciona asignatura
                     </button>
                     <ul class="dropdown-menu" id="selectCourse">
-                        <li><a class="dropdown-item" onclick="courseClicked(-1)">Undefined</a></li>
-
+                    <!--- To be filled with data  --->
                     </ul>
                 </div>
 
@@ -62,7 +62,7 @@ if (!isset($_SESSION["loggedIn"])) {
                         Selecciona un proyecto
                     </button>
                     <ul class="dropdown-menu" id="selectProject">
-                        <li><a class="dropdown-item" onclick="projectClicked(-1)">Undefined</a></li>
+                    <!--- To be filled with data  --->
                     </ul>
                 </div>
 
@@ -73,7 +73,7 @@ if (!isset($_SESSION["loggedIn"])) {
                         Selecciona tipo de trabajo
                     </button>
                     <ul class="dropdown-menu" id="selectTypeOfStudy">
-                        <li><a class="dropdown-item" onclick="typeOfStudyClicked(-1)">Undefined</a></li>
+                    <!--- To be filled with data  --->
                     </ul>
                 </div>
 

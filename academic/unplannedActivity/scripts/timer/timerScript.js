@@ -6,16 +6,17 @@ SAVE IT TO THE DATABSE
 */
 
 
+let timerStarted = false;
+let timerVar;
+let secondsEllapsed = 0
+let initialTimeDate = 0;
+
 $(document).ready(function () {
-    let timerVar;
-    let secondsEllapsed = 0
-    let timerStarted = false;
-    let initialTimeDate = 0;
 
     $("#timerButton").click(function () {
         if (timerStarted == false) {
             //start the timer and get starting time
-            timerVar = setInterval(countTimer, 1000); //start the ticking
+            timerVar = setInterval(visualTimer, 1000); //start the ticking
             initialTimeDate = Math.floor(Date.now() / 1000);
             timerStarted = true;
             //change the start timer text and color from start timer to stop timer
@@ -48,20 +49,28 @@ $(document).ready(function () {
     });
 
     function saveTime(seconds) {
-        let params = new URLSearchParams(document.location.search);
-        let name = params.get("name"); 
-        let data = getSelectedThings();
-        let xmlhttp = new XMLHttpRequest();
-        let parametros = "?initialTime=" + initialTimeDate + "&totaltime=" + seconds + "&courseID=" + data["courseID"] 
-        + "&projectID=" + data["projectID"] + "&typeOfStudyID=" + data["typeOfStudyID"] + "&name=" + name + "&description=" +encodeURI(data["description"]) +
-        "&question1=" + data["question1"] + "&question2=" + data["question2"]; 
-        console.log(parametros)
-        xmlhttp.open("GET", "./backend/insertTime.php" + parametros, true);
-        xmlhttp.send();
+        let dataSelected = getSelectedThings();
+        $.ajax("./backend/insertTime.php",{
+            method: "get",
+            data:{
+                initialTime: initialTimeDate,
+                totalTime: seconds,
+                courseID: dataSelected["courseID"],
+                projectID: dataSelected["projectID"],
+                typeOfStudyID: dataSelected["typeOfStudyID"],
+                name: username,
+                description: encodeURI(dataSelected["description"]),
+                question1: dataSelected["question1"],
+                question2:  dataSelected["question2"]
+            },
+            error: function(){
+                alert("Error al enviar los datos")
+            }
+        })
     }
 
 
-    function countTimer() {
+    function visualTimer() {
         secondsEllapsed = Math.floor(Date.now()/1000) - initialTimeDate;
         var hour = Math.floor(secondsEllapsed / 3600);
         var minute = Math.floor((secondsEllapsed - hour * 3600) / 60);
