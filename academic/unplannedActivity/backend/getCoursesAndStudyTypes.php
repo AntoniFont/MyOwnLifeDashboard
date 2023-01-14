@@ -8,7 +8,7 @@ $conection = connectToTheDatabase();
 $query = "select courseID,name from courses100 JOIN user100 ON courses100.user = user100.id where nickname=\"". $_GET["name"]."\"";
 $coursesCon = mysqli_query($conection, $query);
 $courses = mysqli_fetch_all($coursesCon);
-$query = "select typeStudyDataID ,name from typesstudydata100 ";
+$query = "select typeStudyDataID ,name,description from typesstudydata100 ";
 $typesStudyDataCon = mysqli_query($conection, $query);
 $typesStudyData = mysqli_fetch_all($typesStudyDataCon);
 mysqli_close($conection);

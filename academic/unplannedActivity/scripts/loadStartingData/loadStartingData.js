@@ -7,6 +7,8 @@ PUTTING IT INSIDE THE RIGHT HTML ELEMENT
 */
 $(document).ready(function () {
 
+    $('[data-toggle="tooltip"]').tooltip({'delay': { show: 0, hide: 10 }})
+
     $.ajax("./backend/getCoursesAndStudyTypes.php", {
         method: "get",
         data: {
@@ -64,12 +66,17 @@ $(document).ready(function () {
         });
         typeOfStudyData.forEach(element => {
             //add the name of the typeOfStudy to the dropdown and, when clicked, call the function
+            let stringAConTooltip = "<a class=\"dropdown-item\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Tooltip on top\"> </a>";
+
             let typeOfStudyIDVar = element[0]
             let typeOfStudyNameVar = element[1]
+            let descriptionOfStudyType = element[2]
             let elementAppended = $(stringLI).appendTo("#selectTypeOfStudy")
-            let elementAppendedToElementAppended = $(stringA).appendTo(elementAppended);
+            let elementAppendedToElementAppended = $(stringAConTooltip).appendTo(elementAppended);
+            elementAppendedToElementAppended.attr("title",descriptionOfStudyType)
             elementAppendedToElementAppended.text(typeOfStudyNameVar)
             elementAppendedToElementAppended.click({ typeOfStudyID: typeOfStudyIDVar, typeOfStudyName: typeOfStudyNameVar }, typeOfStudyClicked)
+            
         })
 
     }

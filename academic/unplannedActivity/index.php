@@ -1,8 +1,8 @@
 <?php
 session_start();
 if (!isset($_SESSION["loggedIn"])) {
-    header("Location: http://".$_SERVER['SERVER_NAME']."/myownlifedashboard"."/login/login.php");
-} 
+    header("Location: http://" . $_SERVER['SERVER_NAME'] . "/myownlifedashboard" . "/login/login.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +51,7 @@ if (!isset($_SESSION["loggedIn"])) {
                         Selecciona asignatura
                     </button>
                     <ul class="dropdown-menu" id="selectCourse">
-                    <!--- To be filled with data  --->
+                        <!--- To be filled with data  --->
                     </ul>
                 </div>
 
@@ -62,7 +62,7 @@ if (!isset($_SESSION["loggedIn"])) {
                         Selecciona un proyecto
                     </button>
                     <ul class="dropdown-menu" id="selectProject">
-                    <!--- To be filled with data  --->
+                        <!--- To be filled with data  --->
                     </ul>
                 </div>
 
@@ -73,7 +73,7 @@ if (!isset($_SESSION["loggedIn"])) {
                         Selecciona tipo de trabajo
                     </button>
                     <ul class="dropdown-menu" id="selectTypeOfStudy">
-                    <!--- To be filled with data  --->
+                        <!--- To be filled with data  --->
                     </ul>
                 </div>
 
@@ -85,7 +85,7 @@ if (!isset($_SESSION["loggedIn"])) {
         <div class="row mt-3">
             <div class="col">
                 <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary" id="timerButton">
+                    <button type="button" class="btn btn-primary" id="timerButton" >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-stopwatch" viewBox="0 0 16 16">
                             <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z"></path>
@@ -115,7 +115,7 @@ if (!isset($_SESSION["loggedIn"])) {
 
                         <div class="row">
                             <div class="col">
-                                <textarea placeholder="Descripción de la actividad realizada"  cols="70" rows="6"
+                                <textarea placeholder="Descripción de la actividad realizada" cols="70" rows="6"
                                     id="description"></textarea>
                             </div>
 
