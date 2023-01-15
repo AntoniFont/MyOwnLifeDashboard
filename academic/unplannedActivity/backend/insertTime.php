@@ -8,7 +8,7 @@ $conection = connectToTheDatabase();
 $courseID = $_GET["courseID"];
 $typeOfStudyData = $_GET["typeOfStudyID"];
 $projectID = $_GET["projectID"];
-$totalTime = $_GET["totaltime"];
+$totalTime = $_GET["totalTime"];
 $initialTime = $_GET["initialTime"];
 
 if ((strcmp($courseID, "-1") == 0) || (!isset($courseID))) {
