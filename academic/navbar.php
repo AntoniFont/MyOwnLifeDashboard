@@ -13,6 +13,9 @@
       <li class="nav-item">
         <a class="nav-link" href="/myownlifedashboard/academic/unplannedActivity/index.php" id="unplannedActivityNavbar">Unplanned Activity</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/myownlifedashboard/academic/addProject/index.php" id="addProjectNavbar">New Project</a>
+      </li>
 
     </ul>
   </div>
@@ -26,4 +29,5 @@
     $("#mainPage").attr("href",$("#mainPage").attr("href") + "?name=" + name)
     $("#academicMainPage").attr("href",$("#academicMainPage").attr("href") + "?name=" + name)
     $("#unplannedActivityNavbar").attr("href",$("#unplannedActivityNavbar").attr("href") + "?name=" + name)
+    $("#addProjectNavbar").attr("href",$("#addProjectNavbar").attr("href") + "?name=" + name)
 </script>
