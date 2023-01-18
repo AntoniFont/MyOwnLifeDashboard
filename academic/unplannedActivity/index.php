@@ -52,6 +52,12 @@ if (!isset($_SESSION["loggedIn"])) {
                     </button>
                     <ul class="dropdown-menu" id="selectCourse">
                         <!--- To be filled with data  --->
+                        <?php 
+                        include $_SERVER['DOCUMENT_ROOT'] . "/myownlifedashboard/.classPaths/Student.php";
+                            echo "<li><a class=\"dropdown-item\">Undefined</a></li>";
+                            $estudiante = new Student($_SESSION["username"]);
+                        echo "<li>" . var_dump($estudiante->getCurrentCourses()) . "</li>";
+                        ?>
                     </ul>
                 </div>
 

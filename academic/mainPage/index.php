@@ -41,6 +41,14 @@ if (!isset($_SESSION["loggedIn"])) {
 
 <body>
     <?php include '../navbar.php'; ?>
+    <h1>
+    <?php 
+        include $_SERVER['DOCUMENT_ROOT']."/myownlifedashboard/.classPaths/User.php";
+        //include $_SERVER['DOCUMENT_ROOT']."/myownlifedashboard/.classPaths/DatabaseManager.php";
+        $usuario = new User("pepe");
+        echo "holis";
+    ?>
+    <h1>
     <div class="container mt-3">
         <div style="background-color:rgb(252, 252, 248)">
             <div class="row">

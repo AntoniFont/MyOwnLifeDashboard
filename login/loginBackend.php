@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+$_SESSION["username"] = $_POST["username"];
+
 if($_POST["key"] == "1"){
     $_SESSION["loggedIn"] = true;
     echo "<p>Correcto! </p>";
@@ -9,8 +11,6 @@ if($_POST["key"] == "1"){
     echo "<p>Incorrecto! </p>";
     echo "<a href=\"./login.php\"><p>Volver a intentar</p></a>";
 }
-
-
 
 // I WANT TO REGISTER ALL THE KEYS INTRODUCED TO SEE WHAT HACKERS ARE UP TO
 // MAYBE THIS IS ILEGAL IN A REAL SERVER?

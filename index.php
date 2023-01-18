@@ -45,7 +45,7 @@ if (!isset($_SESSION["loggedIn"])) {
 				<div class="row">
 					<a id="academicLink" href="./academic/mainPage/index.php">
 						<div class="d-flex justify-content-center">
-							<img src="./compute250x360.png">
+							<img src="./.resources/compute250x360.png">
 						</div>
 					</a>
 				</div>
@@ -66,7 +66,7 @@ if (!isset($_SESSION["loggedIn"])) {
 				<div class="row">
 					<a id="keystoneHabitsLink" href="./keystoneHabits/mainPage/index.php">
 						<div class="d-flex justify-content-center">
-							<img src="./sport250x250.jpg">
+							<img src="./.resources/sport250x250.jpg">
 						</div>
 					</a>
 				</div>

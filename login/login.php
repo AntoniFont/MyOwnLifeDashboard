@@ -17,9 +17,15 @@ if (isset($_SESSION["loggedIn"])) {
 </head>
 
 <body>
-    <h1>Introduce la clave de entrada</h1>
+    <h1>Introduce el usuario y la clave de entrada</h1>
     <form action="loginBackend.php" method="post">
-        <input type="password" name="key" placeholder="Introduce la clave de entrada"></input>
+        <input type="text" name="username" placeholder= "Introduce tu nombre de usuario" size="50em"></input>
+        <br>
+        
+        <br>
+
+        <input type="password" name="key" placeholder="Introduce la clave de entrada" size="50em"></input>
+        <br>
         <br>
         <input type="submit"></input>
     </form>

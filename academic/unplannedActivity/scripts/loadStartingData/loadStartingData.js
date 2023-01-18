@@ -9,7 +9,7 @@ $(document).ready(function () {
 
     $('[data-toggle="tooltip"]').tooltip({'delay': { show: 0, hide: 10 }})
 
-    $.ajax("./backend/getCoursesAndStudyTypes.php", {
+    /*$.ajax("./backend/getCoursesAndStudyTypes.php", {
         method: "get",
         data: {
             name: username
@@ -81,6 +81,7 @@ $(document).ready(function () {
 
     }
 
+    */
 });
 
 function getSelectedThings() {
