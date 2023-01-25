@@ -2,14 +2,13 @@
 //0. CONSTANTS
 $DAYS_DISPLAYED = 14; 
 //1. IMPORTS 
-require dirname(__DIR__, 3)."/connectToTheDatabase.php";
+require dirname(__DIR__, 3)."/DatabaseManager.php";
 //2. CONNECT TO THE DB
-$conection = connectToTheDatabase();
+$dbManager = new DatabaseManager();
 ///3. FIRST QUERY 
 //get from the username, the id, for example the username "peter" may be the id 2
-$query = "select id from user100 where nickname=\"".$_GET["name"]."\"" ;
-$idCon = mysqli_query($conection, $query);
-$id = mysqli_fetch_all($idCon)[0][0];
+$sql = "select id from user100 where nickname=:nombre";
+$id = $dbManager->query($sql, ["nombre" => $_GET["name"]])[0][0];
 //4. SECOND QUERY
 /*The total time of the selected student studied in each course in the last 2 weeks, for example:
 *  Maths - 1hours in the last 2 weeks
@@ -18,24 +17,26 @@ $id = mysqli_fetch_all($idCon)[0][0];
 */
 $query = "";
 $query .= "SELECT COALESCE(sum(duration)/3600,0) as \"duracion\",courses100.name,courses100.courseID FROM courses100 ";
-$query .= "LEFT JOIN studydata100 ON (courses100.courseID = studydata100.courseID) AND studydata100.initialTime>(UNIX_TIMESTAMP()-".($DAYS_DISPLAYED * 86400).") ";
-$query .= "WHERE courses100.user=".$id;
+$query .= "LEFT JOIN studydata100 ON (courses100.courseID = studydata100.courseID) ";
+$query .= "AND studydata100.initialTime>(UNIX_TIMESTAMP()- :days_displayed) ";
+$query .= "WHERE courses100.user= :id";
 $query .= " AND UNIX_TIMESTAMP(STR_TO_DATE(courses100.finalDate, \"%Y-%m-%d\")) > UNIX_TIMESTAMP()";
 $query .=" GROUP BY courses100.courseID";
-$coursesCon = mysqli_query($conection, $query);
-$resultByCourses = mysqli_fetch_all($coursesCon);
+$resultByCourses = $dbManager->query($query, ["days_displayed" => $DAYS_DISPLAYED * 86400, "id" => $id]);
+
+
 //6. FOR EACH COURSE, GET THE TOTAL TIME BY COURSE
 $resultsByProjects = array();
 foreach ($resultByCourses as $key => $value) {
+    //6.1. GET THE TOTAL TIME BY PROJECT
     $query = "";
     $query .= "SELECT COALESCE(sum(duration)/3600,0) as \"duracion\",projects100.name FROM projects100 ";
-    $query .= "LEFT JOIN studydata100 ON (projects100.projectID = studydata100.projectID) AND studydata100.initialTime>(UNIX_TIMESTAMP()-".($DAYS_DISPLAYED * 86400).") ";
-    $query .= "WHERE projects100.userID=".$id;
-    $query .= " AND projects100.courseID=".$value[2];
+    $query .= "LEFT JOIN studydata100 ON (projects100.projectID = studydata100.projectID) AND studydata100.initialTime>(UNIX_TIMESTAMP()- :days_displayed) ";
+    $query .= "WHERE projects100.userID= :id";
+    $query .= " AND projects100.courseID= :courseID";
     $query .= " GROUP BY projects100.projectID ORDER BY \"duracion\" DESC";
-    $projectsCon = mysqli_query($conection, $query);
-    $resultByProject = mysqli_fetch_all($projectsCon);
-    $resultsByProjects[$key] = $resultByProject;
+    $resultsByProject = $dbManager->query($query, ["days_displayed" =>$DAYS_DISPLAYED * 86400, "id" => $id, "courseID" => $value[2]]);
+    $resultsByProjects[$key] = $resultsByProject;
 }
 //7. FORMAT BOTH ARRAYS FOR THE HIGHCHARTS LIBRARY THAT WILL DISPLAY THEM
 $resultsByCoursesFinal = array();
@@ -60,9 +61,8 @@ foreach ($resultByCourses as $keyCourse => $valueCourse) {
     array_push($resultsByProjectsFinal,$tempProjects);
 }
 
-mysqli_close($conection);
-
-
+//8. CLOSE THE CONNECTION
+$dbManager->close();
 //CONVERT INTO JSON OBJECT AND RETURN IT
 echo json_encode(array($resultsByCoursesFinal,$resultsByProjectsFinal),JSON_UNESCAPED_UNICODE); //for the spanish and catalan languages
 ?>

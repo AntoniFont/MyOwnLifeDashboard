@@ -1,10 +1,10 @@
 <?php
 //1. IMPORTS OF FUNCTIONS NEEDED
-require dirname(__DIR__, 3)."/connectToTheDatabase.php";
+require dirname(__DIR__, 3)."/DatabaseManager.php";
 //2. DECLARE CONSTANTS
 $DAYS_DISPLAYED = 14; 
 //3. CONNECT TO THE DB
-$conection = connectToTheDatabase();
+$dbManager = new DatabaseManager();
 ///4. DECLARE THE QUERY
 
 /** this query returns the total number of seconds worked in a day in this format:
@@ -19,23 +19,18 @@ $conection = connectToTheDatabase();
  *  
  */
 
-$query = "";
-$query .= "SELECT sum(duration), " ;
-$query .= "FROM_UNIXTIME(initialTime, \"%d-%m-%Y\") as dia, " ;
+$query = "SELECT sum(duration), ";
+$query .= "FROM_UNIXTIME(initialTime, \"%d-%m-%Y\") as dia, ";
 $query .= "FROM_UNIXTIME(UNIX_TIMESTAMP() - UNIX_TIMESTAMP(STR_TO_DATE(FROM_UNIXTIME(initialTime,\"%d-%m-%Y\"),\"%d-%m-%Y\")),\"%d\")  as daysEllapsed ";
-$query .= "FROM studydata100 " ;
-$query .= "JOIN user100 ON user100.id = studydata100.userID " ;
-$query .= "WHERE initialTime > (UNIX_TIMESTAMP() - (".strval($DAYS_DISPLAYED * 86400).")) "; 
-$query .= "AND nickname=\"".$_GET["name"]."\" " ;
+$query .= "FROM studydata100 ";
+$query .= "JOIN user100 ON user100.id = studydata100.userID ";
+$query .= "WHERE initialTime > (UNIX_TIMESTAMP() - (:strvalDaysDisplayed86400)) ";
+$query .= "AND nickname=:nickname ";
 $query .= "GROUP BY FROM_UNIXTIME(initialTime, \"%d-%m-%Y\") ";
 $query .= "ORDER BY initialTime ASC ";
-
-//echo $query;
 //5. DO THE QUERY AND CLOSE THE CONECTION TO SAVE CONECTIONS FOR OTHER USERS
-$dataCon = mysqli_query($conection, $query);
-$resultado = mysqli_fetch_all($dataCon);
-mysqli_close($conection);
-
+$resultado = $dbManager->query($query, [":strvalDaysDisplayed86400" => strval($DAYS_DISPLAYED * 86400), ":nickname" => $_GET["name"]]);
+$dbManager->close();
 //6. PROCESSING THE DATA TO ADD THE MISING DAYS AS 0 SECONDS STUDIED
 date_default_timezone_set('Europe/Madrid');
 $dataProcessed = array();
