@@ -2,6 +2,7 @@
 header("Content-Type: text/html;charset=utf-8");
 //IMPORT ALL THE AUXILIARY FUNCTIONS
 require dirname(__DIR__, 3)."/connectToTheDatabase.php";
+require dirname(__DIR__, 3)."/DatabaseManager.php";
 //CONNECT TO THE DB
 $conection = connectToTheDatabase();
 ///GET THE DATA INTO VARIABLES 
@@ -56,10 +57,13 @@ if (strcmp($question1, "no") == 0) { //if question1 == no
         $workingAlone = "false";
     }
 } 
-//INSERT THE DATA INTO THE DB
-$dbManager = new DatabaseManager();
-$sql = "insert into studydata100 (courseID,typeID,projectID,initialTime,duration,descripción,planned,userID,workingAlone,beingAlone) values(:courseID,:typeID,:projectID,:initialTime,:duration,:descripción,0,:userID,:workingAlone,:beingAlone)";
-$dbManager->query($sql, ["courseID" => $courseID, "typeID" => $typeOfStudyData, "projectID" => $projectID, "initialTime" => $initialTime, "duration" => $totalTime, "descripción" => $descripcion, "userID" => $_GET["name"], "workingAlone" => $workingAlone, "beingAlone" => $beingAlone]);
-$dbManager->close();
+$query = "select id from user100 where nickname=\"".$_GET["name"]."\"" ;
+$idCon = mysqli_query($conection, $query);
+$id = mysqli_fetch_all($idCon)[0][0];
+//DO THE QUERY
 
+$query = "insert into studydata100 (courseID,typeID,projectID,initialTime,duration,descripción,planned,userID,workingAlone,beingAlone) values(".$courseID.",".$typeOfStudyData.",".$projectID.",\"".$initialTime."\",".$totalTime.",\"".$descripcion."\",0".",\"".$id."\"".",".$workingAlone.",".$beingAlone.")";
+echo $query;
+$projectsCon = mysqli_query($conection, $query);
+mysqli_close($conection);
 ?>
