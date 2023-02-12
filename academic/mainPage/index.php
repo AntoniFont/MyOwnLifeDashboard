@@ -1,8 +1,8 @@
 <?php
 session_start();
 if (!isset($_SESSION["loggedIn"])) {
-    header("Location: http://".$_SERVER['SERVER_NAME']."/myownlifedashboard"."/login/login.php");
-} 
+    header("Location: http://" . $_SERVER['SERVER_NAME'] . "/myownlifedashboard" . "/login/login.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,11 +29,12 @@ if (!isset($_SESSION["loggedIn"])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/10.3.2/highcharts.js"
         integrity="sha512-JVzXlL1mZb/G0YNUJtPqUzA/QtPMQLNpCtEBOV9R8P3Uskp4W0C+6SVZ3rpwnKcp/V/59YQoGNUYmB/N6do1sA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
 
     <script src="./scripts/misc/otherThingsScript.js"></script>
     <script src="./scripts/auxScripts/number-rush.js"></script>
     <script src="./scripts/loadData/chartsOptions.js"></script>
+    <script src="./scripts/loadData/warningsHandler.js"></script>
     <script src="./scripts/loadData/loadChart1And2.js"></script>
     <script src="./scripts/loadData/loadChart3And4.js"></script>
     <script src="./scripts/loadData/loadObjectives.js"></script>
@@ -42,10 +43,20 @@ if (!isset($_SESSION["loggedIn"])) {
 <body>
     <?php include '../navbar.php'; ?>
     <div class="container mt-3">
+        <div class="row">
+            <div class="d-flex justify-content-center align-items-start">
+                <h1 class="display-1 text-center mb-5">Default Study Plan
+
+                </h1>
+                <p class="m-2"><a href="./info/info.html#h.40066jalpwpg" target="_blank">?</a> </p>
+            </div>
+        </div>
         <div style="background-color:rgb(252, 252, 248)">
             <div class="row">
-                <div class="d-flex justify-content-center ">
-                    <h1>Be perseverant! Do a little bit of work everyday</h1>
+                <div class="d-flex justify-content-center align-items-start">
+                    <h1 class="pe-3">Be perseverant! Do a little bit of work everyday
+                    </h1>
+                    <p><a href="./info/info.html#h.fcua4kt5b3rm" target="_blank">?</a></p>
                 </div>
             </div>
             <div class="row">
@@ -80,7 +91,10 @@ if (!isset($_SESSION["loggedIn"])) {
         <div class="mt-5 mb-5" style="background-color:rgb(252, 252, 248)">
             <div class="row">
                 <div class="d-flex justify-content-center">
-                    <h1>Don't leave behind any courses!</h1>
+                    <h1 class="pe-3">Don't leave behind any courses!
+
+                    </h1>
+                    <p><a href="./info/info.html#h.gktl3pisuks3" target="_blank">?</a> </p>
                 </div>
             </div>
             <div class="row">
@@ -101,14 +115,23 @@ if (!isset($_SESSION["loggedIn"])) {
             <div class="row mt-3">
                 <h3 class="text-center">My goal is:</h3>
             </div>
-            <div class="row mt-3">
+            <div class="row mt-3 ms-2">
                 <div class="d-flex">
                     <p class=""><span id="balanceObjective"></p>
                 </div>
             </div>
+            <div class="row mt-3 ms-2">
+                <div class="d-flex">
+                    <div class="alert alert-warning me-3" role="alert" id="no6thcoursewarning">
+                        No 6th course! <a href="./info/info.html#h.57qet5tjzvb2" target="_blank"> ? </a>
+                    </div>
+                    <div class="alert alert-warning" role="alert" id="no7thcoursewarning">
+                        No 7th course! <a href="./info/info.html#h.981wrw39dkid" target="_blank"> ? </a>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <p id="test"></p>
     </div>
 
 

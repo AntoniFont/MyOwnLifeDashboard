@@ -12,8 +12,12 @@ $(document).ready(function () {
             let data = [];
             try {
                 responseJSON = JSON.parse(responseText);
-                dataCourses = responseJSON[0];
-                dataProjects = responseJSON[1];
+                dataCourses = responseJSON["timeByCourses"];
+                dataProjects = responseJSON["timeByProjects"];
+                exists6thCourse = responseJSON["exists6thCourse"];
+                exists7thCourse = responseJSON["exists7thCourse"];
+                //UPDATE WARNINGS
+                updateWarnings(exists6thCourse,exists7thCourse);
                 //FILLED BOTH OPTIONS OBJECT WITH THE DATA (both objects share the same data but different configs)
                 chart1Options.series[0].data = dataCourses;
                 chart1Options.drilldown.series = dataProjects;

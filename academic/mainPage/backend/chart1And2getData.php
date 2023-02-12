@@ -16,13 +16,25 @@ $id = $dbManager->query($sql, ["nombre" => $_GET["name"]])[0][0];
 *  Chemistry 1.5hours in the last 2 weeks
 */
 $query = "";
-$query .= "SELECT COALESCE(sum(duration)/3600,0) as \"duracion\",courses100.name,courses100.courseID FROM courses100 ";
+$query .= "SELECT COALESCE(sum(duration)/3600,0) as \"duracion\",courses100.name,courses100.courseID,is6thCourse,is7thCourse FROM courses100 ";
 $query .= "LEFT JOIN studydata100 ON (courses100.courseID = studydata100.courseID) ";
 $query .= "AND studydata100.initialTime>(UNIX_TIMESTAMP()- :days_displayed) ";
 $query .= "WHERE courses100.user= :id";
 $query .= " AND UNIX_TIMESTAMP(STR_TO_DATE(courses100.finalDate, \"%Y-%m-%d\")) > UNIX_TIMESTAMP()";
 $query .=" GROUP BY courses100.courseID";
 $resultByCourses = $dbManager->query($query, ["days_displayed" => $DAYS_DISPLAYED * 86400, "id" => $id]);
+
+//5. Search for the 6th and 7th course
+$exists6thCourse = false;
+$exists7thCourse = false;
+foreach ($resultByCourses as $key => $value) {
+    if ($value[3] == 1) {
+        $exists6thCourse = true;
+    }
+    if ($value[4] == 1) {
+        $exists7thCourse = true;
+    }
+}
 
 
 //6. FOR EACH COURSE, GET THE TOTAL TIME BY COURSE
@@ -64,5 +76,11 @@ foreach ($resultByCourses as $keyCourse => $valueCourse) {
 //8. CLOSE THE CONNECTION
 $dbManager->close();
 //CONVERT INTO JSON OBJECT AND RETURN IT
-echo json_encode(array($resultsByCoursesFinal,$resultsByProjectsFinal),JSON_UNESCAPED_UNICODE); //for the spanish and catalan languages
+$finalResult = array(
+    "timeByCourses" => $resultsByCoursesFinal,
+    "timeByProjects" => $resultsByProjectsFinal,
+    "exists6thCourse" => $exists6thCourse,
+    "exists7thCourse" => $exists7thCourse
+);
+echo json_encode($finalResult,JSON_UNESCAPED_UNICODE); //for the spanish and catalan languages
 ?>
