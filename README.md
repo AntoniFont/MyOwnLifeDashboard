@@ -1,4 +1,7 @@
 
+Html, css, javascript, bootstrap, php, apache httpd & mysql.
+
+
 # Screenshot 1
 ![Image of the page](https://github.com/AntoniFont/MyOwnLifeDashboard/blob/main/screenshot1.png)
 # Screenshot 2
