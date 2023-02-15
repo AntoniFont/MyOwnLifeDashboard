@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="plannerJournal.DatabaseManager" %>
+<%@ page import="plannerJournal.*" %>
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
@@ -18,14 +18,6 @@
 </head>
 
 <body>
-
-<% 
-DatabaseManager db = new DatabaseManager();
-ArrayList<String> arr = db.getNicknames();
-for (int i = 0; i < arr.size(); i++) {
-    out.println(arr.get(i));
-}
-%>
     <div class="container mt-3">
         <div class="row">
             <div class="col-2"> <!-- Buttons column-->
@@ -43,82 +35,29 @@ for (int i = 0; i < arr.size(); i++) {
                 </form>
             </div>
             <div class="col-10"> <!-- Notes column-->
-
                 <div class="border border-primary "> <!-- Notes container-->
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="d-flex justify-content-center">
-                                <h1>1</h1>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="d-flex justify-content-center">
-
-                                <h1>2</h1>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="d-flex justify-content-center">
-
-                                <h1>3</h1>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="d-flex justify-content-center">
-                                <h1>4</h1>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="d-flex justify-content-center">
-                                <h1>1</h1>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="d-flex justify-content-center">
-
-                                <h1>2</h1>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="d-flex justify-content-center">
-
-                                <h1>3</h1>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="d-flex justify-content-center">
-                                <h1>4</h1>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="d-flex justify-content-center">
-                                <h1>1</h1>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="d-flex justify-content-center">
-
-                                <h1>2</h1>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="d-flex justify-content-center">
-
-                                <h1>3</h1>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="d-flex justify-content-center">
-                                <h1>4</h1>
-                            </div>
-                        </div>
-                    </div>
+                    <%
+						ArrayList<Note> arr = NoteHandler.getNotes(1);
+						int NCOL = 4;
+						float NFILFloat = ((float) arr.size()) / ((float) NCOL)  ;
+						int NFIL = (int) Math.ceil(NFILFloat);
+                        int col = 0; 
+                        int counter = 0;
+						for (int fila= 0; fila < NFIL; fila++){
+                            out.println("<div class=\"row\">");
+                            while (col < NCOL && counter < arr.size()){
+                                out.println("<div class=\"col-3\">");
+                                out.println("<div class=\"d-flex justify-content-center\">");
+                                out.println("<h3>" + arr.get(counter).getName() + "</h3>");
+                                out.println("</div>");
+                                out.println("</div>");
+                                col++;
+                                counter++;
+                            }
+                            col = 0;
+                            out.println("</div>");
+                        }
+					%>
                 </div>
             </div>
         </div>

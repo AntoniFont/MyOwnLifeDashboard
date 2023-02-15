@@ -22,39 +22,22 @@ public class DatabaseManager {
 
     }
 
-    public ArrayList<String> getNicknames() {
+    public void open() {
         // Open connection with database jdbc
         try {
             Class.forName(JDBC_DRIVER);
             connection = DriverManager.getConnection(DB_URL + DB_NAME, USER, PASSWORD);
             System.out.println("Connection to database established");
-            // SELECT EVERYTHING FROM THE TABLE users and print it out to console
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        try {
-            String sql = "SELECT * FROM user100";
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
-            ArrayList<String> nicknames = new ArrayList<String>();
-            while (rs.next()) {
-                nicknames.add(rs.getString("nickname"));
-
-            }
-            return nicknames;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    	
     }
 
     public void close() {
         try {
             connection.close();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
