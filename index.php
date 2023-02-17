@@ -83,6 +83,7 @@ if (!isset($_SESSION["loggedIn"])) {
 				</div>
 			</div>
 		</div>
+		<h1><a href='<?php echo $_SERVER["SERVER_NAME"].":9999/plannerJournal/" ?>' target="_blank">Planner Journal</a></h1>
 		<div class="row mt-3">
 			<div class="display-6 mb-3 text-center">Your notifications</div>
 			<div class="alert alert-success alert-dismissible" role="alert">
