@@ -11,27 +11,28 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-
+    <!-- Import Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 
     <meta charset="UTF-8">
     <title>Insert title here</title>
 </head>
 
 <body>
-    <div class="container mt-3">
+    <div class="container mt-3" id ="mainMenu">
         <div class="row">
             <div class="col-2"> <!-- Buttons column-->
                 <h1>Col 1</h1>
                 <form>
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Example textareaa</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" disabled></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea2" class="form-label">Example textarea</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea2" rows="1"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea2" rows="1" disabled></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" disabled>Submit</button>
                 </form>
             </div>
             <div class="col-10"> <!-- Notes column-->
@@ -48,7 +49,7 @@
                             while (col < NCOL && counter < arr.size()){
                                 out.println("<div class=\"col-3\">");
                                 out.println("<div class=\"d-flex justify-content-center\">");
-                                out.println("<h3>" + arr.get(counter).getName() + "</h3>");
+                                out.println("<a id='note" +arr.get(counter).getId()+ "'><h3>" + arr.get(counter).getName() + "</h3></a>");
                                 out.println("</div>");
                                 out.println("</div>");
                                 col++;
@@ -63,5 +64,16 @@
         </div>
     </div>
 </body>
+<!-- ADD NOTE ONCLICK HANDLERS -->
+<%
+	out.println("<script>");
+    for (int i=0; i<arr.size(); i++){
+        String noteSelector = "#note" + arr.get(i).getId();
+        String link = "verNota.jsp?id=" + arr.get(i).getId() + "&name=" + arr.get(i).getName();
+        
+        out.println("$('" + noteSelector + "').attr('href' ,'" + link +  "')");
+    }
+	out.println("</script>");
+%>
 
 </html>

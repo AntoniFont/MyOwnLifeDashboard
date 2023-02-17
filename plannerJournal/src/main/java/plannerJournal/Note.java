@@ -3,14 +3,12 @@ package plannerJournal;
 public class Note {
     private int id;
     private String name;
-    private String content;
 
 
 
-    public Note(int id, String name, String content) {
+    public Note(int id, String name) {
         this.id = id;
         this.name = name;
-        this.content = content;
     }
 
 
@@ -20,8 +18,5 @@ public class Note {
     }
     public String getName() {
         return name;
-    }
-    public String getContent() {
-        return content;
     }
 }
