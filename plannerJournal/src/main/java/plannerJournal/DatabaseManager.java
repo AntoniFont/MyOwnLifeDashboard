@@ -27,6 +27,7 @@ public class DatabaseManager {
         // Open connection with database jdbc
         try {
             Class.forName(JDBC_DRIVER);
+        	System.out.println("Hola");
             connection = DriverManager.getConnection(DB_URL + DB_NAME, USER, PASSWORD);
             System.out.println("Connection to database established");
         } catch (Exception e) {
