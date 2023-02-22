@@ -29,7 +29,7 @@
 		<div class="row">
 			<div class="col-10">
 				<!--Content-->
-				<h1 class="display-4" id ="viewName"><%=request.getParameter("name") %> </h1>
+				<h1 class="display-4" id ="viewName"><%=NoteHandler.getNoteName(Integer.parseInt(request.getParameter("id"))) %> </h1>
 				<textarea class="form-control" id="editName" style="display: none;"></textarea>
 				
 				<div class="border border-primary " id="viewContent">
@@ -42,7 +42,10 @@
 			<div class="col-2">
 				<!-- Edit button-->
 				<button type="button" class="btn btn-primary" id="editButton">Edit</button>
+				<br>
 				<a href="index.jsp"><button type="button" class="btn btn-primary">Atrás</button></a>
+				<!-- Insert decryption key textarea-->
+				<textarea class="form-control" id="decryptionKey" placeholder="Insert decryption key"></textarea>
 			</div>
 		</div>
 	</div>
@@ -74,7 +77,9 @@
 					url: "editNote.jsp",
 					type: "GET",
 					data: {
+						name: "<%=request.getParameter("name")%>",
 						noteId: <%=request.getParameter("id")%>,
+						decriptionKey: $("#decryptionKey").val(),
 						noteName: $("#editName").val(),
 						noteContent: $("#editContent").val()
 					},

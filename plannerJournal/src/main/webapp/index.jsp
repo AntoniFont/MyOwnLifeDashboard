@@ -73,8 +73,7 @@
 	out.println("<script>");
     for (int i=0; i<arr.size(); i++){
         String noteSelector = "#note" + arr.get(i).getId();
-        String link = "verNota.jsp?id=" + arr.get(i).getId() + "&name=" + arr.get(i).getName();
-        
+        String link = "verNota.jsp?id=" + arr.get(i).getId() + "&name=" + request.getParameter("name");
         out.println("$('" + noteSelector + "').attr('href' ,'" + link +  "')");
     }
 	out.println("</script>");

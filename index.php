@@ -83,7 +83,7 @@ if (!isset($_SESSION["loggedIn"])) {
 				</div>
 			</div>
 		</div>
-		<h1><a href='<?php echo $_SERVER["SERVER_NAME"].":8081/plannerJournal/index.jsp" ?>' target="_blank">Planner Journal</a></h1>
+		<h1><a id ="plannerJournalLink" href='<?php echo $_SERVER["SERVER_NAME"].":8081/plannerJournal/index.jsp" ?>' target="_blank">Planner Journal</a></h1>
 		<div class="row mt-3">
 			<div class="display-6 mb-3 text-center">Your notifications</div>
 			<div class="alert alert-success alert-dismissible" role="alert">
@@ -116,6 +116,7 @@ if (!isset($_SESSION["loggedIn"])) {
 	let name = params.get("name");
 	$("#academicLink").attr("href", $("#academicLink").attr("href") + "?name=" + name)
 	$("#keystoneHabitsLink").attr("href", $("#keystoneHabitsLink").attr("href") + "?name=" + name)
+	$("#plannerJournalLink").attr("href", $("#plannerJournalLink").attr("href") + "?name=" + name)
 	$("#welcome").text($("#welcome").text() + name + "!")
 </script>
 
