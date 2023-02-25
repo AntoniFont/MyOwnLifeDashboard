@@ -92,7 +92,7 @@
 				$("#viewName").html($("#editName").val());
 				$.ajax({
 					url: "../code/editNote.jsp",
-					type: "GET",
+					type: "POST",
 					data: {
 						noteId: <%=request.getParameter("id") %>,
 						decriptionKey: $("#decryptionKey").val(),
