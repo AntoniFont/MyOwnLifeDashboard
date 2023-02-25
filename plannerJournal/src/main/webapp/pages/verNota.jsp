@@ -41,13 +41,12 @@
 			<div class="col-10">
 				<!--Content-->
 				<h1 class="display-4" id="viewName">
-					Insert decryption key to see the name
+					<%=NoteHandler.getNoteName(Integer.parseInt(request.getParameter("id")), (String) request.getSession().getAttribute("aesKey"))%>
 				</h1>
 				<textarea class="form-control" id="editName" style="display: none;"></textarea>
 
 				<div class="border border-primary " id="viewContent">
-				<p>Introduce la clave de desencriptación</p>
-					<!--  TO BE FILLED WITH CONTENT -->
+				<%=NoteHandler.getNoteContent(Integer.parseInt(request.getParameter("id")), (String) request.getSession().getAttribute("aesKey"))%>
 				</div>
 				<!--Edit content, invisible at the start-->
 				<textarea class="form-control" id="editContent" style="display: none;"></textarea>
@@ -110,49 +109,6 @@
 
 		});
 	});
-</script>
-<!--Private key inserted logic-->
-<script>
-	//Ajax call to getNoteContent.jsp with the parameter id and privateKey from the textarea decryptionKeyTextArea
-	$("#reloadButton").click(getData);
-	$("#reloadButton").click(getName);
-	function getData() {
-		if ($("#decryptionKeyTextArea").val() != "") {
-			$.ajax({
-				url: "../code/getNoteContent.jsp",
-				type: "GET",
-				data: {
-					id: <%=request.getParameter("id") %>,
-					privateKey: $("#decryptionKeyTextArea").val()
-				},
-				success: function (data) {
-					$("#viewContent").html(data);
-				},
-				error: function (data) {
-					$("#viewContent").html("<p>Error al obtener el contenido de la nota, probablemente privateKey inválida</p>")
-				}
-			});
-		}
-	}
-	
-	function getName(){
-		if ($("#decryptionKeyTextArea").val() != "") {
-			$.ajax({
-				url: "../code/getNoteName.jsp",
-				type: "GET",
-				data: {
-					id: <%=request.getParameter("id") %>,
-				},
-				success: function (data) {
-					console.log("Obtenido el nombre: " + data);
-					$("#viewName").html(data);
-				},
-				error: function (data) {
-					$("#viewName").html("<p>Error al obtener el texto de la nota, probablemente privateKey inválida</p>")
-				}
-			});
-		}
-	}
 </script>
 
 </html>
