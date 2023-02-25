@@ -6,19 +6,21 @@ import java.util.ArrayList;
 
 public class NoteHandler {
 
-    public static ArrayList<Note> getNotes(int userID) {
+    public static ArrayList<Note> getNotes(String username, String privateKeyString) {
         DatabaseManager db = new DatabaseManager();
         db.open();
 
         try {
-            // String sql = "SELECT id,name,content FROM note100 WHERE userID=?";
-            String sql = "SELECT id,name FROM note100";
+        	User user = UserHandler.getUserFromUsername(username);
+            String sql = "SELECT id,name FROM note100 WHERE userID=?";
             PreparedStatement stmt = db.connection.prepareStatement(sql);
-            // stmt.setInt(1,userID);
+            stmt.setInt(1,user.getId());
             ArrayList<Note> notes = new ArrayList<Note>();
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                notes.add(new Note(rs.getInt("id"), rs.getString("name")));
+            	String name = rs.getString("name");
+            	name = EncryptionHandler.decryptMessage(name, privateKeyString);
+                notes.add(new Note(rs.getInt("id"), name ));
             }
             db.close();
             return notes;
@@ -29,7 +31,7 @@ public class NoteHandler {
         }
     }
 
-    public static String getNoteName(int id) {
+    public static String getNoteName(int id, String privateKey) {
         DatabaseManager db = new DatabaseManager();
         db.open();
         String result = "";
@@ -42,6 +44,7 @@ public class NoteHandler {
                 result = rs.getString("name");
             }
             db.close();
+            result = EncryptionHandler.decryptMessage(result, privateKey);
             return result;
         } catch (Exception e) {
             db.close();
@@ -50,11 +53,12 @@ public class NoteHandler {
         }
     }
 
-    public static String getNoteContent(int id) {
+    public static String getNoteContent(int id, String privateKey) {
         DatabaseManager db = new DatabaseManager();
         db.open();
         String result = "";
         try {
+        	//Get the content
             String sql = "SELECT content FROM note100 where id=? ";
             PreparedStatement stmt = db.connection.prepareStatement(sql);
             stmt.setInt(1, id);
@@ -63,11 +67,34 @@ public class NoteHandler {
                 result = rs.getString("content");
             }
             db.close();
+            //Decrypt the content
+            result = EncryptionHandler.decryptMessage(result, privateKey);
             return result;
         } catch (Exception e) {
             db.close();
             e.printStackTrace();
             return "error al encontrar el contenido";
+        }
+    }
+
+    public static String getNoteUserID(int id){
+        DatabaseManager db = new DatabaseManager();
+        db.open();
+        String result = "";
+        try {
+            String sql = "SELECT userID FROM note100 where id=? ";
+            PreparedStatement stmt = db.connection.prepareStatement(sql);
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                result = rs.getString("userID");
+            }
+            db.close();
+            return result;
+        } catch (Exception e) {
+            db.close();
+            e.printStackTrace();
+            return "error al encontrar el usuario";
         }
     }
 
@@ -77,6 +104,7 @@ public class NoteHandler {
         try {
             // Encrypt content
             content = EncryptionHandler.encryptMessage(content, user);
+            name = EncryptionHandler.encryptMessage(name, user);
             // Update note
             String sql = "UPDATE note100 SET name=?, content=? WHERE id=? AND userID=?";
             PreparedStatement stmt = db.connection.prepareStatement(sql);

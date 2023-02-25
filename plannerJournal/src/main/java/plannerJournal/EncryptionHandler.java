@@ -18,6 +18,7 @@ import java.util.Base64;
 
 import javax.crypto.Cipher;
 
+//https://www.cesarsotovalero.net/blog/encoding-encryption-hashing-and-obfuscation-in-java.html
 public class EncryptionHandler {
 
 	/*
@@ -40,12 +41,12 @@ public class EncryptionHandler {
 		return Base64.getEncoder().encodeToString(encryptedMessageBytes);
 	}
 
-	/*public static String decryptMessage(String encryptedMessage, File privateKeyFile) throws Exception {
+	public static String decryptMessage(String encryptedMessage, String privateKeyString) throws Exception {
 		Cipher decryptCipher = Cipher.getInstance("RSA");
-		decryptCipher.init(Cipher.DECRYPT_MODE, createRSAPrivateKeyObject(privateKeyFile));
+		decryptCipher.init(Cipher.DECRYPT_MODE, createRSAPrivateKeyObject(privateKeyString));
 		byte[] decryptedMessageBytes = decryptCipher.doFinal(Base64.getDecoder().decode(encryptedMessage));
 		return new String(decryptedMessageBytes, StandardCharsets.UTF_8);
-	}*/
+	}
 
 	// PRIVATE
 	private static PublicKey getRSAPublicKey(User user) throws Exception {

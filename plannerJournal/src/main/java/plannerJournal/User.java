@@ -19,4 +19,8 @@ public class User {
         return Integer.parseInt(id);
     }
 
+    public String getName() {
+        return name;
+    }
+
 }

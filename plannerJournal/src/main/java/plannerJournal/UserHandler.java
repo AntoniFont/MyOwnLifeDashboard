@@ -47,4 +47,35 @@ public class UserHandler{
         }
     }
 
+    public static boolean existsUser(String username){
+        if(getUserFromUsername(username) == null){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public static String getHash(int id){
+        DatabaseManager db = new DatabaseManager();
+        db.open();
+        String hash = "";
+        try {
+            String sql = "SELECT password FROM user100 WHERE id=?";
+            PreparedStatement stmt = db.connection.prepareStatement(sql);
+            stmt.setInt(1,id);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                hash = rs.getString("password");
+            }
+            db.close();
+            return hash;
+        } catch (Exception e) {
+            db.close();
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
 }
