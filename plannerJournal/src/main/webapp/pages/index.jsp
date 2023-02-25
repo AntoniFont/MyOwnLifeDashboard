@@ -57,7 +57,6 @@
             method: "POST",
             data:{
                 user: "<%= (String) request.getSession().getAttribute("user") %>",
-                privateKey: $("#decryptionKeyTextArea").val()
             },
             success: function(data){
                 $("#notesContainer").html(data);

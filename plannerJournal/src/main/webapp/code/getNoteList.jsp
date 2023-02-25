@@ -4,10 +4,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.net.URLDecoder" %>
 <%
-//URL decode the private key
-//String privateKey = URLDecoder.decode(request.getParameter("privateKey"),"UTF-8" );
-String privateKey = request.getParameter("privateKey");
-ArrayList<Note> arr = NoteHandler.getNotes((String) request.getSession().getAttribute("user"),privateKey);
+ArrayList<Note> arr = NoteHandler.getNotes((String) request.getSession().getAttribute("user"),(String) request.getSession().getAttribute("aesKey"));
 int NCOL = 4;
 float NFILFloat = ((float) arr.size()) / ((float) NCOL);
 int NFIL = (int) Math.ceil(NFILFloat);
@@ -27,6 +24,7 @@ for (int fila = 0; fila < NFIL; fila++) {
 	col = 0;
 	out.println("</div>");
 }
+
 %>
 <!-- ADD NOTES ON CLICK HANDLERS -->
 <%

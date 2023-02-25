@@ -20,6 +20,7 @@
     <input type="password" name="password2" id="password2">
     <input type="submit" value="Register">
 </form>
+<p>Since this page is for personal use is not secured, don't use your real password, create one for this page (You should be using a different password for every site anyways)</p>
 <script>
     $(document).ready(function(){
         //Print the error message from the parameter

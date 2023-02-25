@@ -10,12 +10,12 @@ public class UserHandler{
         db.open();
         User user = null;
         try {
-            String sql = "SELECT id,name,publicKey FROM user100 WHERE id=?";
+            String sql = "SELECT id,name FROM user100 WHERE id=?";
             PreparedStatement stmt = db.connection.prepareStatement(sql);
             stmt.setInt(1,id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getString("id"),rs.getString("name"),rs.getString("publicKey"));
+                user = new User(rs.getString("id"),rs.getString("name"));
             }
             db.close();
             return user;
@@ -31,12 +31,12 @@ public class UserHandler{
         db.open();
         User user = null;
         try {
-            String sql = "SELECT id,nickname,publicKey FROM user100 WHERE nickname=?";
+            String sql = "SELECT id,nickname FROM user100 WHERE nickname=?";
             PreparedStatement stmt = db.connection.prepareStatement(sql);
             stmt.setString(1,username);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getString("id"),rs.getString("nickname"),rs.getString("publicKey"));
+                user = new User(rs.getString("id"),rs.getString("nickname"));
             }
             db.close();
             return user;

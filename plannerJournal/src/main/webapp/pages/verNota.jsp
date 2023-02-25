@@ -57,10 +57,6 @@
 				<button type="button" class="btn btn-primary" id="editButton">Edit</button>
 				<button type="button" class="btn btn-primary" id="reloadButton">Reload</button>
 				<a href="index.jsp"><button type="button" class="btn btn-primary">Atrás</button></a>
-				<form action="">
-				<input type="password" name="password" id="decryptionKeyTextArea" placeholder="Insert decryption key" autocomplete="on">
-				<input type="submit" value="Guardar key en el navegador">
-				</form>
 				<!--Reload button-->
 			</div>
 		</div>
@@ -118,9 +114,7 @@
 <!--Private key inserted logic-->
 <script>
 	//Ajax call to getNoteContent.jsp with the parameter id and privateKey from the textarea decryptionKeyTextArea
-	$("#decryptionKeyTextArea").keyup(getData);
 	$("#reloadButton").click(getData);
-	$("#decryptionKeyTextArea").keyup(getName);
 	$("#reloadButton").click(getName);
 	function getData() {
 		if ($("#decryptionKeyTextArea").val() != "") {
@@ -148,7 +142,6 @@
 				type: "GET",
 				data: {
 					id: <%=request.getParameter("id") %>,
-					privateKey: $("#decryptionKeyTextArea").val()
 				},
 				success: function (data) {
 					console.log("Obtenido el nombre: " + data);

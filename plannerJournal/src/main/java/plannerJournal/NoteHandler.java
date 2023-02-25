@@ -19,7 +19,7 @@ public class NoteHandler {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
             	String name = rs.getString("name");
-            	name = EncryptionHandler.decryptMessage(name, privateKeyString);
+            	name = EncryptionHandler.decrypt(name, privateKeyString);
                 notes.add(new Note(rs.getInt("id"), name ));
             }
             db.close();
@@ -44,7 +44,7 @@ public class NoteHandler {
                 result = rs.getString("name");
             }
             db.close();
-            result = EncryptionHandler.decryptMessage(result, privateKey);
+            result = EncryptionHandler.decrypt(result, privateKey);
             return result;
         } catch (Exception e) {
             db.close();
@@ -68,7 +68,7 @@ public class NoteHandler {
             }
             db.close();
             //Decrypt the content
-            result = EncryptionHandler.decryptMessage(result, privateKey);
+            result = EncryptionHandler.decrypt(result, privateKey);
             return result;
         } catch (Exception e) {
             db.close();
@@ -98,13 +98,13 @@ public class NoteHandler {
         }
     }
 
-    public static void editNote(int id, String name, String content, User user) {
+    public static void editNote(int id, String name, String content, User user,String privateKey) {
         DatabaseManager db = new DatabaseManager();
         db.open();
         try {
             // Encrypt content
-            content = EncryptionHandler.encryptMessage(content, user);
-            name = EncryptionHandler.encryptMessage(name, user);
+            content = EncryptionHandler.encrypt(content, privateKey);
+            name = EncryptionHandler.encrypt(name, privateKey);
             // Update note
             String sql = "UPDATE note100 SET name=?, content=? WHERE id=? AND userID=?";
             PreparedStatement stmt = db.connection.prepareStatement(sql);
