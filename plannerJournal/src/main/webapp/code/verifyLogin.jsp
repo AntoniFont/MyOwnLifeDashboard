@@ -19,7 +19,7 @@
             AT LEAST I'M DETECTING THAT THIS IS NOT SECURE, WHICH IS A GOOD FIRST
             STEP.
             */
-            session.setAttribute("aesKey", password);
+            request.getSession().setAttribute("aesKey", password);
             response.sendRedirect("../pages/index.jsp");
         }else{
             response.sendRedirect("../pages/login.jsp?error=Wrong password");
