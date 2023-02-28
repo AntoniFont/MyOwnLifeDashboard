@@ -75,7 +75,6 @@ public class EncryptionHandler {
 			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
 			cipher.init(Cipher.DECRYPT_MODE, secretKey, ivspec);
 			/* Retruns decrypted value. */
-			System.out.println(strToDecrypt);
 			return new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt)));
 		} catch (InvalidAlgorithmParameterException | InvalidKeyException | NoSuchAlgorithmException
 				| InvalidKeySpecException | BadPaddingException | IllegalBlockSizeException

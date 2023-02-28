@@ -3,17 +3,23 @@
 <%@ page import="java.util.ArrayList" %>
 <%
 	String sessionUser = (String) request.getSession().getAttribute("user");
-
+    int id = Integer.parseInt(request.getParameter("id"));
+    User user = UserHandler.getUserFromUsername(sessionUser);	
+	int userID = user.getId();
+	String groupCodeName = (String) request.getSession().getAttribute("groupCodeName");
     if (sessionUser == null) {
         response.sendRedirect("login.jsp");
 		return;
     }else{
-    	User user = UserHandler.getUserFromUsername(sessionUser);	
-    	int id = Integer.parseInt(request.getParameter("id"));
-    	if(Integer.parseInt(NoteHandler.getNoteUserID(id)) != user.getId()){
+    	if(Integer.parseInt(NoteHandler.getNoteUserID(id)) != userID ){
     		response.sendRedirect("index.jsp");
 			return;
 		}
+    }
+    
+    if(!NoteHandler.noteBelongsToGroup(id, groupCodeName , userID)){
+		response.sendRedirect("index.jsp");
+		return;
     }
 	%>
 

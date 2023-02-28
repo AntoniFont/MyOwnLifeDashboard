@@ -4,7 +4,9 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.net.URLDecoder" %>
 <%
-ArrayList<Note> arr = NoteHandler.getNotes((String) request.getSession().getAttribute("user"),(String) request.getSession().getAttribute("aesKey"));
+String groupCodeName = (String) request.getParameter("groupCodeName");
+request.getSession().setAttribute("groupCodeName",EncryptionHandler.encrypt(groupCodeName, (String) request.getSession().getAttribute("aesKey")));
+ArrayList<Note> arr = NoteHandler.getNotes((String) request.getSession().getAttribute("user"),(String) request.getSession().getAttribute("aesKey"),(String) request.getSession().getAttribute("groupCodeName"));
 int NCOL = 4;
 float NFILFloat = ((float) arr.size()) / ((float) NCOL);
 int NFIL = (int) Math.ceil(NFILFloat);

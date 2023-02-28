@@ -6,10 +6,9 @@ import java.util.ArrayList;
 
 public class NoteHandler {
 
-    public static ArrayList<Note> getNotes(String username, String privateKeyString) {
+    public static ArrayList<Note> getNotes(String username, String privateKeyString, String groupCodeName) {
         DatabaseManager db = new DatabaseManager();
         db.open();
-
         try {
         	User user = UserHandler.getUserFromUsername(username);
             String sql = "SELECT id,name FROM note100 WHERE userID=?";
@@ -18,9 +17,13 @@ public class NoteHandler {
             ArrayList<Note> notes = new ArrayList<Note>();
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-            	String name = rs.getString("name");
-            	name = EncryptionHandler.decrypt(name, privateKeyString);
-                notes.add(new Note(rs.getInt("id"), name ));
+            	//Only add the note if it belongs to the group.
+                int id = rs.getInt("id");
+                if(noteBelongsToGroup(id, groupCodeName, user.getId() )){
+                    String name = rs.getString("name");
+                    name = EncryptionHandler.decrypt(name, privateKeyString);
+                    notes.add(new Note(rs.getInt("id"), name ));
+                }
             }
             db.close();
             return notes;
@@ -28,6 +31,34 @@ public class NoteHandler {
             db.close();
             e.printStackTrace();
             return null;
+        }
+    }
+    
+    public static boolean noteBelongsToGroup(int noteID, String groupCodeName, int userID){                          
+        //First get the groupID
+        int groupID = NotegroupHandler.getNoteGroupIDFromCodeName(groupCodeName, userID);
+        if(groupID == -1){
+            return false;
+        }
+        //Check if the note belongs to the group
+        DatabaseManager db = new DatabaseManager();
+        db.open();
+        try {
+            String sql = "SELECT id FROM note_notegroup WHERE noteID=? AND notegroupID=?";
+            PreparedStatement stmt = db.connection.prepareStatement(sql);
+            stmt.setInt(1, noteID);
+            stmt.setInt(2, groupID);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                db.close();
+                return true;
+            }
+            db.close();
+            return false;
+        } catch (Exception e) {
+            db.close();
+            e.printStackTrace();
+            return false;
         }
     }
 
@@ -112,13 +143,55 @@ public class NoteHandler {
             stmt.setString(2, content);
             stmt.setInt(3, id);
             stmt.setInt(4, user.getId());
-            System.out.println(stmt.toString());
             stmt.executeUpdate();
             db.close();
         } catch (Exception e) {
             db.close();
             e.printStackTrace();
         }
+    }
+
+    public static void newEmptyNote(String username, String privateKey,String groupCodeName){
+        DatabaseManager db = new DatabaseManager();
+        db.open();
+        User user = UserHandler.getUserFromUsername(username);
+        int noteID = -1;
+        try {
+            String sql = "INSERT INTO note100 (name, content, userID) VALUES (?,?,?)";
+            PreparedStatement stmt = db.connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, EncryptionHandler.encrypt("Nueva nota", privateKey));
+            stmt.setString(2, EncryptionHandler.encrypt("", privateKey));
+            stmt.setInt(3, user.getId());
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()){
+                noteID = rs.getInt(1);
+            }
+            db.close();
+        } catch (Exception e) {
+            db.close();
+            e.printStackTrace();
+        }
+        //Get the groupID
+        int groupID = NotegroupHandler.getNoteGroupIDFromCodeName(groupCodeName, user.getId());
+        if(groupID == -1 || noteID == -1){
+            return;
+        }
+        //Add the note to the group
+        db.open();
+        try {
+            String sql = "INSERT INTO note_notegroup (noteID, notegroupID) VALUES (?,?)";
+            PreparedStatement stmt = db.connection.prepareStatement(sql);
+            stmt.setInt(1, noteID);
+            stmt.setInt(2, groupID);
+            System.out.println(stmt);
+            stmt.executeUpdate();
+            db.close();
+        } catch (Exception e) {
+            db.close();
+            e.printStackTrace();
+        }
+
     }
 
 }
