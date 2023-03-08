@@ -28,7 +28,10 @@ public class DatabaseManager {
         try {
             Class.forName(JDBC_DRIVER);
             connection = DriverManager.getConnection(DB_URL + DB_NAME, USER, PASSWORD);
-            System.out.println("Connection to database established");
+            StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
+            StackTraceElement caller = stackTraceElements[2]; 
+            System.out.println("[debug] Database opened by " + caller.getClassName() + "." + caller.getMethodName() + "()");
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
