@@ -111,21 +111,34 @@ noteName = NoteHandler.getNoteName(Integer.parseInt(request.getParameter("id")),
 								setTimeout(function () {
 									$("[role=application]").hide();
 								}, 1500);
-										
-								$("#togglehtmeditor").click(function () {
+								function swapEdit() {	
 									if(editMode == false){ //you where not editing
+										//editor
 										$("[role=application]").show();
 										$("#viewContent").hide();
 										tinymce.activeEditor.setContent($("#viewContent").html());										
+										//name
+										$("#viewName").hide();
+										$("#editName").show();
+										$("#editName").val($.trim($("#viewName").html()));
 									}else{ //you where editing
+										//editor
 										$("[role=application]").hide();
 										$("#viewContent").html(tinymce.activeEditor.getContent())
 										$("#viewContent").show()
+										//name
+										$("#viewName").show();
+										$("#editName").hide();
+										$("#viewName").html($("#editName").val());
 									}
 									editMode = !editMode;
-								});
+								}
+								
+								$("#togglehtmeditor").click(swapEdit);
 								//save button on click
 								$("#saveButton").click(function () {
+									swapEdit(); 
+									swapEdit();
 									$.ajax({
 										url: "../code/editNote.jsp",
 										type: "POST",
@@ -133,7 +146,7 @@ noteName = NoteHandler.getNoteName(Integer.parseInt(request.getParameter("id")),
 											noteId: <%=request.getParameter("id")%>,
 											decriptionKey: $("#decryptionKey").val(),
 											noteName: $("#editName").val(),
-											noteContent: $("#editContent").val(),
+											noteContent: $("#viewContent").html(),
 											isFixed:  $("#fixedNote").is(":checked")
 										},
 										success: function (data) {

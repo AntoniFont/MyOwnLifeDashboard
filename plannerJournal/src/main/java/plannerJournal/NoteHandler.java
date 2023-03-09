@@ -3,6 +3,7 @@ package plannerJournal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class NoteHandler {
 
@@ -11,20 +12,18 @@ public class NoteHandler {
 		db.open();
 		try {
 			User user = UserHandler.getUserFromUsername(username);
-			String sql = "SELECT id,name FROM note100 WHERE userID=?";
+			String sql = "SELECT id,name,isFixed FROM note100 WHERE userID=? ORDER BY isFixed DESC, lastUpdate DESC ";
 			PreparedStatement stmt = db.connection.prepareStatement(sql);
 			stmt.setInt(1, user.getId());
 			ArrayList<Note> notes = new ArrayList<Note>();
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				// Only add the note if it belongs to the group.
-				int id = rs.getInt("id");
-				if (noteBelongsToGroup(id, groupCodeName, user.getId())) {
-					String name = rs.getString("name");
-					name = EncryptionHandler.decrypt(name, privateKeyString);
-					notes.add(new Note(rs.getInt("id"), name));
-				}
+				String name = rs.getString("name");
+				name = EncryptionHandler.decrypt(name, privateKeyString);
+				notes.add(new Note(rs.getInt("id"), name,rs.getBoolean("isFixed")));
 			}
+			//filter out the notes that dont belong to the group
+			notes = filterNotesThatDontBelongToGroup(groupCodeName, notes, user.getId());
 			db.close();
 			return notes;
 		} catch (Exception e) {
@@ -33,6 +32,46 @@ public class NoteHandler {
 			return null;
 		}
 	}
+	
+	//It removes from the arraylist the notes that dont belong to a group
+	//Using over and over the method noteBelongsToGroup was slow, so I switched to
+	//this function that only conects to the database once,
+	public static ArrayList<Note> filterNotesThatDontBelongToGroup(String groupCodeName, ArrayList<Note> notas, int userID){
+		int groupID = NotegroupHandler.getNoteGroupIDFromCodeName(groupCodeName, userID);
+		if (groupID == -1) {
+			return new ArrayList<Note>();
+		}
+		DatabaseManager db = new DatabaseManager();
+		db.open();
+		try {
+			String sql = "SELECT noteID FROM note_notegroup WHERE notegroupID=?";
+			PreparedStatement stmt = db.connection.prepareStatement(sql);
+			stmt.setInt(1, groupID);
+			ResultSet rs = stmt.executeQuery();
+			//get all the noteIDs that belong to the group
+			ArrayList<Integer> noteIDs = new ArrayList<Integer>();
+			while (rs.next()) {
+				noteIDs.add(rs.getInt("noteID"));
+			}
+			//remove from the arraylist the notes that dont belong to the group
+			Iterator<Note> it = notas.iterator();
+			while(it.hasNext()){
+				Note n = it.next();
+				if(!noteIDs.contains(n.getId())){
+					it.remove();
+				}
+			}
+			db.close();
+			return notas;
+		}
+		catch(Exception e ) {
+			db.close();
+			e.printStackTrace();
+			return new ArrayList<Note>();
+		}
+		
+	}
+	
 
 	public static boolean noteBelongsToGroup(int noteID, String groupCodeName, int userID) {
 		// First get the groupID
@@ -129,7 +168,7 @@ public class NoteHandler {
 		}
 	}
 
-	public static void editNote(int id, String name, String content, User user, String privateKey,String isFixed) {
+	public static void editNote(int id, String name, String content, User user, String privateKey,String isFixed) throws Exception{
 		DatabaseManager db = new DatabaseManager();
 		db.open();
 		try {
@@ -137,14 +176,13 @@ public class NoteHandler {
 			content = EncryptionHandler.encrypt(content, privateKey);
 			name = EncryptionHandler.encrypt(name, privateKey);
 			// Update note
-			String sql = "UPDATE note100 SET name=?, content=?, isFixed=? WHERE id=? AND userID=?";
+			String sql = "UPDATE note100 SET name=?, content=?, isFixed=?, lastUpdate=LOCALTIME() WHERE id=? AND userID=?";
 			PreparedStatement stmt = db.connection.prepareStatement(sql);
 			stmt.setString(1, name);
 			stmt.setString(2, content);
-			System.out.println("isFixed: " + isFixed);
 			if(isFixed.equals("true")) {
 				stmt.setBoolean(3, true);
-			}else if(isFixed.equals("true")) {
+			}else if(isFixed.equals("false")) {
 				stmt.setBoolean(3, false);
 			}
 			stmt.setInt(4, id);
@@ -163,7 +201,7 @@ public class NoteHandler {
 		User user = UserHandler.getUserFromUsername(username);
 		int noteID = -1;
 		try {
-			String sql = "INSERT INTO note100 (name, content, userID) VALUES (?,?,?)";
+			String sql = "INSERT INTO note100 (name, content, userID, isFixed, lastUpdate) VALUES (?,?,?,false,NOW())";
 			PreparedStatement stmt = db.connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, EncryptionHandler.encrypt("Nueva nota", privateKey));
 			stmt.setString(2, EncryptionHandler.encrypt("", privateKey));

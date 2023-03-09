@@ -35,6 +35,11 @@
                             <button type="button" class="btn btn-primary" id="newNoteButton" style="display: none;">New
                                 note</button>
                         </div>
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-primary" id="newGroupButton">New group</button>
+                            <input type="text" placeholder="Group Name" id="newGroupText"
+                                autocomplete="off">
+                        </div>
                     </div>
                     <div class="col-10"> <!-- Notes column-->
                         <div class="border border-primary" id="notesContainer"> <!-- Notes container-->
@@ -45,8 +50,8 @@
             </div>
         </body>
 
-        <!--When reload is clicked make an ajax call to ../code/getNoteList.jsp with the parameters user and privateKey from the input with id decryptionKeyTextArea -->
         <script>
+        $(document).ready(function () {
             $("#reloadButton").click(getList);
             function getList() {
                 $.ajax({
@@ -71,6 +76,25 @@
                     }
                 })
             })
+            $("#newGroupButton").click(function(){
+                $.ajax({
+                    url: "../code/newGroup.jsp",
+                    method: "POST",
+                    data: {
+                        groupCodeName: $("#newGroupText").val()
+                    },
+                    success: function(data){
+                    	$("#newGroupText").val("");
+                        alert("New group created!, search it to see it")
+                    },
+                    error: function (data) {
+						alert("Error creating new group")
+					}
+
+                })
+            });
+        });
+        
         </script>
 
         </html>
