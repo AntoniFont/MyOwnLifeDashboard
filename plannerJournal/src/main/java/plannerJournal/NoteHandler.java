@@ -100,50 +100,30 @@ public class NoteHandler {
 			return false;
 		}
 	}
-
-	public static String getNoteName(int id, String privateKey) {
+	
+	public static Note getNote(int id, String privateKey){
 		DatabaseManager db = new DatabaseManager();
 		db.open();
-		String result = "";
 		try {
-			String sql = "SELECT name FROM note100 where id=? ";
+			String sql = "SELECT name,isFixed,content FROM note100 WHERE id=?";
 			PreparedStatement stmt = db.connection.prepareStatement(sql);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				result = rs.getString("name");
+				String name = rs.getString("name");
+				String content = rs.getString("content");
+				name = EncryptionHandler.decrypt(name, privateKey);
+				content = EncryptionHandler.decrypt(content, privateKey);
+				Note n = new Note (id, name, rs.getBoolean("isFixed"),content);
+				db.close();
+				return n;
 			}
 			db.close();
-			result = EncryptionHandler.decrypt(result, privateKey);
-			return result;
+			return null;
 		} catch (Exception e) {
 			db.close();
 			e.printStackTrace();
-			return "error al encontrar el nombre";
-		}
-	}
-
-	public static String getNoteContent(int id, String privateKey) {
-		DatabaseManager db = new DatabaseManager();
-		db.open();
-		String result = "";
-		try {
-			// Get the content
-			String sql = "SELECT content FROM note100 where id=? ";
-			PreparedStatement stmt = db.connection.prepareStatement(sql);
-			stmt.setInt(1, id);
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				result = rs.getString("content");
-			}
-			db.close();
-			// Decrypt the content
-			result = EncryptionHandler.decrypt(result, privateKey);
-			return result;
-		} catch (Exception e) {
-			db.close();
-			e.printStackTrace();
-			return "error al encontrar el contenido";
+			return null;
 		}
 	}
 

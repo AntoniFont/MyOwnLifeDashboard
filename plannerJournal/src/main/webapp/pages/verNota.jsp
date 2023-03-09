@@ -23,10 +23,9 @@ if (!NoteHandler.noteBelongsToGroup(id, groupCodeName, userID)) {
 }
 %>
 
-<%!String noteName;%>
+<%!Note note;%>
 <%
-noteName = NoteHandler.getNoteName(Integer.parseInt(request.getParameter("id")),
-		(String) request.getSession().getAttribute("aesKey"));
+note = NoteHandler.getNote(Integer.parseInt(request.getParameter("id")), (String) request.getSession().getAttribute("aesKey"));
 %>
 
 <!DOCTYPE html>
@@ -52,7 +51,7 @@ noteName = NoteHandler.getNoteName(Integer.parseInt(request.getParameter("id")),
 	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
 	crossorigin="anonymous"></script>
 <meta charset="UTF-8">
-<title><%=noteName%></title>
+<title><%=note.getName()%></title>
 </head>
 
 <body>
@@ -61,14 +60,13 @@ noteName = NoteHandler.getNoteName(Integer.parseInt(request.getParameter("id")),
 			<div class="col-10">
 				<!--Content-->
 				<h1 class="display-4" id="viewName">
-					<%=noteName%>
+					<%=note.getName()%>
 				</h1>
 				<textarea class="form-control" id="editName" style="display: none;"></textarea>
 
 				<div class="border border-primary style="margin: 20px;">
 					<div " id="viewContent">
-						<%=NoteHandler.getNoteContent(Integer.parseInt(request.getParameter("id")),
-		(String) request.getSession().getAttribute("aesKey"))%>
+						<%=note.getContent()%>
 					</div>
 				</div>
 				<!--Edit content, invisible at the start-->
@@ -85,9 +83,16 @@ noteName = NoteHandler.getNoteName(Integer.parseInt(request.getParameter("id")),
 						class="btn btn-primary">Atrás</button></a>
 				<!--A checkbox that displays if the note is fixed or not-->
 				<div class="form-check">
-					<input class="form-check-input" type="checkbox" value=""
-						id="fixedNote"> <label class="form-check-label"
-						for="fixedNote"> Fixed </label>
+					<%
+						if(note.isFixed()){
+							out.println("<input class='form-check-input' type='checkbox' id='fixedNote' checked>");
+						}else{
+							out.println("<input class='form-check-input' type='checkbox' id='fixedNote'>");
+						}					
+					%>
+				
+					 
+					<label class="form-check-label" for="fixedNote"> Fixed </label>
 				</div>
 
 			</div>
