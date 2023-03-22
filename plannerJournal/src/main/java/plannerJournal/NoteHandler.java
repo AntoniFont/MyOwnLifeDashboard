@@ -172,6 +172,7 @@ public class NoteHandler {
 		} catch (Exception e) {
 			db.close();
 			e.printStackTrace();
+			throw e; //So the user receives a "error" message.
 		}
 	}
 
