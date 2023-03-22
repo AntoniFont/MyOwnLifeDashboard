@@ -3,15 +3,18 @@
 <%@ page import="plannerJournal.*"%>
 <%@ page import="java.util.ArrayList"%>
 <%
+int id,userID;
+User user;
+String groupCodeName;
 String sessionUser = (String) request.getSession().getAttribute("user");
-int id = Integer.parseInt(request.getParameter("id"));
-User user = UserHandler.getUserFromUsername(sessionUser);
-int userID = user.getId();
-String groupCodeName = (String) request.getSession().getAttribute("groupCodeName");
 if (sessionUser == null) {
 	response.sendRedirect("login.jsp");
 	return;
 } else {
+	id = Integer.parseInt(request.getParameter("id"));
+	user = UserHandler.getUserFromUsername(sessionUser);
+    userID = user.getId();
+	groupCodeName = (String) request.getSession().getAttribute("groupCodeName");
 	if (Integer.parseInt(NoteHandler.getNoteUserID(id)) != userID) {
 		response.sendRedirect("index.jsp");
 		return;
