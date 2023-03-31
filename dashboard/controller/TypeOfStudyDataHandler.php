@@ -1,0 +1,33 @@
+<?php
+
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/DatabaseManager.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/TypeOfStudyData.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/Handler.php");
+
+class TypeOfStudyDataHandler extends Handler
+{
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function getTypesOfStudyData()
+    {
+        $sql = "select typeStudyDataID,name,description from typesstudydata100 ";
+        $typesStudyDataQuerys = $this->dbManager->query($sql, []);
+        $this->dbManager->close();
+        $typesStudyData = array();
+        $i = 0;
+        foreach ($typesStudyDataQuerys as $typeStudyDataQuery) {
+            $typesStudyData[$i] = new TypeOfStudyData(
+                $typeStudyDataQuery[0],
+                $typeStudyDataQuery[1],
+                $typeStudyDataQuery[2]
+            );
+            $i++;
+        }
+        return $typesStudyData;
+    }
+}
+
+?>
