@@ -1,8 +1,14 @@
 <?php
+/*
+31-03-2023
+Note to future self. This code should be refactored to be more readable and maintainable.
+It should follow the MVC pattern as the rest of the code does.
+-->
+*/
 //0. CONSTANTS
 $DAYS_DISPLAYED = 14; 
 //1. IMPORTS 
-require dirname(__DIR__, 3)."/DatabaseManager.php";
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/DatabaseManager.php");
 //2. CONNECT TO THE DB
 $dbManager = new DatabaseManager();
 ///3. FIRST QUERY 
