@@ -11,7 +11,7 @@ public class UserHandler{
         User user = null;
         try {
             String sql = "SELECT id,name FROM user100 WHERE id=?";
-            PreparedStatement stmt = db.connection.prepareStatement(sql);
+            PreparedStatement stmt = db.prepareStatement(sql);
             stmt.setInt(1,id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -32,7 +32,7 @@ public class UserHandler{
         User user = null;
         try {
             String sql = "SELECT id,nickname FROM user100 WHERE nickname=?";
-            PreparedStatement stmt = db.connection.prepareStatement(sql);
+            PreparedStatement stmt = db.prepareStatement(sql);
             stmt.setString(1,username);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -61,7 +61,7 @@ public class UserHandler{
         String hash = "";
         try {
             String sql = "SELECT password FROM user100 WHERE id=?";
-            PreparedStatement stmt = db.connection.prepareStatement(sql);
+            PreparedStatement stmt = db.prepareStatement(sql);
             stmt.setInt(1,id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {

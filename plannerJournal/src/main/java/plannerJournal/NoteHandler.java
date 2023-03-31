@@ -13,7 +13,7 @@ public class NoteHandler {
 		try {
 			User user = UserHandler.getUserFromUsername(username);
 			String sql = "SELECT id,name,isFixed FROM note100 WHERE userID=? ORDER BY isFixed DESC, lastUpdate DESC ";
-			PreparedStatement stmt = db.connection.prepareStatement(sql);
+			PreparedStatement stmt = db.prepareStatement(sql);
 			stmt.setInt(1, user.getId());
 			ArrayList<Note> notes = new ArrayList<Note>();
 			ResultSet rs = stmt.executeQuery();
@@ -45,7 +45,7 @@ public class NoteHandler {
 		db.open();
 		try {
 			String sql = "SELECT noteID FROM note_notegroup WHERE notegroupID=?";
-			PreparedStatement stmt = db.connection.prepareStatement(sql);
+			PreparedStatement stmt = db.prepareStatement(sql);
 			stmt.setInt(1, groupID);
 			ResultSet rs = stmt.executeQuery();
 			//get all the noteIDs that belong to the group
@@ -84,7 +84,7 @@ public class NoteHandler {
 		db.open();
 		try {
 			String sql = "SELECT id FROM note_notegroup WHERE noteID=? AND notegroupID=?";
-			PreparedStatement stmt = db.connection.prepareStatement(sql);
+			PreparedStatement stmt = db.prepareStatement(sql);
 			stmt.setInt(1, noteID);
 			stmt.setInt(2, groupID);
 			ResultSet rs = stmt.executeQuery();
@@ -106,7 +106,7 @@ public class NoteHandler {
 		db.open();
 		try {
 			String sql = "SELECT name,isFixed,content FROM note100 WHERE id=?";
-			PreparedStatement stmt = db.connection.prepareStatement(sql);
+			PreparedStatement stmt = db.prepareStatement(sql);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -133,7 +133,7 @@ public class NoteHandler {
 		String result = "";
 		try {
 			String sql = "SELECT userID FROM note100 where id=? ";
-			PreparedStatement stmt = db.connection.prepareStatement(sql);
+			PreparedStatement stmt = db.prepareStatement(sql);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -157,7 +157,7 @@ public class NoteHandler {
 			name = EncryptionHandler.encrypt(name, privateKey);
 			// Update note
 			String sql = "UPDATE note100 SET name=?, content=?, isFixed=?, lastUpdate=LOCALTIME() WHERE id=? AND userID=?";
-			PreparedStatement stmt = db.connection.prepareStatement(sql);
+			PreparedStatement stmt = db.prepareStatement(sql);
 			stmt.setString(1, name);
 			stmt.setString(2, content);
 			if(isFixed.equals("true")) {
@@ -183,7 +183,7 @@ public class NoteHandler {
 		int noteID = -1;
 		try {
 			String sql = "INSERT INTO note100 (name, content, userID, isFixed, lastUpdate) VALUES (?,?,?,false,NOW())";
-			PreparedStatement stmt = db.connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement stmt = db.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, EncryptionHandler.encrypt("Nueva nota", privateKey));
 			stmt.setString(2, EncryptionHandler.encrypt("", privateKey));
 			stmt.setInt(3, user.getId());
@@ -206,7 +206,7 @@ public class NoteHandler {
 		db.open();
 		try {
 			String sql = "INSERT INTO note_notegroup (noteID, notegroupID) VALUES (?,?)";
-			PreparedStatement stmt = db.connection.prepareStatement(sql);
+			PreparedStatement stmt = db.prepareStatement(sql);
 			stmt.setInt(1, noteID);
 			stmt.setInt(2, groupID);
 			System.out.println(stmt);

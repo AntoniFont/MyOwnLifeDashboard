@@ -8,7 +8,7 @@ public class NotegroupHandler {
         db.open();
         try {
             String sql = "SELECT id FROM notegroup WHERE codeName=? AND userID=?";
-            PreparedStatement stmt = db.connection.prepareStatement(sql);
+            PreparedStatement stmt = db.prepareStatement(sql);
             stmt.setString(1, groupCodeName);
             stmt.setInt(2, userID);
             ResultSet rs = stmt.executeQuery();
@@ -33,7 +33,7 @@ public class NotegroupHandler {
         int groupID = -1;
         try {
             String sql = "SELECT id FROM notegroup WHERE codeName=? AND userID=?";
-            PreparedStatement stmt = db.connection.prepareStatement(sql);
+            PreparedStatement stmt = db.prepareStatement(sql);
             stmt.setString(1, groupCodeName);
             stmt.setInt(2, userID);
             ResultSet rs = stmt.executeQuery();
@@ -58,7 +58,7 @@ public class NotegroupHandler {
                 return;
             }else{
                 String sql = "INSERT INTO notegroup (codeName, userID) VALUES (?, ?)";
-                PreparedStatement stmt = db.connection.prepareStatement(sql);
+                PreparedStatement stmt = db.prepareStatement(sql);
                 stmt.setString(1, groupCodeName);
                 stmt.setInt(2, user.getId());
                 stmt.executeUpdate();
