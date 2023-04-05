@@ -8,5 +8,5 @@ $userHandler = new UserHandler();
 $projectsHandler = new ProjectsHandler();
 $course = $coursesHandler->getCourseFromId($_GET["courseID"]);
 $user = $userHandler->getUserFromNickname($_GET["name"]);
-echo $projectsHandler->getProjectsFromCourseJSON($course, $user);
+echo $projectsHandler->getActiveProjectsFromCourseJSON($course, $user);
 ?>

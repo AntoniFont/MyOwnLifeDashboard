@@ -47,9 +47,9 @@ function typeOfStudyClicked(data) {
     $("#selectTypeOfStudyTitle").text(data.typeOfStudyName);
 }
 //SAVE THE PROJECT SELECTED FOR LATER AND CHANGE THE DROPDOWN PLACEHOLDER
-function projectClicked(data) {
-    projectSelected = data.projectID;
-    $("#selectProjectTitle").text(data.projectName);
+function projectClicked(event) {
+    projectSelected = event.data.projectID;
+    $("#selectProjectTitle").text(event.data.projectName);
 }
 
 

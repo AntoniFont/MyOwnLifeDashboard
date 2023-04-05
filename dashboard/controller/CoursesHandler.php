@@ -12,6 +12,7 @@ class CoursesHandler extends Handler
 
     function getCoursesFromUser($user)
     {
+        $this->dbManager->openIfItWasClosed();
         $sql = "SELECT courseID, name FROM courses100"; //the id and the name 
         $sql .= " WHERE courses100.user = :userID"; //from the courses that the user has
         $sql .= " AND UNIX_TIMESTAMP(STR_TO_DATE(courses100.finalDate, \"%Y-%m-%d\")) > UNIX_TIMESTAMP() "; //and the course is still active
@@ -28,6 +29,7 @@ class CoursesHandler extends Handler
 
     function getCourseFromId($id)
     {
+        $this->dbManager->openIfItWasClosed();
         $sql = "SELECT courseID, name FROM courses100 WHERE courseID = :id";
         $courseQuery = $this->dbManager->query($sql, ["id" => $id]);
         $this->dbManager->close();

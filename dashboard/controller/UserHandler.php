@@ -12,6 +12,7 @@ class UserHandler extends Handler
 
     public function getUserFromNickname($nickname)
     {
+        $this->dbManager->openIfItWasClosed();
         $sql = "select * from user100 where nickname=:nickname";
         $userID = $this->dbManager->query($sql, ["nickname" => $nickname]);
         $this->dbManager->close();

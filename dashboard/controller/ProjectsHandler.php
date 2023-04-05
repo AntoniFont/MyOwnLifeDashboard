@@ -12,28 +12,43 @@ class ProjectsHandler extends Handler
         parent::__construct();
     }
     
-    function getProjectsFromCourse($course, $user)
-    {
-        $sql = "select projectID,name,description from projects100 where projects100.courseID=:courseID AND projects100.userID=:id";
+    function getProjectsFromCourse($course,$user){
+        $this->dbManager->openIfItWasClosed();
+        $sql = "select projectID,name,description,endDate from projects100 where projects100.courseID=:courseID AND projects100.userID=:id";
         $projectsQuery = $this->dbManager->query($sql, ["courseID" => $course->getId(), "id" => $user->getId()]);
         $this->dbManager->close();
         $projects = array();
         $i = 0;
         foreach ($projectsQuery as $projectQuery) {
-            $projects[$i] = new Project($projectQuery[0], $projectQuery[1], $projectQuery[2]);
+            $projects[$i] = new Project($projectQuery[0], $projectQuery[1], $projectQuery[2], $projectQuery[3]);
+            $i++;
+        }
+        return $projects;    
+    }
+
+    function getActiveProjectsFromCourse($course, $user)
+    {
+        $this->dbManager->openIfItWasClosed();
+        $sql = "select projectID,name,description,endDate from projects100 where projects100.courseID=:courseID AND projects100.userID=:id AND endDate >= NOW()";
+        $projectsQuery = $this->dbManager->query($sql, ["courseID" => $course->getId(), "id" => $user->getId()]);
+        $this->dbManager->close();
+        $projects = array();
+        $i = 0;
+        foreach ($projectsQuery as $projectQuery) {
+            $projects[$i] = new Project($projectQuery[0], $projectQuery[1], $projectQuery[2], $projectQuery[3]);
             $i++;
         }
         return $projects;
     }
 
-    function getProjectsFromCourseJSON($course, $user)
+    function getActiveProjectsFromCourseJSON($course, $user)
     {
         //create an array of arrays with the projects
         //project1 = [projectID, name]
         //project2 = [projectID, name]
         //project3 = [projectID, name]
         //result = [project1, project2, project3]
-        $projectsObjects = $this->getProjectsFromCourse($course, $user);
+        $projectsObjects = $this->getActiveProjectsFromCourse($course, $user);
         $projectsJSON = array();
         $i = 0;
         foreach ($projectsObjects as $projectObject) {
@@ -44,9 +59,26 @@ class ProjectsHandler extends Handler
         return json_encode($projectsJSON, JSON_UNESCAPED_UNICODE); //for the spanish and catalan languages
     }
 
-    function addProject($name,$description,$course,$user){
-        $sql = "INSERT INTO projects100 (name,description,courseID,userID) VALUES (:name,:description,:courseID,:userID)";
-        $this->dbManager->query($sql,["name"=>$name,"description"=>$description,"courseID"=>$course->getId(),"userID"=>$user->getId()]);
+    function addProject($name,$description,$course,$user,$endDate){
+        $this->dbManager->openIfItWasClosed();
+        $sql = "INSERT INTO projects100 (name,description,courseID,userID,endDate) VALUES (:name,:description,:courseID,:userID,:endDate)";
+        $this->dbManager->query($sql,["name"=>$name,"description"=>$description,"courseID"=>$course->getId(),"userID"=>$user->getId(),"endDate"=>$endDate]);
+        $this->dbManager->close();
+    }
+
+    function getProjectFromId($id){
+        $this->dbManager->openIfItWasClosed();
+        $sql = "select projectID,name,description,endDate from projects100 where projectID=:id";
+        $projectQuery = $this->dbManager->query($sql, ["id" => $id]);
+        $project = new Project($projectQuery[0][0], $projectQuery[0][1], $projectQuery[0][2], $projectQuery[0][3]);
+        $this->dbManager->close();
+        return $project;
+    }
+
+    function editProject($project){
+        $this->dbManager->openIfItWasClosed();
+        $sql = "UPDATE projects100 SET name=:name,description=:description,endDate=:endDate WHERE projectID=:id";
+        $this->dbManager->query($sql, ["name"=>$project->getName(),"description"=>$project->getDescription(),"endDate"=>$project->getEndDate(),"id"=>$project->getId()]);
         $this->dbManager->close();
     }
 }

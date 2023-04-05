@@ -13,6 +13,7 @@ class TypeOfStudyDataHandler extends Handler
 
     public function getTypesOfStudyData()
     {
+        $this->dbManager->openIfItWasClosed();
         $sql = "select typeStudyDataID,name,description from typesstudydata100 ";
         $typesStudyDataQuerys = $this->dbManager->query($sql, []);
         $this->dbManager->close();

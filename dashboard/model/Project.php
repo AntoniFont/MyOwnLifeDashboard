@@ -5,13 +5,15 @@ class Project
     private $name;
     private $description;
 
-    function __construct($id, $name, $description)
+    private $endDate;
+    function __construct($id, $name, $description, $endDate)
     {
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
+        $this->endDate = $endDate;
     }
-
+    
     function getId()
     {
         return $this->id;
@@ -27,6 +29,10 @@ class Project
         return $this->description;
     }
 
+    function getEndDate()
+    {
+        return $this->endDate;
+    }
 
 }
 ?>

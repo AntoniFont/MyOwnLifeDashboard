@@ -12,6 +12,7 @@ class ObjectiveHandler extends Handler
 
     function getCurrentBalanceObjective($user)
     {
+        $this->dbManager->openIfItWasClosed();
         //DO THE QUERY TO GET THE TEXT
         $sql = "select objectiveText from goal where user=:idUser and type=:goalType order by startDate DESC LIMIT 1";
         $resultado = $this->dbManager->query($sql, ["idUser" => $user->getId(), "goalType" => 1]);

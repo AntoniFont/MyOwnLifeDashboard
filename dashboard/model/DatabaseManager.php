@@ -16,12 +16,7 @@ class DatabaseManager
 
     function __construct()
     {
-        try {
-            $this->dsn = "mysql:host=" . $this->host . ";dbname=" . $this->db . ";charset=" . $this->charset;
-            $this->pdo = new PDO($this->dsn, $this->user, $this->pass, $this->options);
-        } catch (\PDOException $e) {
-            throw new \PDOException($e->getMessage(), (int) $e->getCode());
-        }
+       $this->openIfItWasClosed();
     }
     public function query($queryString, $values)
     {
@@ -45,6 +40,20 @@ class DatabaseManager
     public function close()
     {
         $this->pdo = null;
+    }
+    
+    public function openIfItWasClosed()
+    {
+        if ($this->pdo != null) {
+            return;
+        }
+
+        try {
+            $this->dsn = "mysql:host=" . $this->host . ";dbname=" . $this->db . ";charset=" . $this->charset;
+            $this->pdo = new PDO($this->dsn, $this->user, $this->pass, $this->options);
+        } catch (\PDOException $e) {
+            throw new \PDOException($e->getMessage(), (int) $e->getCode());
+        }    
     }
 
 }

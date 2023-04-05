@@ -51,10 +51,16 @@
                 </select>
             </div>
             <div class="row mt-3">
-                <input type="text" name="projectName" class="form-control" placeholder="Introduce the name of the project"></textarea>
+                <label for="projectName">Project name:</label>
+                <input type="text" name="projectName" class="form-control"></textarea>
             </div>
             <div class="row mt-3">
-                <textarea name="description" class="form-control">Introduce una descripción</textarea>
+                <label for="endDate">End date:</label>
+                <input type="date" name="endDate" class="form-control"></textarea>
+            </div>
+            <div class="row mt-3">
+                <label for="description">Description:</label>
+                <textarea name="description" class="form-control"></textarea>
             </div>
             <div class="row mt-3">
                 <button class="" type="submit">Enviar</button>
