@@ -101,7 +101,7 @@
             </div>
             <div class="row">
                 <div class="d-flex justify-content-center">
-                    <p>Number of hours per course or projects in a course in the last 2 weeks.</p>
+                    <p>Breakdown of time spent in courses or projects in the last 336 hours (2 weeks).</p>
                 </div>
             </div>
 

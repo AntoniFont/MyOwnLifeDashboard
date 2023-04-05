@@ -32,7 +32,7 @@
     <?php
     require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/TimeCategorizer.php");
     $timeCategorizer = new TimeCategorizer();
-    $id = 833;
+    $id = 835;
 
     echo "<h1> Categorizar el studyData con id: ".$id."</h1>";
     $timeCategorizer->categorize($id);
