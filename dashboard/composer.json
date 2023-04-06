@@ -1,0 +1,12 @@
+{
+    "name": "tonifont/myownlifedashboard",
+    "type": "project",
+    "authors": [
+        {
+            "name": "tonifont"
+        }
+    ],
+    "require": {
+        "phpunit/phpunit": "^10.0"
+    }
+}

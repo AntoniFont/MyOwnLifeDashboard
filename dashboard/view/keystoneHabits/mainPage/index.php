@@ -59,5 +59,9 @@
 </html>
 
 <script>
+	alert("This functionality is unused, not working, and half implemented. ");
+</script>
+
+<script>
 	$("#sleepButton").attr("href", $("#sleepButton").attr("href") + "?name=" + name)
 </script>
