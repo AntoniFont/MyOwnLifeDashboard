@@ -1,10 +1,10 @@
 <?php 
 
 //get the data
-$userHandler = new UserHandler();
-$user = $userHandler->getUserFromNickname($_GET["name"]);
-$coursesHandler = new CoursesHandler();
-$courses = $coursesHandler->getCoursesFromUser($user);
+$UserDAO = new UserDAO();
+$user = $UserDAO->getUserFromNickname($_GET["name"]);
+$CoursesDAO = new CoursesDAO();
+$courses = $CoursesDAO->getCoursesFromUser($user);
 
 
 //the courses

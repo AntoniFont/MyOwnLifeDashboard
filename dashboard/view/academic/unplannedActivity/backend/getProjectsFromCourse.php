@@ -1,12 +1,14 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/ProjectsHandler.php");
-require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/CoursesHandler.php");
-require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/UserHandler.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/ProjectsDAO.php");
 
-$coursesHandler = new CoursesHandler();
-$userHandler = new UserHandler();
-$projectsHandler = new ProjectsHandler();
-$course = $coursesHandler->getCourseFromId($_GET["courseID"]);
-$user = $userHandler->getUserFromNickname($_GET["name"]);
-echo $projectsHandler->getActiveProjectsFromCourseJSON($course, $user);
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/CoursesDAO.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
+
+
+$CoursesDAO = new CoursesDAO();
+$UserDAO = new UserDAO();
+$ProjectsDAO = new ProjectsDAO();
+$course = $CoursesDAO->getCourseFromId($_GET["courseID"]);
+$user = $UserDAO->getUserFromNickname($_GET["name"]);
+echo $ProjectsDAO->getActiveProjectsFromCourseJSON($course, $user);
 ?>

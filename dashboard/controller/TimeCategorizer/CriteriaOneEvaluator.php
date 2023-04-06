@@ -1,6 +1,6 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/Handler.php");
-class CriteriaOneEvaluator extends Handler
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/DataAccessObject.php");
+class CriteriaOneEvaluator extends DataAccesObject
 {
     /*
     -- The least studied course: Time studying the least studied course  is more
@@ -25,7 +25,7 @@ class CriteriaOneEvaluator extends Handler
         $this->dbManager->openIfItWasClosed();
         $day = $this->dateStringFromUnixTimestamp($initialTime);
         $LAST_N_DAYS = 14;
-        $leastStudiedCourses = (new CoursesHandler())->getBottom50PercentLeastStudiedCoursesInInterval($day, $userID, $LAST_N_DAYS);
+        $leastStudiedCourses = (new CoursesDAO())->getBottom50PercentLeastStudiedCoursesInInterval($day, $userID, $LAST_N_DAYS);
         $this->dbManager->close();
         $score = 0;
         foreach ($leastStudiedCourses as $course) {

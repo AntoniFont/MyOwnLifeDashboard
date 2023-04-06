@@ -1,8 +1,8 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/StudyDataHandler.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/StudyDataDAO.php");
 
-$studyDataHandler = new StudyDataHandler();
-$studyDataHandler->insertStudyDataFromForm(
+$StudyDataDAO = new StudyDataDAO();
+$StudyDataDAO->insertStudyDataFromForm(
     $_GET["courseID"],
     $_GET["typeOfStudyID"],
     $_GET["projectID"],

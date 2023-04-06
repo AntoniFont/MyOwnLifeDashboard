@@ -1,9 +1,9 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/StudyDataHandler.php");
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/UserHandler.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/StudyDataDAO.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
 
-$studyDataHandler = new StudyDataHandler();
-$user = (new UserHandler())->getUserFromNickname($_GET["name"]);
-echo $studyDataHandler->getSecondsStudiedByDayInTheLastNDaysJSON($user,14)
+$StudyDataDAO = new StudyDataDAO();
+$user = (new UserDAO())->getUserFromNickname($_GET["name"]);
+echo $StudyDataDAO->getSecondsStudiedByDayInTheLastNDaysJSON($user,14)
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/database/DatabaseManager.php");
-class Handler
+class DataAccesObject
 {
     protected $dbManager;
 

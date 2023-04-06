@@ -1,7 +1,7 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/ProjectsHandler.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/ProjectsDAO.php");
 $projectID = $_GET["projectID"];
-$project = (new ProjectsHandler())->getProjectFromId($projectID);
+$project = (new ProjectsDAO())->getProjectFromId($projectID);
 $projectName = $project->getName();
 $projectDescription = $project->getDescription();
 $endDate = $project->getEndDate();

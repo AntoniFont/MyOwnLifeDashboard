@@ -1,8 +1,10 @@
 <?php
     require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/loginLogic.php");
-    require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/CoursesHandler.php");
-    require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/TypeOfStudyDataHandler.php");
-    require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/UserHandler.php");
+    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/CoursesDAO.php");
+    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/TypeOfStudyDataDAO.php");
+
+    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
+
     $_SESSION["current_page"] = "Unplanned Activity";
 ?>
 <!DOCTYPE html>

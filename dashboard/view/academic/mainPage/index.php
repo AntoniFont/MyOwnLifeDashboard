@@ -1,11 +1,12 @@
 <?php
     require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/loginLogic.php");
-    require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/ObjectiveHandler.php");
-    require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/UserHandler.php");
+    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/ObjectiveDAO.php");
+    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
+
     $_SESSION["current_page"] = "Main Page";
-    $objectiveHandler = new ObjectiveHandler();
-    $userHandler = new UserHandler();
-    $user = $userHandler->getUserFromNickname($_GET["name"]);
+    $ObjectiveDAO = new ObjectiveDAO();
+    $UserDAO = new UserDAO();
+    $user = $UserDAO->getUserFromNickname($_GET["name"]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -121,7 +122,7 @@
                 <div class="d-flex">
                     <span>
                         <?php 
-                            echo ($objectiveHandler->getCurrentBalanceObjective($user))->getText(); 
+                            echo ($ObjectiveDAO->getCurrentBalanceObjective($user))->getText(); 
                         ?>
                     </span>
                 </div>

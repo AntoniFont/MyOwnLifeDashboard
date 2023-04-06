@@ -1,5 +1,5 @@
 <?php 
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/ProjectsHandler.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/ProjectsDAO.php");
 $courseId = $_GET["course"];
 $projectId = $_GET["project"];
 $name = $_GET["name"];
@@ -7,8 +7,8 @@ $description = $_GET["description"];
 $endDate = $_GET["endDate"];
 $project = new Project($projectId, $name, $description, $endDate);
 
-$projectsHandler = new ProjectsHandler();
-$projectsHandler->editProject($project);
+$ProjectsDAO = new ProjectsDAO();
+$ProjectsDAO->editProject($project);
 
 ?>
 <p>If you don't see any error, the following data was added correctly to the database:</p>

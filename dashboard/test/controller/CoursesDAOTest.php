@@ -1,5 +1,5 @@
 <?php
-    class CoursesHandlerTest extends PHPUnit\Framework\TestCase
+    class CoursesDAOTest extends PHPUnit\Framework\TestCase
     {
         protected function setUp(): void{
             //Creating a new mock database

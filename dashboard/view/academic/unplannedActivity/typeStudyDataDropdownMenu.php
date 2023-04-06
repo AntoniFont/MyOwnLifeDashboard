@@ -1,7 +1,7 @@
 <?php
 //get the data
-$typeofstudydatahandler = new TypeOfStudyDataHandler();
-$typeofstudydata = $typeofstudydatahandler->getTypesOfStudyData();
+$typeofStudyDataDAO = new TypeOfStudyDataDAO();
+$typeofstudydata = $typeofStudyDataDAO->getTypesOfStudyData();
 
 //the types of study data
 

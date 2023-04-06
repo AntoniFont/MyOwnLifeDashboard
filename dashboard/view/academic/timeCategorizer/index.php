@@ -31,18 +31,20 @@
     <?php include '../navbar.php'; ?>
     <?php
     require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/TimeCategorizer/TimeCategorizer.php");
-    require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/StudyDataHandler.php");
-    require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/UserHandler.php");
+    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/StudyDataDAO.php");
+
+    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
+
     
     $timeCategorizer = new TimeCategorizer();
     //Get all the study sessions of the last 14 days
-    $studyDataHandler = new StudyDataHandler();
+    $StudyDataDAO = new StudyDataDAO();
     //current unix timestamp
     $currentUnixTimestamp = time();
     //14 days ago
     $last14DaysUnixTimestamp = $currentUnixTimestamp - (14 * 24 * 60 * 60);
-    $user = (new UserHandler())->getUserFromNickname($_GET["name"]);
-    $studyData = $studyDataHandler->getStudyDataBetweenTwoDatetimes($user,$last14DaysUnixTimestamp, $currentUnixTimestamp);
+    $user = (new UserDAO())->getUserFromNickname($_GET["name"]);
+    $studyData = $StudyDataDAO->getStudyDataBetweenTwoDatetimes($user,$last14DaysUnixTimestamp, $currentUnixTimestamp);
     echo "<h1>Study sessions of the last 14 days</h1>";
     echo "<table class='table table-striped'>";
     echo "<thead>";

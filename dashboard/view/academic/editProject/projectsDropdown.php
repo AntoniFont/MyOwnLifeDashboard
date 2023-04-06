@@ -1,11 +1,11 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/ProjectsHandler.php");
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/CoursesHandler.php");
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/UserHandler.php");
-$projectsHandler = new ProjectsHandler();
-$user = (new userHandler())->getUserFromNickname($_GET["username"]);
-$course = ((new CoursesHandler())->getCourseFromId($_GET["courseID"]));
-$projects = $projectsHandler->getProjectsFromCourse($course, $user);
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/ProjectsDAO.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/CoursesDAO.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
+$ProjectsDAO = new ProjectsDAO();
+$user = (new UserDAO())->getUserFromNickname($_GET["username"]);
+$course = ((new CoursesDAO())->getCourseFromId($_GET["courseID"]));
+$projects = $ProjectsDAO->getProjectsFromCourse($course, $user);
 foreach ($projects as $project) {
     echo "<option value='" . $project->getId() . "'>" . $project->getName() . "</option>";
 }

@@ -36,12 +36,12 @@ $_SESSION["current_page"] = "Edit project";
                 <label for="course">Choose a course:</label>
                 <select id="selectCourse" name="course" class="form-control">
                     <?php
-                    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/CoursesHandler.php");
-                    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/UserHandler.php");
+                    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/CoursesDAO.php");
+                    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
 
-                    $coursesHandler = new CoursesHandler();
-                    $userHandler = new UserHandler();
-                    $courses = $coursesHandler->getCoursesFromUser($userHandler->getUserFromNickname($_GET["name"]));
+                    $CoursesDAO = new CoursesDAO();
+                    $UserDAO = new UserDAO();
+                    $courses = $CoursesDAO->getCoursesFromUser($UserDAO->getUserFromNickname($_GET["name"]));
 
                     foreach ($courses as $course) {
                         echo "<option value='" . $course->getId() . "'>" . $course->getName() . "</option>";

@@ -1,13 +1,13 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/ProjectsHandler.php");
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/CoursesHandler.php");
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/UserHandler.php");
-$projectsHandler = new ProjectsHandler();
-$projectsHandler->addProject(
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/ProjectsDAO.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/CoursesDAO.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
+$ProjectsDAO = new ProjectsDAO();
+$ProjectsDAO->addProject(
     $_GET["projectName"],
     $_GET["description"], 
-    (new CoursesHandler())->getCourseFromId($_GET["course"]) , 
-    (new UserHandler())->getUserFromNickname($_GET["username"]),
+    (new CoursesDAO())->getCourseFromId($_GET["course"]) , 
+    (new UserDAO())->getUserFromNickname($_GET["username"]),
     $_GET["endDate"]
 );
 

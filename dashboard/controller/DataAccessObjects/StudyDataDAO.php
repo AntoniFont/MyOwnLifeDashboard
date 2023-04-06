@@ -1,11 +1,11 @@
 <?php
 
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/Handler.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/DataAccessObject.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/StudyData.php");
 
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/UserHandler.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
 
-class StudyDataHandler extends Handler
+class StudyDataDAO extends DataAccesObject
 {
     function __construct()
     {
@@ -121,7 +121,7 @@ class StudyDataHandler extends Handler
             "duration" => $totalTime,
             "descripcion" => urldecode($descripcion),
             "planned" => 0,
-            "userID" => ((new UserHandler())->getUserFromNickname($username))->getId(),
+            "userID" => ((new UserDAO())->getUserFromNickname($username))->getId(),
             "workingAlone" => $workingAlone,
             "beingAlone" => $beingAlone
         ];

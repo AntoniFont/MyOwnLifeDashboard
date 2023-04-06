@@ -1,9 +1,9 @@
 <?php
 
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/TypeOfStudyData.php");
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/Handler.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/DataAccessObject.php");
 
-class TypeOfStudyDataHandler extends Handler
+class TypeOfStudyDataDAO extends DataAccesObject
 {
     function __construct()
     {
