@@ -12,16 +12,13 @@ class TimeCategorizer extends Handler
     }
     /*It will categorize a study session and give it a ranking based on some criteria    
      */
-    public function categorize($studyDataId)
+    public function categorize($studyData)
     {
-        $this->dbManager->openIfItWasClosed();
-        $sql = "SELECT courseID,initialTime,userID FROM studyData100 WHERE id = :studyDataId";
-        $results = $this->dbManager->query($sql, ["studyDataId" => $studyDataId]);
-        $courseID = $results[0][0];
-        echo "CourseID: " . $courseID . "<br>";
-        $initialTime = $results[0][1];
-        $userID = $results[0][2];
-        $this->evaluateCriteria1($courseID, $initialTime, $userID);
+
+        $courseID = $studyData->getCourseID();
+        $initialTime = $studyData->getInitialTime();
+        $userID = $studyData->getUserId();
+        return $this->evaluateCriteria1($courseID, $initialTime, $userID);
     }
 
     /*
@@ -55,15 +52,9 @@ class TimeCategorizer extends Handler
         foreach ($leastStudiedCourses as $course) {
             if ($courseID == $course->getId()) {
                 $score = 1;
-                echo "<p>The course was one of the least studied courses.<p>";
                 break;
             }
         }
-        echo "<p>Least studied courses:</p><ul>";
-        foreach ($leastStudiedCourses as $course) {
-            echo "<li>".$course->getName() . "</li>";
-        }
-        echo "</ul>";
 
         return $score;
     }

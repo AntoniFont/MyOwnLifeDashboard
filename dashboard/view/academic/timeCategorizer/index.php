@@ -31,10 +31,39 @@
     <?php include '../navbar.php'; ?>
     <?php
     require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/TimeCategorizer.php");
+    require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/StudyDataHandler.php");
+    require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/UserHandler.php");
+    
     $timeCategorizer = new TimeCategorizer();
-    $id = 835;
+    //Get all the study sessions of the last 14 days
+    $studyDataHandler = new StudyDataHandler();
+    //current unix timestamp
+    $currentUnixTimestamp = time();
+    //14 days ago
+    $last14DaysUnixTimestamp = $currentUnixTimestamp - (14 * 24 * 60 * 60);
+    $user = (new UserHandler())->getUserFromNickname($_GET["name"]);
+    $studyData = $studyDataHandler->getStudyDataBetweenTwoDatetimes($user,$last14DaysUnixTimestamp, $currentUnixTimestamp);
+    echo "<h1>Study sessions of the last 14 days</h1>";
+    echo "<table class='table table-striped'>";
+    echo "<thead>";
+    echo "<tr>";
+    echo "<th scope='col'>Id</th>";
+    echo "<th scope='col'>Course</th>";
+    echo "<th scope='col'>Initial Time</th>";
+    echo "<th scope='col'>Duration</th>";
+    echo "<th scope='col'>Score</th>";
+    echo "</tr>";
+    echo "</thead>";
+    echo "<tbody>";
+    foreach ($studyData as $studyDataItem) {
+        echo "<tr>";
+        echo "<th scope='row'>".$studyDataItem->getId()."</th>";
+        echo "<td>".$studyDataItem->getCourseID()."</td>";
+        echo "<td>".$studyDataItem->getInitialTime()."</td>";
+        echo "<td>".$studyDataItem->getDuration()."</td>";
+        echo "<td>".$timeCategorizer->categorize($studyDataItem)."</td>";
+        echo "</tr>";
+    }
 
-    echo "<h1> Categorizar el studyData con id: ".$id."</h1>";
-    $timeCategorizer->categorize($id);
-    ?>
+    ?> 
 </body>

@@ -2,6 +2,8 @@
 
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/Handler.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/DatabaseManager.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/StudyData.php");
+
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/UserHandler.php");
 
 class StudyDataHandler extends Handler
@@ -126,6 +128,30 @@ class StudyDataHandler extends Handler
         ];
         $this->dbManager->query($sql, $values);
         $this->dbManager->close();
+    }
+
+    function getStudyDataBetweenTwoDatetimes($user, $initialDate,$finalDate){
+        $this->dbManager->openIfItWasClosed();
+        $sql = "SELECT id,courseID,initialTime,duration,userID FROM studydata100 WHERE userID = :userID AND initialTime >= :initialDate AND initialTime <= :finalDate";
+        $values = [
+            "userID" => $user->getId(),
+            "initialDate" => $initialDate,
+            "finalDate" => $finalDate
+        ];
+        $resultadoQuery = $this->dbManager->query($sql, $values);
+        $this->dbManager->close();
+        $resultado = array();
+        foreach ($resultadoQuery as $query) {
+            $studyData = new StudyData();
+            $id = $query[0];
+            $courseID = $query[1];
+            $initialTime = $query[2];
+            $duration = $query[3];
+            $userID = $query[4];
+            $studyData->constructorA($id,$courseID,$initialTime,$duration,$userID);
+            array_push($resultado,$studyData);
+        }
+        return $resultado;
     }
 }
 
