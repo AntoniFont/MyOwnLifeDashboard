@@ -8,7 +8,7 @@ It should follow the MVC pattern as the rest of the code does.
 //0. CONSTANTS
 $DAYS_DISPLAYED = 14; 
 //1. IMPORTS 
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/DatabaseManager.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/database/DatabaseManager.php");
 //2. CONNECT TO THE DB
 $dbManager = new DatabaseManager();
 ///3. FIRST QUERY 

@@ -1,0 +1,7 @@
+{
+    "name": "toniuni/dashboard",
+    "type": "project",
+    "require-dev": {
+        "phpunit/phpunit": "^10.0"
+    }
+}

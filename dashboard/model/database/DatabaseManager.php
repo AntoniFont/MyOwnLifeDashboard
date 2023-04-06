@@ -1,6 +1,7 @@
 <?php
 class DatabaseManager
 {
+    //The default values.
     private $host = 'localhost';
     private $db = 'myowndashboard';
     private $user = 'root';
@@ -15,9 +16,34 @@ class DatabaseManager
     private $dsn;
 
     function __construct()
-    {
+    { 
+       $this->loadCredentials();
        $this->openIfItWasClosed();
     }
+    private function loadCredentials(){
+        try{
+            //Why is php so weird? I have to use this to catch the error.
+            //file_get_contents throws a warning if the file does not exist instead of an exception.
+            set_error_handler(function ($severity, $message, $file, $line) { 
+                //If a warning is thrown, turn it into an exception.
+                throw new \ErrorException($message, $severity, $severity, $file, $line);
+            });
+            
+            $json = file_get_contents(__DIR__."/databaseCredentials.json");
+            
+            restore_error_handler(); //Restore the error handler to the default one.
+
+            $credentials = json_decode($json, true);
+            $this->host = $credentials["host"];
+            $this->db = $credentials["database"];
+            $this->user = $credentials["user"];
+            $this->pass = $credentials["password"];
+            $this->charset = $credentials["charset"];
+        }catch(Exception $e){
+            //do nothing, use the default values.
+        }
+    }
+
     public function query($queryString, $values)
     {
         $stmt = $this->pdo->prepare($queryString);
@@ -41,13 +67,12 @@ class DatabaseManager
     {
         $this->pdo = null;
     }
-    
+  
     public function openIfItWasClosed()
     {
         if ($this->pdo != null) {
             return;
         }
-
         try {
             $this->dsn = "mysql:host=" . $this->host . ";dbname=" . $this->db . ";charset=" . $this->charset;
             $this->pdo = new PDO($this->dsn, $this->user, $this->pass, $this->options);
