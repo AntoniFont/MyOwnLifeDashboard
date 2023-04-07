@@ -4,7 +4,7 @@ require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/Us
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/Course.php");
 
 
-class CoursesDAO extends DataAccesObject
+class CoursesDAO extends DataAccessObject
 {
     function __construct(){
         parent::__construct();

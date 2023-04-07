@@ -2,7 +2,7 @@
 
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/User.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/DataAccessObject.php");
-class UserDAO extends DataAccesObject
+class UserDAO extends DataAccessObject
 {
     function __construct()
     {

@@ -3,7 +3,7 @@
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/TypeOfStudyData.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/DataAccessObject.php");
 
-class TypeOfStudyDataDAO extends DataAccesObject
+class TypeOfStudyDataDAO extends DataAccessObject
 {
     function __construct()
     {

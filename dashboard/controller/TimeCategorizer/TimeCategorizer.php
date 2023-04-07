@@ -5,7 +5,7 @@ require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controll
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/Course.php");
 
 
-class TimeCategorizer extends DataAccesObject
+class TimeCategorizer extends DataAccessObject
 {
     function __construct()
     {

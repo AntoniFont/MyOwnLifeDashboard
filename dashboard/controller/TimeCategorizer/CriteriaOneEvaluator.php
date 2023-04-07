@@ -1,6 +1,6 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/DataAccessObject.php");
-class CriteriaOneEvaluator extends DataAccesObject
+class CriteriaOneEvaluator extends DataAccessObject
 {
     /*
     -- The least studied course: Time studying the least studied course  is more
