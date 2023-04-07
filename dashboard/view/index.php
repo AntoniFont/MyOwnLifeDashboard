@@ -98,7 +98,7 @@ $name = $_GET["name"];
 				</div>
 			</div>
 		</div>
-		<h1><a id="plannerJournalLink" href='<?php echo $_SERVER["SERVER_NAME"] . ":8081/plannerJournal/index.jsp" ?>'
+		<h1><a id="plannerJournalLink" href='<?php echo $_SERVER["SERVER_NAME"] . ":8081/plannerJournal/pages/index.jsp" ?>'
 				target="_blank">Planner Journal</a></h1>
 		<div class="row mt-3">
 			<div class="display-6 mb-3 text-center">Your notifications</div>
