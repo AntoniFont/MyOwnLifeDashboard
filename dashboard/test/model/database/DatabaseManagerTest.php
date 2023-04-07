@@ -1,12 +1,9 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/database/DatabaseManager.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/test/MockDatabaseHandler.php");
 
 class DatabaseManagerTest extends PHPUnit\Framework\TestCase
 {
-    private $host = "localhost";
-    private $root = "root";
-    private $rootpassword = "";
-
     //file_get_contents throws a warning if the file does not exist instead of an exception,making
     //the code a mess less readable. This function is a neat workaround for that.
     private function read_file($filename)
@@ -21,20 +18,18 @@ class DatabaseManagerTest extends PHPUnit\Framework\TestCase
 
     protected function setUp(): void
     {
-        //Creating a new mock database
-        $dbh = new PDO("mysql:host=$this->host", $this->root, $this->rootpassword);
-        $dbh->exec("CREATE DATABASE IF NOT EXISTS myowndashboardtest");
-        $dbh->exec("USE myowndashboardtest");
-        //Create a table that does not exist in the normal database
-        //to make sure that the database manager does not use the normal database.
-        $dbh->exec("CREATE TABLE IF NOT EXISTS absdasdieugisurhgisdrugh (name varchar(50))");
-        $dbh->exec("INSERT INTO absdasdieugisurhgisdrugh (name) VALUES ('test')");
+        MockDatabaseHandler::createMockDatabaseAndSwitchCredentials();
+        $dbManager = new DatabaseManager();
+        $dbManager->query("CREATE TABLE IF NOT EXISTS absdasdieugisurhgisdrugh (name varchar(50))", null);
+        $dbManager->query("INSERT INTO absdasdieugisurhgisdrugh (name) VALUES ('test')", null);
+
     }
 
     protected function tearDown(): void
     {
-        $dbh = new PDO("mysql:host=$this->host", $this->root, $this->rootpassword);
-        $dbh->exec("DROP DATABASE myowndashboardtest");
+        $dbManager = new DatabaseManager();
+        $dbManager->query("DROP TABLE absdasdieugisurhgisdrugh", null);
+        MockDatabaseHandler::deleteMockDatabaseAndRestoreCredentials();       
     }
 
 

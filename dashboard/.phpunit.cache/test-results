@@ -1,1 +1,1 @@
-{"version":1,"defects":{"DatabaseManagerTest::testLoadCredentials":8},"times":{"TimeCategorizerTest::testOnePlusOne":0.01,"CoursesDAOTest::testGetBottom50PercentLeastStudiedCoursesInInterval":0.01,"DatabaseManagerTest::test":0,"DatabaseManagerTest::testLoadCredentials":0.021}}
+{"version":1,"defects":{"DatabaseManagerTest::testLoadCredentials":8,"CoursesDAOTest::testGetBottom50PercentLeastStudiedCoursesInInterval":5},"times":{"CoursesDAOTest::testGetBottom50PercentLeastStudiedCoursesInInterval":0.115,"DatabaseManagerTest::testLoadCredentials":0.043}}

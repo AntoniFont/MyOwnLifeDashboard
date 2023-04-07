@@ -75,10 +75,7 @@ class CoursesDAO extends DataAccesObject
 
         $resultsCourses = $this->dbManager->query($sql, ["usuarioid" => $userID, "dayone" => $initialDay, "daytwo" => $initialDay, "lastndays" => $LAST_N_DAYS, "daythree" => $initialDay]);
         //Get the number of courses
-        $sql = "SELECT count(courseID) FROM `courses100` WHERE courses100.user=:userID ";
-        $sql .= "AND finalDate> DATE(:day)";
-        $resultsNumber = $this->dbManager->query($sql, ["userID" => $userID, "day" => $initialDay]);
-        $numCourses = $resultsNumber[0][0];
+        $numCourses = count($resultsCourses);
         //Get how many courses are in the bottom 50%
         $bottom50 = floor($numCourses / 2);
         //Create an array with the bottom 50% courses
