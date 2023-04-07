@@ -16,6 +16,8 @@
           CourseG (Active) (User1): 4h
           CourseH (Inactive) (User1): 10h
           CourseI (Active) (User2): 10h 
+      
+          09-April-2023 99hC (the code should ignore this because its outside the interval) 
           
           10-April-2023 2hA, 1hD, 10hH
           11-April-2023 2hD, 5hF
@@ -24,7 +26,9 @@
           14-April-2023 3hD, 2hG
           15-April-2023
           16-April-2023 1hB, 1hD, 10hI
-
+          
+          17-April-2023 99hE (the code should ignore this because its outside the interval)
+          
           On the 17 of April The 50% least studied courses are CourseC, CourseE and CourseB
         */
         private function fillMockDatabase(){
@@ -49,6 +53,9 @@
             $dbManager->query($sql, null);
             //Fill studydata table
             $sql = "INSERT INTO studydata100 (courseID, duration, initialTime) VALUES ";
+            //outside interval
+            $sql .="
+            (3,99,1681036519),";
             //first day
             $sql .= "  
             (1,2,1681081200),
@@ -76,8 +83,11 @@
             $sql .= "
             (2,1,1681599600),
             (4,1,1681599600),
-            (8,10,1681599600)
+            (8,10,1681599600),
             ";
+            //outside interval
+            $sql .= "
+            (5,99,1681710000)";
             $dbManager->query($sql, null); 
         }
         
