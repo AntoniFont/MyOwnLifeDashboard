@@ -45,6 +45,7 @@
     $last14DaysUnixTimestamp = $currentUnixTimestamp - (14 * 24 * 60 * 60);
     $user = (new UserDAO())->getUserFromNickname($_GET["name"]);
     $studyData = $StudyDataDAO->getStudyDataBetweenTwoDatetimes($user,$last14DaysUnixTimestamp, $currentUnixTimestamp);
+    echo "<div class='container'>";
     echo "<h1>Study sessions of the last 14 days</h1>";
     echo "<table class='table table-striped'>";
     echo "<thead>";
@@ -66,6 +67,9 @@
         echo "<td>".$timeCategorizer->categorize($studyDataItem)."</td>";
         echo "</tr>";
     }
+    echo "</tbody>";
+    echo "</table>";
+    echo "</div>";
 
     ?> 
 </body>

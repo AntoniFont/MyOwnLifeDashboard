@@ -7,6 +7,7 @@ $addProjectText = "";
 $editProjectText = "";
 $projectText = "";
 $timeCategorizerText = "";
+$newMainPageText = "";
 if ($_SESSION["current_page"] == "Unplanned Activity") {
   $unplannedActivityText = "(current)";
 } elseif ($_SESSION["current_page"] == "Main page") {
@@ -17,7 +18,9 @@ if ($_SESSION["current_page"] == "Unplanned Activity") {
   $addProjectText = "(current)";
 }else if($_SESSION["current_page"] == "Edit project"){
   $editProjectText = "(current)";
-}  
+}else if($_SESSION["current_page"] == "New main page"){
+  $newMainPageText = "(current)";
+}
 
 
 if($addProjectText != "" || $editProjectText != ""){
@@ -47,41 +50,47 @@ if($addProjectText != "" || $editProjectText != ""){
           </li>
           <li class="nav-item">
             <a class="nav-link"
+              href="<?php echo '/myownlifedashboard/dashboard/view/academic/newMainPage/index.php?name=' . $name ?>"
+              id="unplannedActivityNavbar">
+              New Main Page <?php echo $newMainPageText ?>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
               href="<?php echo '/myownlifedashboard/dashboard/view/academic/unplannedActivity/index.php?name=' . $name ?>"
               id="unplannedActivityNavbar">
               Unplanned Activity <?php echo $unplannedActivityText ?>
             </a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              Project <?php echo $projectText ?>
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li>
-                <a class="dropdown-item"
-                  href="<?php echo '/myownlifedashboard/dashboard/view/academic/addProject/index.php?name=' . $name ?>">
-                  New Project <?php echo $addProjectText ?>
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item"
-                  href="<?php echo '/myownlifedashboard/dashboard/view/academic/editProject/index.php?name=' . $name ?>">
-                  Edit Project <?php echo $editProjectText ?>
-                </a>
-              </li>
-            </ul>
-          </li>
-        <li class="nav-item">
-          <a class="nav-link"
+          <li class="nav-item">
+            <a class="nav-link"
             href="<?php echo '/myownlifedashboard/dashboard/view/academic/timeCategorizer/index.php?name=' . $name ?>">
-            WIP Time categorizer <?php echo $timeCategorizerText ?>
+            Time Categorizer <?php echo $timeCategorizerText ?>
           </a>
         </li>
-
-
-        </ul>
-      </div>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Project <?php echo $projectText ?>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item"
+                href="<?php echo '/myownlifedashboard/dashboard/view/academic/addProject/index.php?name=' . $name ?>">
+                New Project <?php echo $addProjectText ?>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item"
+                href="<?php echo '/myownlifedashboard/dashboard/view/academic/editProject/index.php?name=' . $name ?>">
+                Edit Project <?php echo $editProjectText ?>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
     </div>
   </nav>
 </div>
