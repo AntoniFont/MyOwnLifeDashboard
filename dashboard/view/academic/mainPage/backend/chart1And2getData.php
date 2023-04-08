@@ -51,7 +51,7 @@ foreach ($resultByCourses as $key => $value) {
     $query .= "SELECT COALESCE(sum(duration)/3600,0) as \"duracion\",projects100.name FROM projects100 ";
     $query .= "LEFT JOIN studydata100 ON (projects100.projectID = studydata100.projectID) AND studydata100.initialTime>(UNIX_TIMESTAMP()- :days_displayed) ";
     $query .= "WHERE projects100.userID= :id";
-    $query .= " AND projects100.courseID= :courseID";
+    $query .= " AND projects100.courseID= :courseID AND projects100.endDate > NOW() ";
     $query .= " GROUP BY projects100.projectID ORDER BY \"duracion\" DESC";
     $resultsByProject = $dbManager->query($query, ["days_displayed" =>$DAYS_DISPLAYED * 86400, "id" => $id, "courseID" => $value[2]]);
     $resultsByProjects[$key] = $resultsByProject;
