@@ -32,10 +32,10 @@
     <?php
     require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/TimeCategorizer/TimeCategorizer.php");
     require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/StudyDataDAO.php");
-
+    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/CoursesDAO.php");
     require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
 
-    
+    $coursesDAO = new CoursesDAO();
     $timeCategorizer = new TimeCategorizer();
     //Get all the study sessions of the last 14 days
     $StudyDataDAO = new StudyDataDAO();
@@ -59,12 +59,23 @@
     echo "</thead>";
     echo "<tbody>";
     foreach ($studyData as $studyDataItem) {
+        $initialTime = $studyDataItem->getInitialTime();
+        $duration = $studyDataItem->getDuration();
+        $category = $timeCategorizer->categorize($studyDataItem);
+        $id = $studyDataItem->getId();
+        $courseID = $studyDataItem->getCourseID();
+        if($courseID != null){
+            $courseName = ($coursesDAO->getCourseFromId($courseID))->getName();
+        }else {
+            $courseName = "NULL";
+        }
+       
         echo "<tr>";
-        echo "<th scope='row'>".$studyDataItem->getId()."</th>";
-        echo "<td>".$studyDataItem->getCourseID()."</td>";
-        echo "<td>".$studyDataItem->getInitialTime()."</td>";
-        echo "<td>".$studyDataItem->getDuration()."</td>";
-        echo "<td>".$timeCategorizer->categorize($studyDataItem)."</td>";
+        echo "<th scope='row'>".$id."</th>";
+        echo "<td>".$courseID." : ".$courseName."</td>";
+        echo "<td>".$initialTime."</td>";
+        echo "<td>".$duration."</td>";
+        echo "<td>".$category."</td>";
         echo "</tr>";
     }
     echo "</tbody>";

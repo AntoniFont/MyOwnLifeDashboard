@@ -152,6 +152,28 @@ class StudyDataDAO extends DataAccessObject
         }
         return $resultado;
     }
+
+    //day in yyyy-mm-dd 
+    public function getStudySessionsOfADay($user,$day){
+        $initialTime = strtotime($day."00:00:00");
+        $finalTime = strtotime($day."23:59:59");
+        return $this->getStudyDataBetweenTwoDatetimes($user,$initialTime,$finalTime);
+    }
+
+    /*
+    Given a study data id, it updates the study data ranking
+    */
+    public function updateStudyDataRanking($studyDataID,$ranking){
+        $this->dbManager->openIfItWasClosed();
+        $sql = "UPDATE studydata100 SET ranking = :ranking WHERE id = :id";
+        $values = [
+            "ranking" => $ranking,
+            "id" => $studyDataID
+        ];
+        $this->dbManager->query($sql, $values);
+        $this->dbManager->close();
+    }
+    
 }
 
 ?>
