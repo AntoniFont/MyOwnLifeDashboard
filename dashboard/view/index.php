@@ -58,7 +58,7 @@ $name = $_GET["name"];
 		<div class="row mt-5">
 			<div class="col-sm-6">
 				<div class="row">
-					<a id="academicLink" href="./academic/mainPage/index.php">
+					<a id="academicLink" href="./academic/overview/index.php">
 						<div class="d-flex justify-content-center">
 							<img src="./compute250x360.png">
 						</div>

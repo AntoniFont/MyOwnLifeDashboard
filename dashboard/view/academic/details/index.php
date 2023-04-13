@@ -1,12 +1,12 @@
 <?php
-    require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/loginLogic.php");
-    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/ObjectiveDAO.php");
-    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/loginLogic.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/ObjectiveDAO.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
 
-    $_SESSION["current_page"] = "Main Page";
-    $ObjectiveDAO = new ObjectiveDAO();
-    $UserDAO = new UserDAO();
-    $user = $UserDAO->getUserFromNickname($_GET["name"]);
+$_SESSION["current_page"] = "Details";
+$ObjectiveDAO = new ObjectiveDAO();
+$UserDAO = new UserDAO();
+$user = $UserDAO->getUserFromNickname($_GET["name"]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
+    <title>Details</title>
 
     <!---INCLUDE JQUERY--->
     <script src="https://code.jquery.com/jquery-3.6.1.js"
@@ -114,17 +114,53 @@
                     <div id="chart2Container"></div>
                 </div>
             </div>
-
             <div class="row mt-3">
-                <h3 class="text-center">My goal is:</h3>
-            </div>
-            <div class="row mt-3 ms-2">
-                <div class="d-flex">
-                    <span>
-                        <?php 
-                            echo ($ObjectiveDAO->getCurrentBalanceObjective($user))->getText(); 
-                        ?>
-                    </span>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="row mt-3">
+                        <h3 class='text-center'>To get a good ranking, today you should study: </h3>
+                    </div>
+                    <div class="row mt-3 ms-2">
+                        <div class="d-flex">
+                            <?php
+                            require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/CoursesDAO.php");
+                            require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
+
+                            $coursesDAO = new CoursesDAO();
+                            $userDAO = new UserDAO();
+                            $user = $userDAO->getUserFromNickname($_GET["name"]);
+                            $courses = $coursesDAO->getBottom50PercentLeastStudiedCoursesInInterval(date("Y-m-d"), $user->getId(), 14);
+                            //PRINT THE COURSES
+                            echo "<table class='table table-striped table-hover'>";
+                            echo "<thead>";
+                            echo "<tr>";
+                            echo "<th scope='col'>Course name</th>";
+                            echo "</tr>";
+                            echo "</thead>";
+                            echo "<tbody>";
+                            foreach ($courses as $course) {
+                                echo "<tr>";
+                                echo "<td>" . $course->getName() . "</td>";
+                                echo "</tr>";
+                            }
+                            echo "</tbody>";
+                            echo "</table>";
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="row mt-3">
+                        <h3 class="text-center">My goal is:</h3>
+                    </div>
+                    <div class="row mt-3 ms-2">
+                        <div class="d-flex">
+                            <span>
+                                <?php
+                                echo ($ObjectiveDAO->getCurrentBalanceObjective($user))->getText();
+                                ?>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row mt-3 ms-2">
