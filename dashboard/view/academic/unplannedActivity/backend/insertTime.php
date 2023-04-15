@@ -8,7 +8,6 @@ $StudyDataDAO->insertStudyDataFromForm(
     $_GET["projectID"],
     $_GET["description"],
     $_GET["totalTime"],
-    $_GET["initialTime"],
     $_GET["name"],
 )
 

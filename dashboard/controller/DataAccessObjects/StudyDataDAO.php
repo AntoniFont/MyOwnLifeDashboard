@@ -63,8 +63,11 @@ class StudyDataDAO extends DataAccessObject
     }
 
 
-    function insertStudyDataFromForm($courseID, $typeOfStudyData, $projectID, $descripcion, $totalTime, $initialTime, $username)
+    function insertStudyDataFromForm($courseID, $typeOfStudyData, $projectID, $descripcion, $totalTime, $username)
     {
+        //To prevent errors with different timezones, the initialTime (unixTimestamp) is calculated in the server,
+        //it is the current time in the server minus the duration of the activity
+        $initialTime = time() - $totalTime;
 
         if ((strcmp($courseID, "-1") == 0) || (!isset($courseID))) {
             $courseID = null;
