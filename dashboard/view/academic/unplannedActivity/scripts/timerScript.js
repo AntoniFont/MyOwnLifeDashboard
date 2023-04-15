@@ -9,13 +9,14 @@ SAVE IT TO THE DATABSE
 let timerStarted = false;
 let timerVar;
 let secondsEllapsed = 0
-
+let initialTimeDate = 0;
 $(document).ready(function () {
 
     $("#timerButton").click(function () {
         if (timerStarted == false) {
             //start the timer and get starting time
             timerVar = setInterval(visualTimer, 1000); //start the ticking
+            initialTimeDate = Math.floor(Date.now() / 1000);
             timerStarted = true;
             //change the start timer text and color from start timer to stop timer
             $("#timerButton p").text("Stop Timer");
@@ -51,7 +52,6 @@ $(document).ready(function () {
         $.ajax("./backend/insertTime.php",{
             method: "get",
             data:{
-                initialTime: initialTimeDate,
                 totalTime: seconds,
                 courseID: dataSelected["courseID"],
                 projectID: dataSelected["projectID"],

@@ -40,7 +40,6 @@ class StudyDataDAO extends DataAccessObject
         $resultado = $this->dbManager->query($query, [":strvalDaysDisplayed86400" => strval($DAYS_DISPLAYED * 86400), ":userID" => $user->getId()]);
         $this->dbManager->close();
         //2. PROCESSING THE DATA TO ADD THE MISING DAYS AS 0 SECONDS STUDIED
-        date_default_timezone_set('Europe/Madrid');
         $dataProcessed = array();
         $today = date('d-m-Y', time());
         for ($i = 14; $i >= 0; $i--) {

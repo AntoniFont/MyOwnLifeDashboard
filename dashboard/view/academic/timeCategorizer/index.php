@@ -69,11 +69,12 @@
         }else {
             $courseName = "NULL";
         }
-       
+        $humanReadableDate = date("d-m-Y H:i:s", $initialTime);
+
         echo "<tr>";
         echo "<th scope='row'>".$id."</th>";
         echo "<td>".$courseID." : ".$courseName."</td>";
-        echo "<td>".$initialTime."</td>";
+        echo "<td>".$initialTime." : ".$humanReadableDate. "</td>";
         echo "<td>".$duration."</td>";
         echo "<td>".$category."</td>";
         echo "</tr>";
