@@ -55,28 +55,6 @@ function projectClicked(event) {
 
 function getSelectedThings() {
     let result = {};
-
-    let question1YesChecked = $('#question1Yes').prop('checked')
-    let question1NoChecked = $('#question1No').prop('checked')
-
-    if (question1YesChecked == question1NoChecked) { //there is an error you can't check both options at the same time or no option has been checked
-        result["question1"] = "NULL";
-    } else if (question1YesChecked == true) {
-        result["question1"] = "yes";
-    } else {
-        result["question1"] = "no";
-    }
-
-    let question2Answer1Checked = $('#question2Answer1').prop('checked')
-    let question2Answer2Checked = $('#question2Answer2').prop('checked')
-
-    if (question2Answer1Checked == question2Answer2Checked) { //there is an error you can't check both options at the same time or no option has been checked
-        result["question2"] = "NULL";
-    } else if (question2Answer1Checked == true) {
-        result["question2"] = "answer1";
-    } else {
-        result["question2"] = "answer2";
-    }
     result["description"] = $("#description").val();
     result["courseID"] = courseSelected.toString();
     result["typeOfStudyID"] = typeOfStudySelected.toString();

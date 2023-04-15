@@ -10,8 +10,6 @@ $StudyDataDAO->insertStudyDataFromForm(
     $_GET["totalTime"],
     $_GET["initialTime"],
     $_GET["name"],
-    $_GET["question1"],
-    $_GET["question2"]
 )
 
 ?>

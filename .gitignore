@@ -25,3 +25,4 @@ dashboard/vendor/sebastian/recursion-context/
 dashboard/vendor/sebastian/type/
 dashboard/vendor/sebastian/version/
 dashboard/vendor/theseer/tokenizer/
+dashboard/.phpunit.cache/test-results

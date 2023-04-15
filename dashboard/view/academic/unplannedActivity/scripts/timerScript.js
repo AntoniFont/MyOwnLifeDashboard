@@ -60,8 +60,6 @@ $(document).ready(function () {
                 typeOfStudyID: dataSelected["typeOfStudyID"],
                 name: username,
                 description: encodeURI(dataSelected["description"]),
-                question1: dataSelected["question1"],
-                question2:  dataSelected["question2"]
             },
             error: function(){
                 alert("Error al enviar los datos")

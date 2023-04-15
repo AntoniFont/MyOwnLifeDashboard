@@ -79,27 +79,24 @@ $name = $_GET["name"];
 			</div>
 			<div class="col-sm-6">
 				<div class="row">
-					<a id="keystoneHabitsLink" href="./keystoneHabits/mainPage/index.php">
+					<a id="keystoneHabitsLink" target="_blank" href="<?php echo $_SERVER["SERVER_NAME"] . ":8081/plannerJournal/pages/index.jsp" ?>">
 						<div class="d-flex justify-content-center">
-							<img src="./sport250x250.jpg">
+							<img src="./journaling250x250.jpeg">
 						</div>
 					</a>
 				</div>
 				<div class="row">
 					<div class="d-flex justify-content-center">
-						<div class="display-4 mt-2 text-center">Keystone habits</div>
+						<div class="display-4 mt-2 text-center">Planner Journal</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="d-flex justify-content-center mt-2">
-						<p align="center">The habits that allow you to better perform at all the others areas of your
-							life: exercise, good sleep, etc.</p>
+						<p align="center">To plan and to journal</p>
 					</div>
 				</div>
 			</div>
 		</div>
-		<h1><a id="plannerJournalLink" href='<?php echo $_SERVER["SERVER_NAME"] . ":8081/plannerJournal/pages/index.jsp" ?>'
-				target="_blank">Planner Journal</a></h1>
 		<div class="row mt-3">
 			<div class="display-6 mb-3 text-center">Your notifications</div>
 			<div class="alert alert-success alert-dismissible" role="alert">
