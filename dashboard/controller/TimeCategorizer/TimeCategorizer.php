@@ -1,6 +1,8 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/DataAccessObject.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/CoursesDAO.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/StudyDataDAO.php");
+
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/TimeCategorizer/CriteriaOneEvaluator.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/Course.php");
 
@@ -19,7 +21,9 @@ class TimeCategorizer extends DataAccessObject
         $initialTime = $studyData->getInitialTime();
         $userID = $studyData->getUserId();
         $criteriaOneEvaluator = new CriteriaOneEvaluator();
-        return $criteriaOneEvaluator->evaluateCriteria1($courseID, $initialTime, $userID);
+        $score = $criteriaOneEvaluator->evaluateCriteria1($courseID, $initialTime, $userID);
+        (new StudyDataDAO())->updateStudyDataRanking($studyData->getId(), $score);
+        return $score;
     }
 
 }

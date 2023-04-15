@@ -142,6 +142,38 @@ class StudyDataDAO extends DataAccessObject
         $this->dbManager->query($sql, $values);
         $this->dbManager->close();
     }
+    /*Given two unix timestamps, returns the duration of each type of
+    studydata between those two timestamps (typical group by sql). 
+    For example:
+       1 hour of ranking 1
+       3 hours of ranking 2
+       2 hours of ranking 3
+       etc
+    */
+    public function getRankedStudyDataJSON($initialTime,$finalTime,$user){
+        $this->dbManager->openIfItWasClosed();
+        $sql = "SELECT sum(duration),ranking FROM studydata100 WHERE userID = :userID AND initialTime >= :initialTime AND initialTime <= :finalTime GROUP BY ranking";
+        $values = [
+            "userID" => $user->getId(),
+            "initialTime" => $initialTime,
+            "finalTime" => $finalTime
+        ];
+        $resultadoQuery = $this->dbManager->query($sql, $values);
+        /*
+        Convert the result into an array
+        Ranking => duration
+        1 => 1
+        2 => 3
+        3 => 2
+        
+        */
+        $resultado = array();
+        foreach ($resultadoQuery as $query) {
+            $resultado[$query[1]] = $query[0];
+        }
+        $this->dbManager->close();
+        return json_encode($resultado, JSON_UNESCAPED_UNICODE); 
+    }
     
 }
 

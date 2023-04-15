@@ -75,7 +75,7 @@ class CoursesDAO extends DataAccessObject
                 group by
                     courses100.courseID
                 order by
-                    duracion asc";
+                    duracion asc, courses100.name asc";
 
         $resultsCourses = $this->dbManager->query($sql, ["usuarioid" => $userID, "dayone" => $finalDayInitialHour, "daytwo" => $initialDayInitialHour, "daythree" => $initialDayInitialHour]);
         //Get the number of courses

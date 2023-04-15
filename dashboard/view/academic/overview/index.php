@@ -66,5 +66,17 @@ $_SESSION["current_page"] = "Overview";
             <div class="col-6">
                 <button type="button" class="btn btn-primary">&gt</button>
             </div>
+        </div>
     </div>
+        <?php 
+        require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/StudyDataDAO.php");
+        // unixtimestamp of the first second of the week
+        $weekFirstSecond = strtotime("last monday");
+        // current unixtimestamp
+        $currentTimestamp = time();
+        //get user
+        $user = (new UserDAO())->getUserFromNickname($_GET["name"]);
+        echo var_dump((new StudyDataDAO())->getRankedStudyDataJSON($weekFirstSecond,$currentTimestamp,$user));
+        ?>
+
 </body>
