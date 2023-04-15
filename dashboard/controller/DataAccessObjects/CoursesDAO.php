@@ -46,9 +46,13 @@ class CoursesDAO extends DataAccessObject
      courses instead of 4 , 3.5 can't be because it's not an integer)
      of the least studied courses. And return it an array of Course objects.
     */
-    function getBottom50PercentLeastStudiedCoursesInInterval($initialDay, $userID, $LAST_N_DAYS)
+    function getBottom50PercentLeastStudiedCoursesInInterval($finalDay, $userID, $LAST_N_DAYS)
     {
         $this->dbManager->openIfItWasClosed();
+        $finalDayInitialHour = $finalDay . " 00:00:00";
+        $initialDay = date("Y-m-d", strtotime($finalDay . " -" . $LAST_N_DAYS . " days"));
+        $initialDayInitialHour = $initialDay . " 00:00:00";
+         
         $sql = "select
                     courses100.courseID,
                     courses100.name,
@@ -62,7 +66,7 @@ class CoursesDAO extends DataAccessObject
                     and
                         studydata100.initialTime < UNIX_TIMESTAMP(DATE(:dayone))
                     and 
-                        studydata100.initialTime >= UNIX_TIMESTAMP(DATE_SUB(DATE(:daytwo), interval :lastndays day))
+                        studydata100.initialTime >= UNIX_TIMESTAMP(DATE(:daytwo))
                 where
                     #only active courses from the user
                     courses100.`user` = :usuarioid
@@ -73,7 +77,7 @@ class CoursesDAO extends DataAccessObject
                 order by
                     duracion asc";
 
-        $resultsCourses = $this->dbManager->query($sql, ["usuarioid" => $userID, "dayone" => $initialDay, "daytwo" => $initialDay, "lastndays" => $LAST_N_DAYS, "daythree" => $initialDay]);
+        $resultsCourses = $this->dbManager->query($sql, ["usuarioid" => $userID, "dayone" => $finalDayInitialHour, "daytwo" => $initialDayInitialHour, "daythree" => $initialDayInitialHour]);
         //Get the number of courses
         $numCourses = count($resultsCourses);
         //Get how many courses are in the bottom 50%
