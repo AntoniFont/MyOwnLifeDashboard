@@ -6,14 +6,14 @@ $overviewText = "";
 $addProjectText = "";
 $editProjectText = "";
 $projectText = "";
-$timeCategorizerText = "";
+$StudyTimeCategorizerText = "";
 $detailsText = "";
 if ($_SESSION["current_page"] == "Unplanned Activity") {
   $unplannedActivityText = "(current)";
 } elseif ($_SESSION["current_page"] == "Overview") {
   $overviewText = "(current)";
 } elseif ($_SESSION["current_page"] == "Time Categorizer") {
-  $timeCategorizerText = "(current)";
+  $StudyTimeCategorizerText = "(current)";
 } elseif ($_SESSION["current_page"] == "Add project") {
   $addProjectText = "(current)";
 } else if ($_SESSION["current_page"] == "Edit project") {
@@ -65,7 +65,7 @@ if ($addProjectText != "" || $editProjectText != "") {
           <li class="nav-item">
             <a class="nav-link"
               href="<?php echo '/myownlifedashboard/dashboard/view/academic/timeCategorizer/index.php?name=' . $name ?>">
-              Time Categorizer <?php echo $timeCategorizerText ?>
+              Time Categorizer <?php echo $StudyTimeCategorizerText ?>
             </a>
           </li>
 

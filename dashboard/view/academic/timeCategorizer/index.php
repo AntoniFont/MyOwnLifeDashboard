@@ -30,13 +30,13 @@
 <body>
     <?php include '../navbar.php'; ?>
     <?php
-    require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/TimeCategorizer/TimeCategorizer.php");
+    require_once($_SERVER["DOCUMENT_ROOT"]."/myownlifedashboard/dashboard/controller/StudyTimeCategorizer/StudyTimeCategorizer.php");
     require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/StudyDataDAO.php");
     require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/CoursesDAO.php");
     require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
 
     $coursesDAO = new CoursesDAO();
-    $timeCategorizer = new TimeCategorizer();
+    $StudyTimeCategorizer = new StudyTimeCategorizer();
     //Get all the study sessions of the last 14 days
     $StudyDataDAO = new StudyDataDAO();
     //current unix timestamp
@@ -61,7 +61,7 @@
     foreach ($studyData as $studyDataItem) {
         $initialTime = $studyDataItem->getInitialTime();
         $duration = $studyDataItem->getDuration();
-        $category = $timeCategorizer->categorize($studyDataItem);
+        $category = $StudyTimeCategorizer->categorize($studyDataItem);
         $id = $studyDataItem->getId();
         $courseID = $studyDataItem->getCourseID();
         if($courseID != null){
