@@ -8,6 +8,7 @@ $editProjectText = "";
 $projectText = "";
 $StudyTimeCategorizerText = "";
 $detailsText = "";
+$editGoalText = "";
 if ($_SESSION["current_page"] == "Unplanned Activity") {
   $unplannedActivityText = "(current)";
 } elseif ($_SESSION["current_page"] == "Overview") {
@@ -20,6 +21,8 @@ if ($_SESSION["current_page"] == "Unplanned Activity") {
   $editProjectText = "(current)";
 } else if ($_SESSION["current_page"] == "Details") {
   $detailsText = "(current)";
+}else if ($_SESSION["current_page"] == "Edit goal") {
+  $editGoalText = "(current)";
 }
 
 
@@ -66,6 +69,13 @@ if ($addProjectText != "" || $editProjectText != "") {
             <a class="nav-link"
               href="<?php echo '/myownlifedashboard/dashboard/view/academic/timeCategorizer/index.php?name=' . $name ?>">
               Time Categorizer <?php echo $StudyTimeCategorizerText ?>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link"
+              href="<?php echo '/myownlifedashboard/dashboard/view/academic/editGoal/index.php?name=' . $name ?>">
+              Edit goal <?php echo $editGoalText ?>
             </a>
           </li>
 

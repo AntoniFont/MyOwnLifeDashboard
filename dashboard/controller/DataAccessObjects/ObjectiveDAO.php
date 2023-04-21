@@ -18,6 +18,14 @@ class ObjectiveDAO extends DataAccessObject
         $this->dbManager->close();
         return new Objective($resultado[0][0]);
     }
+
+    function addNewCurrentBalanceObjective($user,$objectiveText){
+        $this->dbManager->openIfItWasClosed();
+        //DO THE QUERY TO GET THE TEXT
+        $sql = "insert into balancegoal (user,startDate,objectiveText) values (:idUser,:startDate,:objectiveText)";
+        $resultado = $this->dbManager->query($sql, ["idUser" => $user->getId(),"startDate"=>time(),"objectiveText"=>$objectiveText]);
+        $this->dbManager->close();
+    }
 }
 
 ?>

@@ -32,24 +32,40 @@ $_SESSION["current_page"] = "Overview";
     <div class='container'>
         <?php
         require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/StudyDataDAO.php");
+        require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/auxiliar/TimeAuxi.php");
+        
         $currentTimestamp = time();
-        $weekNumber = date("W", $currentTimestamp);
-        $weekFirstSecond = strtotime("last monday");
+        $currentWeekNumber = TimeAuxi::getWeekNumber($currentTimestamp);
+        $currentYear = TimeAuxi::getYear($currentTimestamp);
+        $currentWeekFirstSecond = TimeAuxi::getWeekFirstSecond($currentWeekNumber, $currentYear);
+        
+        $pastWeekNumber = TimeAuxi::getPreviousWeekNumber($currentWeekNumber, $currentYear);
+        $pastWeekYear = TimeAuxi::getPreviousWeekYear($currentWeekNumber, $currentYear);
+        $pastWeekFirstSecond = TimeAuxi::getWeekFirstSecond($pastWeekNumber, $pastWeekYear);
+        $pastWeekLastSecond = TimeAuxi::getWeekLastSecond($pastWeekNumber, $pastWeekYear);
+
+
+
+
         $user = (new UserDAO())->getUserFromNickname($_GET["name"]);
-        $data = (new StudyDataDAO())->getRankedStudyData($weekFirstSecond,$currentTimestamp,$user);
+        $currentdata = (new StudyDataDAO())->getRankedStudyData($currentWeekFirstSecond,$currentTimestamp,$user);
+        $pastdata = (new StudyDataDAO())->getRankedStudyData($pastWeekFirstSecond,$pastWeekLastSecond,$user);
+
         echo "<table class='table table-striped table-hover'>";
         echo "<thead>";
         echo "<tr>";
-        echo "<th scope='col'>Week ".$weekNumber-1 ."</th>";
-        echo "<th scope='col'>Week ".$weekNumber." </th>";
-        echo "<th scope='col'>Week ".$weekNumber+1 ."</th>";
+        echo "<th scope='col'>Week ".$pastWeekNumber ."</th>";
+        echo "<th scope='col'>Week ".$currentWeekNumber." </th>";
+        echo "<th scope='col'>Week ".$currentWeekNumber+1 ."</th>";
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
-        foreach ($data as $key => $value) {
+        //Goofy ass code. I'm not in the mood to do something better
+        foreach ($currentdata as $key => $value) {
             $hours = number_format($value/3600,2);
+            $lastweekhours = number_format($pastdata[$key]/3600,2);
             echo "<tr>";
-            echo "<td>" . $key." -1" . "</td>";
+            echo "<td>" . $hours." " .$key." hours"."</td>";
             echo "<td>" . $hours ." ".$key." hours". "</td>";
             echo "<td>" . $key." +1" . "</td>";
             echo "</tr>";
@@ -67,7 +83,5 @@ $_SESSION["current_page"] = "Overview";
             </div>
         </div>
     </div>
-        <?php 
-        ?>
 
 </body>
