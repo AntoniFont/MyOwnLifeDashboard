@@ -65,7 +65,7 @@ $_SESSION["current_page"] = "Overview";
             $hours = number_format($value/3600,2);
             $lastweekhours = number_format($pastdata[$key]/3600,2);
             echo "<tr>";
-            echo "<td>" . $hours." " .$key." hours"."</td>";
+            echo "<td>" . $lastweekhours." " .$key." hours"."</td>";
             echo "<td>" . $hours ." ".$key." hours". "</td>";
             echo "<td>" . $key." +1" . "</td>";
             echo "</tr>";
