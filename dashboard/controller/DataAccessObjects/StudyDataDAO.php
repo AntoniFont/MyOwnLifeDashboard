@@ -169,7 +169,7 @@ class StudyDataDAO extends DataAccessObject
                     and initialTime >= :initialTime
                     and initialTime <= :finalTime
                 group by
-                    studydata100.ranking
+                    ranking.id
                 order by
                     ranking.id desc
         ";
