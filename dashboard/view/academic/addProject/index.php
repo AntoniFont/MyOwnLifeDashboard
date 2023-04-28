@@ -30,7 +30,7 @@
     <?php include '../navbar.php'; ?>
 
     <div class="container">
-        <form action="./backend/addProject.php" method="get">
+        <form target="_blank" action="./backend/addProject.php" method="get">
             <!--invisible username input-->
             <input type="text" name="username" class="form-control" value="<?php echo $_GET['name']?>" hidden ></textarea>
             <div class="row mt-3">

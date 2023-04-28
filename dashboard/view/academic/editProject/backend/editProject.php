@@ -40,5 +40,5 @@ $ProjectsDAO->editProject($project);
     </tr>
 </table>
 
-<p>Click <a href='../index.php?name=<?php echo $_GET["username"]?>'>here</a> to go back to the previous page.</p>
+<p>If you don't see any errors, you can close this page </p>
 

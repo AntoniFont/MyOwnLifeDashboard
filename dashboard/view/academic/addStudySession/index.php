@@ -30,7 +30,7 @@ $_SESSION["current_page"] = "Add Study Session";
 <body>
     <?php include '../navbar.php'; ?>
     <div class="container">
-        <form action="./backend/addStudySession.php" method="get">
+        <form target="_blank" action="./backend/addStudySession.php" method="get">
             <!--invisible username input-->
             <input type="text" name="username" class="form-control" value="<?php echo $_GET['name'] ?>" hidden>
             <div class="row mt-3">

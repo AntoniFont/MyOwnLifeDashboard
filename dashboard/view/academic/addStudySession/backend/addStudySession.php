@@ -68,3 +68,5 @@
         <td><?php echo $username?></td>
     </tr>
 </table>
+
+<p>If you don't see any errors, you can close this page </p>

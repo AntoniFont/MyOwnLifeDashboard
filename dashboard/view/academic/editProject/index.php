@@ -30,7 +30,7 @@ $_SESSION["current_page"] = "Edit project";
 <body>
     <?php include '../navbar.php'; ?>
     <div class="container">
-        <form action="./backend/editProject.php" method="get">
+        <form target="_blank" action="./backend/editProject.php" method="get">
             <input type="hidden" name="username" value="<?php echo $_GET["name"] ?>">
             <div class="row mt-3" id="selectCourseDiv">
                 <label for="course">Choose a course:</label>
