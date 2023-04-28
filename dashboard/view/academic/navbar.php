@@ -1,16 +1,22 @@
 <?php
 $name = $_GET["name"];
 
-$unplannedActivityText = "";
+$timerStudySession = "";
 $overviewText = "";
+$projectText = "";
 $addProjectText = "";
 $editProjectText = "";
-$projectText = "";
+$studySessionText = "";
+$addStudySessionText = "";
+$editStudySessionText = "";
+$deleteStudySessionText = "";
 $StudyTimeCategorizerText = "";
 $detailsText = "";
-$editGoalText = "";
-if ($_SESSION["current_page"] == "Unplanned Activity") {
-  $unplannedActivityText = "(current)";
+$infoText = "";
+
+
+if ($_SESSION["current_page"] == "Timer Study Session") {
+  $timerStudySession = "(current)";
 } elseif ($_SESSION["current_page"] == "Overview") {
   $overviewText = "(current)";
 } elseif ($_SESSION["current_page"] == "Time Categorizer") {
@@ -21,11 +27,19 @@ if ($_SESSION["current_page"] == "Unplanned Activity") {
   $editProjectText = "(current)";
 } else if ($_SESSION["current_page"] == "Details") {
   $detailsText = "(current)";
-}else if ($_SESSION["current_page"] == "Edit goal") {
-  $editGoalText = "(current)";
+}else if ($_SESSION["current_page"] == "Info") {
+  $infoText = "(current)";
+}else if ($_SESSION["current_page"] == "Add Study Session") {
+  $addStudySessionText = "(current)";
+}else if ($_SESSION["current_page"] == "Edit Study Session") {
+  $editStudySessionText = "(current)";
+}else if ($_SESSION["current_page"] == "Delete Study Session") {
+  $deleteStudySessionText = "(current)";
 }
 
-
+if($addStudySessionText != "" || $editStudySessionText != "" || $deleteStudySessionText != ""){
+  $studySessionText = "(current)";
+}
 if ($addProjectText != "" || $editProjectText != "") {
   $projectText = "(current)";
 }
@@ -60,22 +74,15 @@ if ($addProjectText != "" || $editProjectText != "") {
           </li>
           <li class="nav-item">
             <a class="nav-link"
-              href="<?php echo '/myownlifedashboard/dashboard/view/academic/unplannedActivity/index.php?name=' . $name ?>"
+              href="<?php echo '/myownlifedashboard/dashboard/view/academic/timerStudySession/index.php?name=' . $name ?>"
               id="unplannedActivityNavbar">
-              Unplanned Activity <?php echo $unplannedActivityText ?>
+              Timer Study Session <?php echo $timerStudySession ?>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link"
               href="<?php echo '/myownlifedashboard/dashboard/view/academic/timeCategorizer/index.php?name=' . $name ?>">
               Time Categorizer <?php echo $StudyTimeCategorizerText ?>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link"
-              href="<?php echo '/myownlifedashboard/dashboard/view/academic/editGoal/index.php?name=' . $name ?>">
-              Edit goal <?php echo $editGoalText ?>
             </a>
           </li>
 
@@ -95,6 +102,30 @@ if ($addProjectText != "" || $editProjectText != "") {
                 <a class="dropdown-item"
                   href="<?php echo '/myownlifedashboard/dashboard/view/academic/editProject/index.php?name=' . $name ?>">
                   Edit Project <?php echo $editProjectText ?>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Study Session <?php echo $studySessionText; ?>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item"
+                  href="<?php echo '/myownlifedashboard/dashboard/view/academic/addStudySession/index.php?name=' . $name ?>">
+                  Add Study Session <?php echo $addStudySessionText ?>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item"
+                  href="<?php echo '/myownlifedashboard/dashboard/view/academic/editStudySession/index.php?name=' . $name ?>">
+                  Edit Study Session <?php echo $editStudySessionText ?>
+                </a>
+                <a class="dropdown-item"
+                  href="<?php echo '/myownlifedashboard/dashboard/view/academic/deleteStudySession/index.php?name=' . $name ?>">
+                  Delete Study Session <?php echo $deleteStudySessionText ?>
                 </a>
               </li>
             </ul>

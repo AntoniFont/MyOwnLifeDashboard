@@ -5,7 +5,7 @@ require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controll
 
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
 
-$_SESSION["current_page"] = "Unplanned Activity";
+$_SESSION["current_page"] = "Timer Study Session";
 ?>
 <!DOCTYPE html>
 <html lang="en">
