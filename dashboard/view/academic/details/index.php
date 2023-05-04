@@ -33,7 +33,8 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/10.3.2/highcharts.js"
         integrity="sha512-JVzXlL1mZb/G0YNUJtPqUzA/QtPMQLNpCtEBOV9R8P3Uskp4W0C+6SVZ3rpwnKcp/V/59YQoGNUYmB/N6do1sA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/10.3.3/modules/drilldown.js"></script>
 
     <script src="./scripts/misc/otherThingsScript.js"></script>
     <script src="./scripts/auxScripts/number-rush.js"></script>
@@ -51,7 +52,7 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
                 <h1 class="display-1 text-center mb-5">Default Study Plan
 
                 </h1>
-                <p class="m-2"><a href="./info/info.html#h.40066jalpwpg" target="_blank">?</a> </p>
+                <p class="m-2"><a href="../info/info.html#h.40066jalpwpg" target="_blank">?</a> </p>
             </div>
         </div>
         <div style="background-color:rgb(252, 252, 248)">
@@ -59,7 +60,7 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
                 <div class="d-flex justify-content-center align-items-start">
                     <h1 class="pe-3">Be perseverant! Do a little bit of work everyday
                     </h1>
-                    <p><a href="./info/info.html#h.fcua4kt5b3rm" target="_blank">?</a></p>
+                    <p><a href="../info/info.html#h.fcua4kt5b3rm" target="_blank">?</a></p>
                 </div>
             </div>
             <div class="row">
@@ -97,7 +98,7 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
                     <h1 class="pe-3">Don't leave behind any courses!
 
                     </h1>
-                    <p><a href="./info/info.html#h.gktl3pisuks3" target="_blank">?</a> </p>
+                    <p><a href="../info/info.html#h.gktl3pisuks3" target="_blank">?</a> </p>
                 </div>
             </div>
             <div class="row">
@@ -166,10 +167,10 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
             <div class="row mt-3 ms-2">
                 <div class="d-flex">
                     <div class="alert alert-warning me-3" role="alert" id="no6thcoursewarning">
-                        No 6th course! <a href="./info/info.html#h.57qet5tjzvb2" target="_blank"> ? </a>
+                        No 6th course! <a href="../info/info.html#h.57qet5tjzvb2" target="_blank"> ? </a>
                     </div>
                     <div class="alert alert-warning" role="alert" id="no7thcoursewarning">
-                        No 7th course! <a href="./info/info.html#h.981wrw39dkid" target="_blank"> ? </a>
+                        No 7th course! <a href="../info/info.html#h.981wrw39dkid" target="_blank"> ? </a>
                     </div>
                 </div>
             </div>

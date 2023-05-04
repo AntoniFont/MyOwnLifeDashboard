@@ -107,7 +107,7 @@ class StudyDataDAO extends DataAccessObject
     function getStudyDataBetweenTwoDatetimes($user, $initialDate, $finalDate)
     {
         $this->dbManager->openIfItWasClosed();
-        $sql = "SELECT id,courseID,initialTime,duration,userID FROM studydata100 WHERE userID = :userID AND initialTime >= :initialDate AND initialTime <= :finalDate";
+        $sql = "SELECT id,courseID,initialTime,duration,userID,projectID FROM studydata100 WHERE userID = :userID AND initialTime >= :initialDate AND initialTime <= :finalDate";
         $values = [
             "userID" => $user->getId(),
             "initialDate" => $initialDate,
@@ -123,7 +123,8 @@ class StudyDataDAO extends DataAccessObject
             $initialTime = $query[2];
             $duration = $query[3];
             $userID = $query[4];
-            $studyData->constructorA($id, $courseID, $initialTime, $duration, $userID);
+            $projectID = $query[5];
+            $studyData->constructorA($id, $courseID, $initialTime, $duration, $userID, $projectID);
             array_push($resultado, $studyData);
         }
         return $resultado;

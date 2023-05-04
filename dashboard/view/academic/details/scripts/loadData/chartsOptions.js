@@ -1,7 +1,7 @@
 /*THESE VARIABLES CONTAIN ALL OF THE OPTIONS OF THE CHARTS, SUCH AS THE TITLE, THE SUBTITLE , THE NAME OF THE AXIS,
 THE POINTER FORMAT, THE COLORS, ETC */
 
-let chart2Options =  {
+let chart2Options = {
     chart: {
         backgroundColor: "#FCFCF8",
         plotBackgroundColor: null,
@@ -40,17 +40,17 @@ let chart2Options =  {
 
         data: [], //TO BE FILLED
     }],
-    
-    drilldown : {
-        series : [] //TO BE FILLED
+
+    drilldown: {
+        series: [] //TO BE FILLED
     },
     credits: {
         enabled: false
-      },
-    
+    },
+
 };
 
-let chart1Options =  {
+let chart1Options = {
     chart: {
         backgroundColor: "#FCFCF8",
         plotBackgroundColor: null,
@@ -65,7 +65,7 @@ let chart1Options =  {
         text: ''
     },
     xAxis: {
-        visible : false
+        visible: false
     },
     yAxis: {
         title: "Numero de horas",
@@ -87,7 +87,7 @@ let chart1Options =  {
                 format: '{point.y} h'
             },
             dataSorting: {
-                enabled:  true
+                enabled: true
             },
         }
     },
@@ -99,18 +99,18 @@ let chart1Options =  {
     }],
     credits: {
         enabled: false
-      },
-      drilldown: {
+    },
+    drilldown: {
         dataSorting: {
-            enabled:  true
+            enabled: true
         },
         /*activeDataLabelStyle: { TO REMOVE THE UNDERLINE UNCOMMENT THIS
             textDecoration: "none",
             color: "#000000"
         }*/
-        series : [] //TO BE FILLED
+        series: [] //TO BE FILLED
     }
-    
+
 };
 
 let chart3Options = {
@@ -127,7 +127,7 @@ let chart3Options = {
 
     xAxis: {
         type: 'datetime',
-        tickInterval: 24 * 3600 * 1000 ,
+        tickInterval: 24 * 3600 * 1000,
         title: {
             text: 'Date'
         }
@@ -158,7 +158,7 @@ let chart3Options = {
     }],
     credits: {
         enabled: false
-      }
+    }
 
 };
 

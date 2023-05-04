@@ -85,6 +85,12 @@ if ($addProjectText != "" || $editProjectText != "") {
               Time Categorizer <?php echo $StudyTimeCategorizerText ?>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link"
+              href="<?php echo '/myownlifedashboard/dashboard/view/academic/info/info.html'?>">
+              Info <?php echo $infoText ?>
+            </a>
+          </li>
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
