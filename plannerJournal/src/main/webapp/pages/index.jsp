@@ -30,6 +30,8 @@
                         <div class="mb-3">
                             <input type="text" placeholder="Insert group code name" id="groupCodeName"
                                 autocomplete="off">
+                            <input type="checkbox" id="archived" name="archived">
+                            <label for="archived">Display archived</label>
                             <button type="button" class="btn btn-primary" id="reloadButton">Reload</button>
                             <!--Invisible new note button-->
                             <button type="button" class="btn btn-primary" id="newNoteButton" style="display: none;">New
@@ -54,11 +56,16 @@
         $(document).ready(function () {
             $("#reloadButton").click(getList);
             function getList() {
+                let checked = "false";
+                if($("#archived").is(":checked")){
+                    checked = "true";
+                }
                 $.ajax({
                     url: "../code/getNoteList.jsp",
                     method: "POST",
                     data: {
-                        groupCodeName: $("#groupCodeName").val()
+                        groupCodeName: $("#groupCodeName").val(),
+                        archived: checked
                     },
                     success: function (data) {
                         $("#notesContainer").html(data);

@@ -5,8 +5,21 @@
 <%@ page import="java.net.URLDecoder" %>
 <%
 String groupCodeName = (String) request.getParameter("groupCodeName");
+String archived = (String) request.getParameter("archived");
 request.getSession().setAttribute("groupCodeName",EncryptionHandler.encrypt(groupCodeName, (String) request.getSession().getAttribute("aesKey")));
-ArrayList<Note> arr = NoteHandler.getNotes((String) request.getSession().getAttribute("user"),(String) request.getSession().getAttribute("aesKey"),(String) request.getSession().getAttribute("groupCodeName"));
+ArrayList<Note> arr;
+if(archived == "true"){
+	 arr = NoteHandler.getNotes((String) request.getSession().getAttribute("user"),
+		(String) request.getSession().getAttribute("aesKey"),
+		(String) request.getSession().getAttribute("groupCodeName"),
+		true);
+}else{
+	arr = NoteHandler.getNotes((String) request.getSession().getAttribute("user"),
+	(String) request.getSession().getAttribute("aesKey"),
+	(String) request.getSession().getAttribute("groupCodeName"),
+	false);
+}
+
 int NCOL = 4;
 float NFILFloat = ((float) arr.size()) / ((float) NCOL);
 int NFIL = (int) Math.ceil(NFILFloat);

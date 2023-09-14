@@ -7,14 +7,15 @@ import java.util.Iterator;
 
 public class NoteHandler {
 
-	public static ArrayList<Note> getNotes(String username, String privateKeyString, String groupCodeName) {
+	public static ArrayList<Note> getNotes(String username, String privateKeyString, String groupCodeName,boolean archived) {
 		DatabaseManager db = new DatabaseManager();
 		db.open();
 		try {
 			User user = UserHandler.getUserFromUsername(username);
-			String sql = "SELECT id,name,isFixed FROM note100 WHERE userID=? ORDER BY isFixed DESC, lastUpdate DESC ";
+			String sql = "SELECT id,name,isFixed FROM note100 WHERE userID=? AND isArchived=? ORDER BY isFixed DESC, lastUpdate DESC ";
 			PreparedStatement stmt = db.prepareStatement(sql);
-			stmt.setInt(1, user.getId());
+			stmt.setBoolean(1, archived);
+			stmt.setInt(2, user.getId());
 			ArrayList<Note> notes = new ArrayList<Note>();
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
