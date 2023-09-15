@@ -1,23 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <%@ page import="plannerJournal.*"%>
-<%@ page import="java.util.ArrayList"%>
-<%@ page import="java.net.URLDecoder" %>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.net.URLDecoder" %>
 <%
 String groupCodeName = (String) request.getParameter("groupCodeName");
 String archived = (String) request.getParameter("archived");
 request.getSession().setAttribute("groupCodeName",EncryptionHandler.encrypt(groupCodeName, (String) request.getSession().getAttribute("aesKey")));
 ArrayList<Note> arr;
-if(archived == "true"){
-	 arr = NoteHandler.getNotes((String) request.getSession().getAttribute("user"),
-		(String) request.getSession().getAttribute("aesKey"),
-		(String) request.getSession().getAttribute("groupCodeName"),
-		true);
+if(archived.equals("true")){
+	arr = NoteHandler.getNotesi(
+			 (String) (request.getSession().getAttribute("user")),
+			 (String) (request.getSession().getAttribute("aesKey")),
+			 (String) (request.getSession().getAttribute("groupCodeName"))
+			 ,true);
 }else{
-	arr = NoteHandler.getNotes((String) request.getSession().getAttribute("user"),
-	(String) request.getSession().getAttribute("aesKey"),
-	(String) request.getSession().getAttribute("groupCodeName"),
-	false);
+	arr = NoteHandler.getNotesi(
+			(String) (request.getSession().getAttribute("user")),
+			(String) (request.getSession().getAttribute("aesKey")),
+			(String) (request.getSession().getAttribute("groupCodeName")),
+			false);
 }
 
 int NCOL = 4;
