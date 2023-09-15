@@ -54,7 +54,7 @@ note = NoteHandler.getNote(Integer.parseInt(request.getParameter("id")), (String
 	integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
 	crossorigin="anonymous"></script>
 <meta charset="UTF-8">
-<title><%=note.getName()%></title>
+<title>Planner Journal Note <%=note.getId()%></title>
 </head>
 
 <body>
