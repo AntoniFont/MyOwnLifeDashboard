@@ -27,6 +27,7 @@ public class Note {
         this.name = name;
         this.isFixed = isFixed;
         this.content = content;
+        this.isArchived = isArchived;
     }
  
 

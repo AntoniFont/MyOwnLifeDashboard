@@ -120,7 +120,7 @@ public class NoteHandler {
 				String content = rs.getString("content");
 				name = EncryptionHandler.decrypt(name, privateKey);
 				content = EncryptionHandler.decrypt(content, privateKey);
-				Note n = new Note (id, name, rs.getBoolean("isFixed"),content);
+				Note n = new Note (id, name, rs.getBoolean("isFixed"),content,rs.getBoolean("isArchived"));
 				db.close();
 				return n;
 			}
