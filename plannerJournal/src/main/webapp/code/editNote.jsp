@@ -7,11 +7,13 @@ User user = UserHandler.getUserFromUsername((String) request.getSession().getAtt
 int noteID = Integer.parseInt(request.getParameter("noteId"));
 String noteName = request.getParameter("noteName");
 String isFixed = request.getParameter("isFixed");
+String isArchived = request.getParameter("isArchived");
 NoteHandler.editNote(noteID,
 		noteName, 
 		newNoteContent,
 		user,
 		(String) request.getSession().getAttribute("aesKey"),
-		isFixed
+		isFixed,
+		isArchived
 		);
 %>

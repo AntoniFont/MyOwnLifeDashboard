@@ -14,7 +14,7 @@ public class NoteHandler {
 		try {
 			User user = UserHandler.getUserFromUsername(username);
 			String sql;
-			if(archived) {
+			if(!archived) {
 				sql = "SELECT id,name,isFixed FROM note100 WHERE userID=? AND isArchived=0 ORDER BY isFixed DESC, lastUpdate DESC ";				
 			}else {
 				sql = "SELECT id,name,isFixed FROM note100 WHERE userID=? ORDER BY isFixed DESC, lastUpdate DESC ";			
@@ -111,7 +111,7 @@ public class NoteHandler {
 		DatabaseManager db = new DatabaseManager();
 		db.open();
 		try {
-			String sql = "SELECT name,isFixed,content FROM note100 WHERE id=?";
+			String sql = "SELECT name,isFixed,content,isArchived FROM note100 WHERE id=?";
 			PreparedStatement stmt = db.prepareStatement(sql);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
@@ -154,7 +154,7 @@ public class NoteHandler {
 		}
 	}
 
-	public static void editNote(int id, String name, String content, User user, String privateKey,String isFixed) throws Exception{
+	public static void editNote(int id, String name, String content, User user, String privateKey,String isFixed,String isArchived) throws Exception{
 		DatabaseManager db = new DatabaseManager();
 		db.open();
 		try {
@@ -162,7 +162,7 @@ public class NoteHandler {
 			content = EncryptionHandler.encrypt(content, privateKey);
 			name = EncryptionHandler.encrypt(name, privateKey);
 			// Update note
-			String sql = "UPDATE note100 SET name=?, content=?, isFixed=?, lastUpdate=LOCALTIME() WHERE id=? AND userID=?";
+			String sql = "UPDATE note100 SET name=?, content=?, isFixed=?, isArchived=?, lastUpdate=LOCALTIME() WHERE id=? AND userID=?";
 			PreparedStatement stmt = db.prepareStatement(sql);
 			stmt.setString(1, name);
 			stmt.setString(2, content);
@@ -171,8 +171,13 @@ public class NoteHandler {
 			}else if(isFixed.equals("false")) {
 				stmt.setBoolean(3, false);
 			}
-			stmt.setInt(4, id);
-			stmt.setInt(5, user.getId());
+			if(isArchived.equals("true")) {
+				stmt.setBoolean(4, true);
+			}else if(isArchived.equals("false")) {
+				stmt.setBoolean(4, false);
+			}
+			stmt.setInt(5, id);
+			stmt.setInt(6, user.getId());
 			stmt.executeUpdate();
 			db.close();
 		} catch (Exception e) {

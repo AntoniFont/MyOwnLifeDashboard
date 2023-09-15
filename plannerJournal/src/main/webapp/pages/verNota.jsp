@@ -84,7 +84,7 @@ note = NoteHandler.getNote(Integer.parseInt(request.getParameter("id")), (String
 					All</button>
 				<a href="index.jsp"><button type="button"
 						class="btn btn-primary">Atrás</button></a>
-				<!--A checkbox that displays if the note is fixed or not-->
+				<!--A checkbox that displays if the note is fixed or not and another one for archived-->
 				<div class="form-check">
 					<%
 						if(note.isFixed()){
@@ -93,9 +93,19 @@ note = NoteHandler.getNote(Integer.parseInt(request.getParameter("id")), (String
 							out.println("<input class='form-check-input' type='checkbox' id='fixedNote'>");
 						}					
 					%>
+					<label class="form-check-label" for="fixedNote"> Fixed </label>
+					</div>	
+						<div class="form-check">
+							<%
+						if(note.isArchived()){
+							out.println("<input class='form-check-input' type='checkbox' id='archivedNote' checked>");
+						}else{
+							out.println("<input class='form-check-input' type='checkbox' id='archivedNote'>");
+						}					
+					%>
 				
 					 
-					<label class="form-check-label" for="fixedNote"> Fixed </label>
+					<label class="form-check-label" for="fixedNote"> Archived </label>
 				</div>
 
 			</div>
@@ -155,7 +165,8 @@ note = NoteHandler.getNote(Integer.parseInt(request.getParameter("id")), (String
 											decriptionKey: $("#decryptionKey").val(),
 											noteName: $("#editName").val(),
 											noteContent: $("#viewContent").html(),
-											isFixed:  $("#fixedNote").is(":checked")
+											isFixed:  $("#fixedNote").is(":checked"),
+											isArchived:  $("#archivedNote").is(":checked")
 										},
 										success: function (data) {
 											alert("Guardado correctamente!");
