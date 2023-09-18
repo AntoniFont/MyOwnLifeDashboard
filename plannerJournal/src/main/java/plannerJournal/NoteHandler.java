@@ -159,13 +159,23 @@ public class NoteHandler {
 		db.open();
 		try {
 			// Encrypt content
+			long startTime = System.nanoTime();
 			content = EncryptionHandler.encrypt(content, privateKey);
+			long ellapsedTime = System.nanoTime() - startTime;
+			System.out.println("Ellapsed time to encrypt content: " + ellapsedTime );
 			name = EncryptionHandler.encrypt(name, privateKey);
 			// Update note
 			String sql = "UPDATE note100 SET name=?, content=?, isFixed=?, isArchived=?, lastUpdate=LOCALTIME() WHERE id=? AND userID=?";
+			startTime = System.nanoTime();
 			PreparedStatement stmt = db.prepareStatement(sql);
+			ellapsedTime = System.nanoTime() - startTime;
+			System.out.println("Ellapsed time to prepare statement : " + ellapsedTime );
 			stmt.setString(1, name);
+			startTime = System.nanoTime();
 			stmt.setString(2, content);
+			ellapsedTime = System.nanoTime() - startTime;
+			System.out.println("Ellapsed time to set String : " + ellapsedTime );
+			
 			if(isFixed.equals("true")) {
 				stmt.setBoolean(3, true);
 			}else if(isFixed.equals("false")) {
@@ -178,7 +188,10 @@ public class NoteHandler {
 			}
 			stmt.setInt(5, id);
 			stmt.setInt(6, user.getId());
+			startTime = System.nanoTime();
 			stmt.executeUpdate();
+			ellapsedTime = System.nanoTime() - startTime;
+			System.out.println("Ellapsed time to execute update : " + ellapsedTime );
 			db.close();
 		} catch (Exception e) {
 			db.close();
