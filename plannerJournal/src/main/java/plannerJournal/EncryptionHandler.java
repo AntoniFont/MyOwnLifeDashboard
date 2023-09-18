@@ -38,6 +38,7 @@ public class EncryptionHandler {
 
 	/* Encryption Method */
 	public static String encrypt(String strToEncrypt,String SECRET_KEY) {
+
 		try {
 			/* Declare a byte array. */
 			byte[] iv = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -48,11 +49,11 @@ public class EncryptionHandler {
 			KeySpec spec = new PBEKeySpec(SECRET_KEY.toCharArray(), SALTVALUE.getBytes(), 65536, 256);
 			SecretKey tmp = factory.generateSecret(spec);
 			SecretKeySpec secretKey = new SecretKeySpec(tmp.getEncoded(), "AES");
-			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-			cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivspec);
+			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+			cipher.init(Cipher.ENCRYPT_MODE, secretKey);
 			/* Retruns encrypted value. */
 			return Base64.getEncoder().encodeToString(cipher.doFinal(strToEncrypt.getBytes(StandardCharsets.UTF_8)));
-		} catch (InvalidAlgorithmParameterException | InvalidKeyException | NoSuchAlgorithmException
+		} catch ( InvalidKeyException | NoSuchAlgorithmException
 				| InvalidKeySpecException | BadPaddingException | IllegalBlockSizeException
 				| NoSuchPaddingException e) {
 			System.out.println("Error occured during encryption: " + e.toString());
@@ -72,11 +73,11 @@ public class EncryptionHandler {
 			KeySpec spec = new PBEKeySpec(SECRET_KEY.toCharArray(), SALTVALUE.getBytes(), 65536, 256);
 			SecretKey tmp = factory.generateSecret(spec);
 			SecretKeySpec secretKey = new SecretKeySpec(tmp.getEncoded(), "AES");
-			Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
-			cipher.init(Cipher.DECRYPT_MODE, secretKey, ivspec);
+			Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
+			cipher.init(Cipher.DECRYPT_MODE, secretKey);
 			/* Retruns decrypted value. */
 			return new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt)));
-		} catch (InvalidAlgorithmParameterException | InvalidKeyException | NoSuchAlgorithmException
+		} catch (InvalidKeyException | NoSuchAlgorithmException
 				| InvalidKeySpecException | BadPaddingException | IllegalBlockSizeException
 				| NoSuchPaddingException e) {
 			System.out.println("Error occured during decryption: " + e.toString());
