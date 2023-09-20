@@ -157,6 +157,7 @@ note = NoteHandler.getNote(Integer.parseInt(request.getParameter("id")), (String
 								$("#saveButton").click(function () {
 									swapEdit(); 
 									swapEdit();
+									$("#saveButton").prop("disabled",true);
 									$.ajax({
 										url: "../code/editNote.jsp",
 										type: "POST",
@@ -169,9 +170,11 @@ note = NoteHandler.getNote(Integer.parseInt(request.getParameter("id")), (String
 											isArchived:  $("#archivedNote").is(":checked")
 										},
 										success: function (data) {
+											$("#saveButton").prop("disabled",false);
 											alert("Guardado correctamente!");
 										},
 										error: function (data) {
+											$("#saveButton").prop("disabled",false);
 											alert("Error al guardar la nota editada en la base de datos")
 										}
 									});
