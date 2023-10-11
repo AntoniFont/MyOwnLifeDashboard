@@ -118,7 +118,7 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
             <div class="row mt-3">
                 <div class="col-xs-12 col-sm-6">
                     <div class="row mt-3">
-                        <h3 class='text-center'>To get a good ranking, today you should study: </h3>
+                        <h3 class='text-center'>The courses to study today are: </h3>
                     </div>
                     <div class="row mt-3 ms-2">
                         <div class="d-flex">
