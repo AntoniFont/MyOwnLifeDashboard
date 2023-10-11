@@ -17,10 +17,6 @@ $infoText = "";
 
 if ($_SESSION["current_page"] == "Timer Study Session") {
   $timerStudySession = "(current)";
-} elseif ($_SESSION["current_page"] == "Overview") {
-  $overviewText = "(current)";
-} elseif ($_SESSION["current_page"] == "Time Categorizer") {
-  $StudyTimeCategorizerText = "(current)";
 } elseif ($_SESSION["current_page"] == "Add project") {
   $addProjectText = "(current)";
 } else if ($_SESSION["current_page"] == "Edit project") {
@@ -60,13 +56,6 @@ if ($addProjectText != "" || $editProjectText != "") {
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link"
-              href="<?php echo '/myownlifedashboard/dashboard/view/academic/overview/index.php?name=' . $name ?>"
-              id="unplannedActivityNavbar">
-              Overview <?php echo $overviewText ?>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"
               href="<?php echo '/myownlifedashboard/dashboard/view/academic/details/index.php?name=' . $name ?>"
               id="academicMainPage">
               Details <?php echo $detailsText ?>
@@ -77,12 +66,6 @@ if ($addProjectText != "" || $editProjectText != "") {
               href="<?php echo '/myownlifedashboard/dashboard/view/academic/timerStudySession/index.php?name=' . $name ?>"
               id="unplannedActivityNavbar">
               Timer Study Session <?php echo $timerStudySession ?>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link"
-              href="<?php echo '/myownlifedashboard/dashboard/view/academic/timeCategorizer/index.php?name=' . $name ?>">
-              Time Categorizer <?php echo $StudyTimeCategorizerText ?>
             </a>
           </li>
           <li class="nav-item">
