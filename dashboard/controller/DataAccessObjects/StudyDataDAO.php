@@ -62,6 +62,11 @@ class StudyDataDAO extends DataAccessObject
     }
 
 
+    function updateStudyData($studyData){
+        
+    }
+
+
     function insertStudyDataFromForm($courseID, $typeOfStudyData, $projectID, $descripcion, $totalTime, $username, $initialTime)
     {
         if ((strcmp($courseID, "-1") == 0) || (!isset($courseID))) {
