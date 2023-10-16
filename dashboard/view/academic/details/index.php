@@ -47,16 +47,69 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
 <body>
     <?php include '../navbar.php'; ?>
     <div class="container mt-3">
-        <div class="row">
-            <div class="d-flex justify-content-center align-items-start">
-                <h1 class="display-1 text-center mb-5">Default Study Plan
-
-                </h1>
-                <p class="m-2"><a href="../info/info.html#h.40066jalpwpg" target="_blank">?</a> </p>
-            </div>
-        </div>
         <div style="background-color:rgb(252, 252, 248); border: 1px solid rgba(0,0,0,0.125);">
             <div class="row">
+                <div class="d-flex justify-content-center align-items-start">
+                    <h1 class="pe-3">Today
+                    </h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <p>Relevant data for the day </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 ">
+                    <div class="row">
+                        <h3 class='text-center'>The courses to study today are: </h3>
+                    </div>
+                    <div class="row ms-2">
+                        <div class="d-flex">
+                            <?php
+                            require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/CoursesDAO.php");
+                            require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
+
+                            $coursesDAO = new CoursesDAO();
+                            $userDAO = new UserDAO();
+                            $user = $userDAO->getUserFromNickname($_GET["name"]);
+                            $courses = $coursesDAO->getBottom50PercentLeastStudiedCoursesInInterval(date("Y-m-d"), $user->getId(), 14);
+                            //PRINT THE COURSES
+                            echo "<table class='table table-striped table-hover'>";
+                            echo "<thead>";
+                            echo "<tr>";
+                            echo "<th scope='col'>Course name</th>";
+                            echo "</tr>";
+                            echo "</thead>";
+                            echo "<tbody>";
+                            foreach ($courses as $course) {
+                                echo "<tr>";
+                                echo "<td>" . $course->getName() . "</td>";
+                                echo "</tr>";
+                            }
+                            echo "</tbody>";
+                            echo "</table>";
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 ">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div class="alert alert-warning me-3" role="alert" id="no6thcoursewarning">
+                                No 6th course! <a href="../info/info.html#h.57qet5tjzvb2" target="_blank"> ? </a>
+                            </div>
+                            <div class="alert alert-warning me-3" role="alert" id="no7thcoursewarning">
+                                No 7th course! <a href="../info/info.html#h.981wrw39dkid" target="_blank"> ? </a>
+                            </div>
+                            <div class="alert alert-success me-3" role="alert" id="successwarning">
+                                No warnings! 😊
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5" style="background-color:rgb(252, 252, 248); border: 1px solid rgba(0,0,0,0.125);">
+            <div class="row ">
                 <div class="d-flex justify-content-center align-items-start">
                     <h1 class="pe-3">Be perseverant! Do a little bit of work everyday
                     </h1>
@@ -116,63 +169,20 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
                 </div>
             </div>
             <div class="row mt-3">
-                <div class="col-xs-12 col-sm-6">
-                    <div class="row mt-3">
-                        <h3 class='text-center'>The courses to study today are: </h3>
-                    </div>
-                    <div class="row mt-3 ms-2">
-                        <div class="d-flex">
-                            <?php
-                            require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/CoursesDAO.php");
-                            require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
-
-                            $coursesDAO = new CoursesDAO();
-                            $userDAO = new UserDAO();
-                            $user = $userDAO->getUserFromNickname($_GET["name"]);
-                            $courses = $coursesDAO->getBottom50PercentLeastStudiedCoursesInInterval(date("Y-m-d"), $user->getId(), 14);
-                            //PRINT THE COURSES
-                            echo "<table class='table table-striped table-hover'>";
-                            echo "<thead>";
-                            echo "<tr>";
-                            echo "<th scope='col'>Course name</th>";
-                            echo "</tr>";
-                            echo "</thead>";
-                            echo "<tbody>";
-                            foreach ($courses as $course) {
-                                echo "<tr>";
-                                echo "<td>" . $course->getName() . "</td>";
-                                echo "</tr>";
-                            }
-                            echo "</tbody>";
-                            echo "</table>";
-                            ?>
-                        </div>
-                    </div>
+                <div class="row mt-3">
+                    <h3 class="text-center">My goal is:</h3>
                 </div>
-                <div class="col-xs-12 col-sm-6">
-                    <div class="row mt-3">
-                        <h3 class="text-center">My goal is:</h3>
-                    </div>
-                    <div class="row mt-3 ms-2">
-                        <div class="d-flex">
-                            <span>
-                                <?php
-                                echo ($ObjectiveDAO->getCurrentBalanceObjective($user))->getText();
-                                ?>
-                            </span>
-                        </div>
+                <div class="row mt-3 ms-2">
+                    <div class="d-flex">
+                        <span>
+                            <?php
+                            echo ($ObjectiveDAO->getCurrentBalanceObjective($user))->getText();
+                            ?>
+                        </span>
                     </div>
                 </div>
             </div>
             <div class="row mt-3 ms-2">
-                <div class="d-flex">
-                    <div class="alert alert-warning me-3" role="alert" id="no6thcoursewarning">
-                        No 6th course! <a href="../info/info.html#h.57qet5tjzvb2" target="_blank"> ? </a>
-                    </div>
-                    <div class="alert alert-warning" role="alert" id="no7thcoursewarning">
-                        No 7th course! <a href="../info/info.html#h.981wrw39dkid" target="_blank"> ? </a>
-                    </div>
-                </div>
             </div>
         </div>
 

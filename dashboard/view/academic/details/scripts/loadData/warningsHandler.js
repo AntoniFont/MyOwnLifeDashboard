@@ -10,4 +10,10 @@ function updateWarnings(exists6thCourse,exists7thCourse){
     }else{
         $("#no7thcoursewarning").hide();
     }
+
+    if(!exists6thCourse || !exists7thCourse){
+        $("#successwarning").hide();
+    }else{
+        $("#successwarning").show();
+    }
 }
