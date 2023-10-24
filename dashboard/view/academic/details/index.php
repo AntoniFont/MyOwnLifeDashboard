@@ -35,18 +35,26 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/10.3.3/modules/drilldown.js"></script>
+    <script src="https://code.highcharts.com/10.3.2/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/10.3.2/modules/solid-gauge.js"></script>
 
     <script src="./scripts/misc/otherThingsScript.js"></script>
     <script src="./scripts/auxScripts/number-rush.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.0/dist/confetti.browser.min.js"></script>
     <script src="./scripts/loadData/chartsOptions.js"></script>
     <script src="./scripts/loadData/warningsHandler.js"></script>
     <script src="./scripts/loadData/loadChart1And2.js"></script>
     <script src="./scripts/loadData/loadChart3And4.js"></script>
+    <script src="./scripts/loadData/loadChart5.js"></script>
 </head>
 
 <body>
     <?php include '../navbar.php'; ?>
     <div class="container mt-3">
+        <div class="row mb-3" id="emojisCelebracion" hidden>
+            <h2 class="display-2 text-center">¡Sigue así!</h2>
+            <h1 class="display-3 text-center" >👏👏🎊🎉🎉🎊👏👏</h1>
+        </div>
         <div style="background-color:rgb(252, 252, 248); border: 1px solid rgba(0,0,0,0.125);">
             <div class="row">
                 <div class="d-flex justify-content-center align-items-start">
@@ -57,6 +65,11 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
             <div class="row">
                 <div class="d-flex justify-content-center">
                     <p>Relevant data for the day </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="d-flex justify-content-center"> 
+                <div id="chart5container"></div>
                 </div>
             </div>
             <div class="row">
@@ -94,17 +107,17 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 ">
-                        <div class="d-flex justify-content-center align-items-center">
-                            <div class="alert alert-warning me-3" role="alert" id="no6thcoursewarning">
-                                No 6th course! <a href="../info/info.html#h.57qet5tjzvb2" target="_blank"> ? </a>
-                            </div>
-                            <div class="alert alert-warning me-3" role="alert" id="no7thcoursewarning">
-                                No 7th course! <a href="../info/info.html#h.981wrw39dkid" target="_blank"> ? </a>
-                            </div>
-                            <div class="alert alert-success me-3" role="alert" id="successwarning">
-                                No warnings! 😊
-                            </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="alert alert-warning me-3" role="alert" id="no6thcoursewarning">
+                            No 6th course! <a href="../info/info.html#h.57qet5tjzvb2" target="_blank"> ? </a>
                         </div>
+                        <div class="alert alert-warning me-3" role="alert" id="no7thcoursewarning">
+                            No 7th course! <a href="../info/info.html#h.981wrw39dkid" target="_blank"> ? </a>
+                        </div>
+                        <div class="alert alert-success me-3" role="alert" id="successwarning">
+                            No warnings! 😊
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

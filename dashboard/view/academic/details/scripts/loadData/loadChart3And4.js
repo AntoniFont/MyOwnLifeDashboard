@@ -1,6 +1,6 @@
+let baseline = 3600; //minutes
 $(document).ready(function () {
 
-    let baseline = 3600; //minutes
     
     $.ajax("./backend/chart3And4getData.php",{
         method: "GET",

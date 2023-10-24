@@ -162,3 +162,68 @@ let chart3Options = {
 
 };
 
+let chart5Options= {
+    chart: {
+        type: 'solidgauge',
+        //backgroundColor: 'transparent', 
+        margin: [0, 0, 0, 0],
+        spacing: [0, 0, 0, 0],
+        height: "50%",
+    },
+    
+    title: null,
+    
+    pane: {
+        center: ['50%', '50%'],
+        size: '100%',
+        startAngle: 0,
+        endAngle: 360,
+        background: null,
+        /*background: {
+            backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+            innerRadius: '60%',
+            outerRadius: '100%',
+            //shape: 'arc',
+        },*/
+    },
+    
+    tooltip: {
+        enabled: false,
+    },
+    
+    yAxis: {
+        stops: [
+            [0.33, '#DF5353'], // Red
+            [0.66, '#DDDF0D'], // Yellow
+            [0.99, '#55BF3B'], // Green
+        ],
+        minorTickInterval: null,
+        min: 0,
+        max: 100,
+    },
+    
+    plotOptions: {
+        solidgauge: {
+            dataLabels: {
+                y: -25,
+                borderWidth: 0,
+                useHTML: true,
+            },
+        },
+    },
+    
+    credits: {
+        enabled: false,
+    },
+    
+    series: [
+        {
+            name: 'Speed',
+            data: [80], // The data point value
+            dataLabels: {
+                format: '<div style="text-align:center"><span style="font-size:25px;color:black">{y}%</span><br/>' +
+                    '<span style="font-size:10px;color:silver">Porcentaje diario completado</span></div>',
+            },
+        },
+    ],
+}

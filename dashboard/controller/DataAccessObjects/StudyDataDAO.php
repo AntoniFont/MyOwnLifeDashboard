@@ -143,6 +143,16 @@ class StudyDataDAO extends DataAccessObject
         return $this->getStudyDataBetweenTwoDatetimes($user, $initialTime, $finalTime);
     }
 
+    public function getSecondsStudiedOfTheDay($user, $day)
+    {
+        $studySessions = $this->getStudySessionsOfADay($user,$day);
+        $totalSeconds = 0;
+        foreach ($studySessions as $studySession) {
+            $totalSeconds += $studySession->getDuration();
+        }
+        return $totalSeconds;
+    }
+
     /*
     Given a study data id, it updates the study data ranking
     */
