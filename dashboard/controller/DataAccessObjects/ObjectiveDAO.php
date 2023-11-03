@@ -1,5 +1,6 @@
 <?php
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/Objective.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/ConsistencyObjective.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/BalanceObjective.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/DataAccessObject.php");
 class ObjectiveDAO extends DataAccessObject
 {
@@ -16,7 +17,7 @@ class ObjectiveDAO extends DataAccessObject
         $sql = "select objectiveText from balancegoal where user=:idUser order by startDate DESC LIMIT 1";
         $resultado = $this->dbManager->query($sql, ["idUser" => $user->getId()]);
         $this->dbManager->close();
-        return new Objective($resultado[0][0]);
+        return new BalanceObjective($resultado[0][0]);
     }
 
     function addNewCurrentBalanceObjective($user,$objectiveText){
@@ -26,6 +27,16 @@ class ObjectiveDAO extends DataAccessObject
         $resultado = $this->dbManager->query($sql, ["idUser" => $user->getId(),"startDate"=>time(),"objectiveText"=>$objectiveText]);
         $this->dbManager->close();
     }
+
+    function getCurrentConsistencyObjective($user){
+        $this->dbManager->openIfItWasClosed();
+        $sql = "select texto,number from consistencygoal where user=:idUser order by startDate DESC LIMIT 1";
+        $resultado = $this->dbManager->query($sql, ["idUser" => $user->getId()]);
+        $this->dbManager->close();
+        return new ConsistencyObjective($resultado[0][0],$resultado[0][1]);
+    }
+
+    
 }
 
 ?>

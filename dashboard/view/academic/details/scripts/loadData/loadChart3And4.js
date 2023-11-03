@@ -23,6 +23,18 @@ $(document).ready(function () {
                 chart3Options.series[0].data = dataChart3;
                 Highcharts.chart("chart3Container", chart3Options);
                 //display chart 4 using the number-rush library
+                let objetivo
+                $.ajax("./backend/getConsistencyObjectiveNumber.php",{
+                    method:"GET",data:{"name":username},success:function(numberText){
+                        console.log("numberText" + numberText)
+                        objetivo = JSON.parse(numberText)
+                        if(dataChart4 < objetivo){
+                            $("#consistencyObjective").css("color", "red");
+                        }
+                    }
+                })
+                
+
                 new numberRush('chart4Container', {
                     speed: 15,
                     steps: 1,

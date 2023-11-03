@@ -1,5 +1,5 @@
 <?php 
-    class Objective{
+    class BalanceObjective{
         private $text;
         
         function __construct($text){

@@ -53,7 +53,7 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
     <div class="container mt-3">
         <div class="row mb-3" id="emojisCelebracion" hidden>
             <h2 class="display-2 text-center">¡Sigue así!</h2>
-            <h1 class="display-3 text-center" >👏👏🎊🎉🎉🎊👏👏</h1>
+            <h1 class="display-3 text-center">👏👏🎊🎉🎉🎊👏👏</h1>
         </div>
         <div style="background-color:rgb(252, 252, 248); border: 1px solid rgba(0,0,0,0.125);">
             <div class="row">
@@ -68,8 +68,8 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
                 </div>
             </div>
             <div class="row">
-                <div class="d-flex justify-content-center"> 
-                <div id="chart5container"></div>
+                <div class="d-flex justify-content-center">
+                    <div id="chart5container"></div>
                 </div>
             </div>
             <div class="row">
@@ -144,7 +144,8 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
                 <div class="col-xs-12 col-sm-6">
                     <div class="row h-50">
                         <div class="d-flex justify-content-center align-items-end">
-                            <div class="display-1"><span id="chart4Container"></span>%</div>
+                            <div class="display-1"><span style="color:green" id="consistencyObjective"><span
+                                        id="chart4Container"></span>%</span></div>
                         </div>
                     </div>
                     <div class="row h-50">
@@ -152,7 +153,16 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
                             <p>Average baseline completed in the last 2 weeks </p>
                         </div>
                     </div>
-
+                </div>
+                <div class="row mt-3">
+                    <h3 class="text-center">My goal is:</h3>
+                </div>
+                <div class="row mt-3 ms-2">
+                    <div class="d-flex">
+                        <?php
+                        echo ($ObjectiveDAO->getCurrentConsistencyObjective($user))->getText();
+                        ?>
+                    </div>
                 </div>
             </div>
 
