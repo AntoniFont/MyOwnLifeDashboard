@@ -2,12 +2,13 @@ package plannerJournal;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class NoteHandler {
 
-	
+
 	public static ArrayList<Note> getNotesi(String username, String privateKeyString, String groupCodeName, boolean archived) {
 		DatabaseManager db = new DatabaseManager();
 		db.open();
@@ -15,13 +16,13 @@ public class NoteHandler {
 			User user = UserHandler.getUserFromUsername(username);
 			String sql;
 			if(!archived) {
-				sql = "SELECT id,name,isFixed FROM note100 WHERE userID=? AND isArchived=0 ORDER BY isFixed DESC, lastUpdate DESC ";				
+				sql = "SELECT id,name,isFixed FROM note100 WHERE userID=? AND isArchived=0 ORDER BY isFixed DESC, lastUpdate DESC ";
 			}else {
-				sql = "SELECT id,name,isFixed FROM note100 WHERE userID=? ORDER BY isFixed DESC, lastUpdate DESC ";			
+				sql = "SELECT id,name,isFixed FROM note100 WHERE userID=? ORDER BY isFixed DESC, lastUpdate DESC ";
 			}
 			PreparedStatement stmt = db.prepareStatement(sql);
 			stmt.setInt(1, user.getId());
-			ArrayList<Note> notes = new ArrayList<Note>();
+			ArrayList<Note> notes = new ArrayList<>();
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				String name = rs.getString("name");
@@ -38,14 +39,14 @@ public class NoteHandler {
 			return null;
 		}
 	}
-	
+
 	//It removes from the arraylist the notes that dont belong to a group
 	//Using over and over the method noteBelongsToGroup was slow, so I switched to
 	//this function that only conects to the database once,
 	public static ArrayList<Note> filterNotesThatDontBelongToGroup(String groupCodeName, ArrayList<Note> notas, int userID){
 		int groupID = NotegroupHandler.getNoteGroupIDFromCodeName(groupCodeName, userID);
 		if (groupID == -1) {
-			return new ArrayList<Note>();
+			return new ArrayList<>();
 		}
 		DatabaseManager db = new DatabaseManager();
 		db.open();
@@ -55,7 +56,7 @@ public class NoteHandler {
 			stmt.setInt(1, groupID);
 			ResultSet rs = stmt.executeQuery();
 			//get all the noteIDs that belong to the group
-			ArrayList<Integer> noteIDs = new ArrayList<Integer>();
+			ArrayList<Integer> noteIDs = new ArrayList<>();
 			while (rs.next()) {
 				noteIDs.add(rs.getInt("noteID"));
 			}
@@ -73,11 +74,11 @@ public class NoteHandler {
 		catch(Exception e ) {
 			db.close();
 			e.printStackTrace();
-			return new ArrayList<Note>();
+			return new ArrayList<>();
 		}
-		
+
 	}
-	
+
 
 	public static boolean noteBelongsToGroup(int noteID, String groupCodeName, int userID) {
 		// First get the groupID
@@ -106,7 +107,7 @@ public class NoteHandler {
 			return false;
 		}
 	}
-	
+
 	public static Note getNote(int id, String privateKey){
 		DatabaseManager db = new DatabaseManager();
 		db.open();
@@ -176,7 +177,7 @@ public class NoteHandler {
 			stmt.setString(2, content);
 			ellapsedTime = System.nanoTime() - startTime;
 			System.out.println("[debug] Ellapsed time to set String : " + ellapsedTime );
-			
+
 			if(isFixed.equals("true")) {
 				stmt.setBoolean(3, true);
 			}else if(isFixed.equals("false")) {
@@ -208,7 +209,7 @@ public class NoteHandler {
 		int noteID = -1;
 		try {
 			String sql = "INSERT INTO note100 (name, content, userID, isFixed, lastUpdate) VALUES (?,?,?,false,NOW())";
-			PreparedStatement stmt = db.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement stmt = db.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, EncryptionHandler.encrypt("Nueva nota", privateKey));
 			stmt.setString(2, EncryptionHandler.encrypt("", privateKey));
 			stmt.setInt(3, user.getId());

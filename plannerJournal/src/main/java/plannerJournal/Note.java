@@ -13,15 +13,15 @@ public class Note {
         this.name = name;
         this.isFixed = isFixed;
     }
-    
-    
+
+
     public Note(int id, String name,boolean isFixed,String content) {
         this.id = id;
         this.name = name;
         this.isFixed = isFixed;
         this.content = content;
     }
-    
+
     public Note(int id, String name,boolean isFixed,String content,boolean isArchived) {
         this.id = id;
         this.name = name;
@@ -29,7 +29,7 @@ public class Note {
         this.content = content;
         this.isArchived = isArchived;
     }
- 
+
 
     //GETTERS
     public int getId() {
@@ -47,12 +47,12 @@ public class Note {
     public boolean isArchived() {
     	return isArchived;
     }
-    
+
 
 	@Override
 	public String toString() {
 		return "Note [id=" + id + ", name=" + name + ", isFixed=" + isFixed + "]";
 	}
-    
-    
+
+
 }

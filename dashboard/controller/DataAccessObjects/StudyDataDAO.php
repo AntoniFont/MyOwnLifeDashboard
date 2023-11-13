@@ -34,6 +34,7 @@ class StudyDataDAO extends DataAccessObject
         $query .= "FROM studydata100 ";
         $query .= "WHERE initialTime > (UNIX_TIMESTAMP() - (:strvalDaysDisplayed86400)) ";
         $query .= "AND studydata100.userID= :userID ";
+        $query .= "AND studydata100.countsOnDailyMinimum=1";
         $query .= "GROUP BY FROM_UNIXTIME(initialTime, \"%d-%m-%Y\") ";
         $query .= "ORDER BY initialTime ASC ";
         //1. DO THE QUERY AND CLOSE THE CONECTION TO SAVE CONECTIONS FOR OTHER USERS

@@ -1,0 +1,4 @@
+NOTA PARA EL FUTURO y ahorrarte un rato de sufrimiento: 
+CUANDO AÑADES UN FACKING .JAR, TAMBIEN HAY QUE AÑADIRLO EN EL LIB DEL
+TOMCAT QUE ESTA EN DOCUMENTOS. SINO NO IRA Y TE DIRA QUE NO ENCUENTRA LA CLASE.
+C:\Users\Toniuni\Documents\tomcat\apache-tomcat-8.5.92\lib

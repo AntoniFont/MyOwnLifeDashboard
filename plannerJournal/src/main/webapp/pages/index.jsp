@@ -42,6 +42,30 @@
                             <input type="text" placeholder="Group Name" id="newGroupText"
                                 autocomplete="off">
                         </div>
+                        <div class="mb-3">
+    <form action="../code/addImage.jsp" target="_blank" method="post" enctype="multipart/form-data">
+        <!-- Other form elements go here -->
+
+        <!-- Image input -->
+        <label for="imageInput">Select an image:</label>
+        <input class="form-control" type="file" id="imageInput" name="imageInput" accept="image/*">
+
+        <!-- Display the selected image -->
+        <img id="selectedImage" src="#" alt="Selected Image" style="max-width: 100%;">
+
+        <!-- Submit button -->
+        <input class="form-control" type="submit" value="Submit">
+    </form>
+    </form>
+
+    <script>
+        // JavaScript code to display the selected image
+        document.getElementById('imageInput').addEventListener('change', function (e) {
+            var selectedImage = document.getElementById('selectedImage');
+            selectedImage.src = URL.createObjectURL(e.target.files[0]);
+        });
+    </script>
+                    	</div>
                     </div>
                     <div class="col-10"> <!-- Notes column-->
                         <div class="border border-primary" id="notesContainer"> <!-- Notes container-->
