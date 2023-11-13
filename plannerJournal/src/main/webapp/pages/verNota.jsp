@@ -107,6 +107,19 @@ note = NoteHandler.getNote(Integer.parseInt(request.getParameter("id")), (String
 					 
 					<label class="form-check-label" for="fixedNote"> Archived </label>
 				</div>
+				   <form action="../code/addImage.jsp" target="_blank" method="post" enctype="multipart/form-data">
+        <!-- Other form elements go here -->
+
+        <!-- Image input -->
+        <label for="imageInput">Select an image:</label>
+        <input class="form-control" type="file" id="imageInput" name="imageInput" accept="image/*">
+
+        <!-- Display the selected image -->
+        <img id="selectedImage" src="#" alt="Selected Image" style="max-width: 100%;">
+
+        <!-- Submit button -->
+        <input class="form-control" type="submit" value="Submit">
+    </form>
 
 			</div>
 			<div class="row">

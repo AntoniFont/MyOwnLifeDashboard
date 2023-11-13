@@ -56,8 +56,7 @@
         <!-- Submit button -->
         <input class="form-control" type="submit" value="Submit">
     </form>
-    </form>
-
+    
     <script>
         // JavaScript code to display the selected image
         document.getElementById('imageInput').addEventListener('change', function (e) {
