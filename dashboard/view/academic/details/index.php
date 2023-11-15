@@ -155,59 +155,37 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <h3 class="text-center">My goal is:</h3>
-                </div>
-                <div class="row mt-3 ms-2">
-                    <div class="d-flex">
-                        <?php
-                        echo ($ObjectiveDAO->getCurrentConsistencyObjective($user))->getText();
-                        ?>
+                    <div class="col-xs-12 col-sm-6">
+                        <div id="chart1Container"></div>
                     </div>
-                </div>
-            </div>
-
-
-        </div>
-        <div class="mt-5 mb-5" style="background-color:rgb(252, 252, 248); border: 1px solid rgba(0,0,0,0.125);">
-            <div class="row">
-                <div class="d-flex justify-content-center">
-                    <h1 class="pe-3">No dejar ninguna asignatura atrás!
-
-                    </h1>
-                    <p><a href="../info/info.html#h.gktl3pisuks3" target="_blank">?</a> </p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="d-flex justify-content-center">
-                    <p>Breakdown of time spent in courses or projects in the last 336 hours (2 weeks).</p>
-                </div>
-            </div>
-
-            <div class="row mt-3">
-                <div class="col-xs-12 col-sm-6">
-                    <div id="chart1Container"></div>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <div id="chart2Container"></div>
-                </div>
-            </div>
-            <div class="row mt-3">
-                <div class="row mt-3">
-                    <h3 class="text-center">My goal is:</h3>
-                </div>
-                <div class="row mt-3 ms-2">
-                    <div class="d-flex">
-                        <span>
+                    <div class="col-xs-12 col-sm-6">
+                        <div id="chart2Container"></div>
+                    </div>
+                    <div class="row mt-3">
+                        <h3 class="text-center">My goal is:</h3>
+                    </div>
+                    <div class="row mt-3 ms-2">
+                        <div class="d-flex">
                             <?php
-                            echo ($ObjectiveDAO->getCurrentBalanceObjective($user))->getText();
+                            echo ($ObjectiveDAO->getCurrentConsistencyObjective($user))->getText();
                             ?>
-                        </span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row mt-3 ms-2">
+
+            <div class="mt-5" style="background-color:rgb(252, 252, 248); border: 1px solid rgba(0,0,0,0.125);">
+                <div class="row ">
+                    <div class="d-flex justify-content-center align-items-start">
+                        <h1 class="pe-3">Routine analysis
+                        </h1>
+                    </div>
+                </div>
             </div>
+
+
         </div>
+    </div>
 
     </div>
 
