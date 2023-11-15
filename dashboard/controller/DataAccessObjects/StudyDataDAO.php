@@ -4,6 +4,7 @@ require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controll
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/model/StudyData.php");
 
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/CoursesDAO.php");
 
 class StudyDataDAO extends DataAccessObject
 {
@@ -12,11 +13,11 @@ class StudyDataDAO extends DataAccessObject
         parent::__construct();
     }
 
-    //short function name 🤣🤣🤣
-    function getSecondsStudiedByDayInTheLastNDaysJSON($user, $DAYS_DISPLAYED)
+
+    function getCriticalSecondsStudiedByDayInTheLastNDaysJSON($user, $DAYS_DISPLAYED)
     {
-        $this->dbManager->openIfItWasClosed();
-        /** this function returns the total number of seconds worked in a day in this format:
+        /** this function returns the total number of critical seconds worked in a day (critical seconds
+         * are the study time dedicated to the bottom 50% least studied courses) in this format:
          *  [["seconds","day in %d-%m-%Y","daysSinceToday"]
          *  A Example that may return:
          *  ["5042","30-12-2022","14"],
@@ -24,51 +25,39 @@ class StudyDataDAO extends DataAccessObject
          *  ["3600","01-01-2023","12"],
          *  ["4685","02-01-2023","11"], ...
          *
-         * Some days might be missing, so later we should process the data to add the missing days as 0 seconds studied
-         *  
-         */
+         **/
+        $this->dbManager->openIfItWasClosed();
+        $coursesDao = new CoursesDAO();
+        $result = array();
 
-        $query = "SELECT sum(duration), ";
-        $query .= "FROM_UNIXTIME(initialTime, \"%d-%m-%Y\") as dia, ";
-        $query .= "FROM_UNIXTIME(UNIX_TIMESTAMP() - UNIX_TIMESTAMP(STR_TO_DATE(FROM_UNIXTIME(initialTime,\"%d-%m-%Y\"),\"%d-%m-%Y\")),\"%d\")  as daysEllapsed ";
-        $query .= "FROM studydata100 ";
-        $query .= "WHERE initialTime > (UNIX_TIMESTAMP() - (:strvalDaysDisplayed86400)) ";
-        $query .= "AND studydata100.userID= :userID ";
-        $query .= "AND studydata100.countsOnDailyMinimum=1";
-        $query .= "GROUP BY FROM_UNIXTIME(initialTime, \"%d-%m-%Y\") ";
-        $query .= "ORDER BY initialTime ASC ";
-        //1. DO THE QUERY AND CLOSE THE CONECTION TO SAVE CONECTIONS FOR OTHER USERS
-        $resultado = $this->dbManager->query($query, [":strvalDaysDisplayed86400" => strval($DAYS_DISPLAYED * 86400), ":userID" => $user->getId()]);
-        $this->dbManager->close();
-        //2. PROCESSING THE DATA TO ADD THE MISING DAYS AS 0 SECONDS STUDIED
-        $dataProcessed = array();
-        $today = date('d-m-Y', time());
-        for ($i = 14; $i >= 0; $i--) {
-            $days_ago = date('d-m-Y', strtotime("-" . $i . " days", strtotime($today))); //https://stackoverflow.com/questions/2708894/how-to-find-out-what-the-date-was-5-days-ago
-            $existsDataOnThisDay = false;
-            $data = null;
-            foreach ($resultado as $key => $value) {
-                if (strcmp($value[1], $days_ago) == 0) { // if ($value[1] == days_ago)
-                    $existsDataOnThisDay = true;
-                    $data = $value;
+        for ($i = 0; $i < 14; $i++) {
+            $newDay = new DateTime(); //today
+            $newDay->modify("-$i days");
+
+            $courses = $coursesDao->getBottom50PercentLeastStudiedCoursesInInterval($newDay->format("Y-m-d"), $user->getId(), 14);
+            $studySessions = $this->getStudySessionsOfADay($user, $newDay->format("Y-m-d"));
+            $realTime = 0;
+            foreach($studySessions as $session){
+                foreach($courses as $course){
+                    if($session->getCourseID() == $course->getId()){
+                        $realTime += $session->getDuration(); 
+                    }
                 }
             }
-            if ($existsDataOnThisDay == false) {
-                $data = array("0", $days_ago, strval($i));
-            }
-            array_push($dataProcessed, $data);
+            array_push($result,[$realTime,$newDay->format("d-m-Y"),$DAYS_DISPLAYED-$i]);
         }
-        //3. CONVERT INTO JSON OBJECT AND RETURN IT
-        return json_encode($dataProcessed, JSON_UNESCAPED_UNICODE); //for the spanish and catalan languages
+        return json_encode($result, JSON_UNESCAPED_UNICODE); //for the spanish and catalan languages
     }
 
 
-    function updateStudyData($studyData){
-        
+
+    function updateStudyData($studyData)
+    {
+
     }
 
 
-    function insertStudyDataFromForm($courseID, $typeOfStudyData, $projectID, $descripcion, $totalTime, $username, $initialTime)
+    function insertStudyDataFromForm($courseID, $typeOfStudyData, $projectID, $totalTime, $username, $initialTime)
     {
         if ((strcmp($courseID, "-1") == 0) || (!isset($courseID))) {
             $courseID = null;
@@ -85,29 +74,28 @@ class StudyDataDAO extends DataAccessObject
         $this->dbManager->openIfItWasClosed();
 
         $sql = "insert into studydata100 (courseID,typeID,projectID,initialTime,";
-        $sql .= "duration,descripción,userID)";
+        $sql .= "duration,userID)";
 
         $sql .= " values (:courseID, :typeID, :projectID, :initialTime,";
-        $sql .= ":duration, :descripcion,  :userID)";
+        $sql .= ":duration,  :userID)";
         $values = [
             "courseID" => $courseID,
             "typeID" => $typeOfStudyData,
             "projectID" => $projectID,
             "initialTime" => $initialTime,
             "duration" => $totalTime,
-            "descripcion" => urldecode($descripcion),
             "userID" => ((new UserDAO())->getUserFromNickname($username))->getId(),
         ];
         $this->dbManager->query($sql, $values);
         $this->dbManager->close();
     }
 
-    function insertStudyDataFromTimer($courseID, $typeOfStudyData, $projectID, $descripcion, $totalTime, $username)
+    function insertStudyDataFromTimer($courseID, $typeOfStudyData, $projectID,  $totalTime, $username)
     {
         //To prevent errors with different timezones, the initialTime (unixTimestamp) is calculated in the server,
         //it is the current time in the server minus the duration of the activity
         $initialTime = time() - $totalTime;
-        self::insertStudyDataFromForm($courseID, $typeOfStudyData, $projectID, $descripcion, $totalTime, $username, $initialTime);
+        self::insertStudyDataFromForm($courseID, $typeOfStudyData, $projectID, $totalTime, $username, $initialTime);
     }
 
     function getStudyDataBetweenTwoDatetimes($user, $initialDate, $finalDate)
@@ -146,7 +134,7 @@ class StudyDataDAO extends DataAccessObject
 
     public function getSecondsStudiedOfTheDay($user, $day)
     {
-        $studySessions = $this->getStudySessionsOfADay($user,$day);
+        $studySessions = $this->getStudySessionsOfADay($user, $day);
         $totalSeconds = 0;
         foreach ($studySessions as $studySession) {
             $totalSeconds += $studySession->getDuration();

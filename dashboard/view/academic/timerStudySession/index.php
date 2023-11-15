@@ -1,7 +1,6 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/loginLogic.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/CoursesDAO.php");
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/TypeOfStudyDataDAO.php");
 
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
 
@@ -77,21 +76,6 @@ $_SESSION["current_page"] = "Timer Study Session";
                     </ul>
                 </div>
 
-                <div class="d-flex justify-content-center sm-6 mt-1">
-
-                    <button class="btn btn-secondary text-start  dropdown-toggle" type="button"
-                        data-bs-toggle="dropdown" id="selectTypeOfStudyTitle">
-                        Selecciona tipo de trabajo
-                    </button>
-                    <ul class="dropdown-menu" id="selectTypeOfStudy">
-                        <li><a class='dropdown-item'
-                                onclick="typeOfStudyClicked({ typeOfStudyID: -1, typeOfStudyName: 'Undefined' })">Undefined</a>
-                        </li>
-                        <?php include "./typeStudyDataDropdownMenu.php" ?>
-                    </ul>
-                </div>
-
-
             </div>
 
         </div>
@@ -113,10 +97,6 @@ $_SESSION["current_page"] = "Timer Study Session";
                         </svg>
                         <p>Start Timer</p>
                     </button>
-                    <div class="d-flex justify-content-center ms-5">
-                        <textarea class="form-control" placeholder="Descripción de la actividad realizada" cols="30" rows="3"
-                            id="description"></textarea>
-                    </div>
                 </div>
 
             </div>

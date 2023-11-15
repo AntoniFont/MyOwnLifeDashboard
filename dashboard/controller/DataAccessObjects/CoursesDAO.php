@@ -81,7 +81,7 @@ class CoursesDAO extends DataAccessObject
         //Get the number of courses
         $numCourses = count($resultsCourses);
         //Get how many courses are in the bottom 50%
-        $bottom50 = floor($numCourses / 2);
+        $bottom50 = ceil($numCourses / 2);
         //Create an array with the bottom 50% courses
         $bottom50courses = array();
         $i = 0;

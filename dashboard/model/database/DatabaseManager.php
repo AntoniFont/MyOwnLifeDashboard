@@ -3,7 +3,7 @@ class DatabaseManager
 {
     //The default values.
     private $host = 'localhost';
-    private $db = 'myowndashboard';
+    private $db = 'academicdashboard';
     private $user = 'root';
     private $pass = '';
     private $charset = 'utf8';

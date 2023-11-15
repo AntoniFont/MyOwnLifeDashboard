@@ -60,19 +60,7 @@ $_SESSION["current_page"] = "Add Study Session";
 
             </div>
             <div class="row mt-3">
-                <label for="typeOfStudy">Type of study:</label>
-                <select id="typeOfStudy" name="typeOfStudy" class="form-control">
-                    <option value="-1">Undefined</option>
-                    <?php
-                    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/TypeOfStudyDataDAO.php");
-                    $TypeOfStudyDAO = new TypeOfStudyDataDAO();
-                    $typesOfStudy = $TypeOfStudyDAO->getTypesOfStudyData();
-                    foreach ($typesOfStudy as $typeOfStudy) {
-                        echo "<option value='" . $typeOfStudy->getId() . "'>" . $typeOfStudy->getName() . "</option>";
-                    }
-                    ?>
-                </select>
-                <div class="row mt-3">
+                <div class="row">
                     <label for="date">Date:</label>
                     <input type="date" id="date" name="date" class="form-control">
                 </div>

@@ -4,6 +4,5 @@ require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controll
 
 $StudyDataDAO = new StudyDataDAO();
 $user = (new UserDAO())->getUserFromNickname($_GET["name"]);
-echo $StudyDataDAO->getSecondsStudiedByDayInTheLastNDaysJSON($user,14)
-
+echo $StudyDataDAO->getCriticalSecondsStudiedByDayInTheLastNDaysJSON($user,14)
 ?>

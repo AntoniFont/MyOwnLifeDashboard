@@ -58,13 +58,13 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
         <div style="background-color:rgb(252, 252, 248); border: 1px solid rgba(0,0,0,0.125);">
             <div class="row">
                 <div class="d-flex justify-content-center align-items-start">
-                    <h1 class="pe-3">Today
+                    <h1 class="pe-3">Hoy
                     </h1>
                 </div>
             </div>
             <div class="row">
                 <div class="d-flex justify-content-center">
-                    <p>Relevant data for the day </p>
+                    <p>Datos relevantes de hoy </p>
                 </div>
             </div>
             <div class="row">
@@ -75,7 +75,7 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
             <div class="row">
                 <div class="col-xs-12 col-sm-6 ">
                     <div class="row">
-                        <h3 class='text-center'>The courses to study today are: </h3>
+                        <h3 class='text-center'>Las asignaturas que estudiar hoy son: </h3>
                     </div>
                     <div class="row ms-2">
                         <div class="d-flex">
@@ -124,14 +124,14 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
         <div class="mt-5" style="background-color:rgb(252, 252, 248); border: 1px solid rgba(0,0,0,0.125);">
             <div class="row ">
                 <div class="d-flex justify-content-center align-items-start">
-                    <h1 class="pe-3">Be perseverant! Do a little bit of work everyday
+                    <h1 class="pe-3">Hacer un poco de lo que es necesario cada dia.
                     </h1>
                     <p><a href="../info/info.html#h.fcua4kt5b3rm" target="_blank">?</a></p>
                 </div>
             </div>
             <div class="row">
                 <div class="d-flex justify-content-center">
-                    <p>You must do a minimum (baseline) of work everyday </p>
+                    <p>Un mínimo diario de trabajo crítico cada día </p>
                 </div>
             </div>
 
@@ -171,7 +171,7 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
         <div class="mt-5 mb-5" style="background-color:rgb(252, 252, 248); border: 1px solid rgba(0,0,0,0.125);">
             <div class="row">
                 <div class="d-flex justify-content-center">
-                    <h1 class="pe-3">Don't leave behind any courses!
+                    <h1 class="pe-3">No dejar ninguna asignatura atrás!
 
                     </h1>
                     <p><a href="../info/info.html#h.gktl3pisuks3" target="_blank">?</a> </p>
