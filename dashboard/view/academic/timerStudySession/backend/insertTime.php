@@ -7,6 +7,7 @@ $StudyDataDAO->insertStudyDataFromTimer(
     $_GET["projectID"],
     $_GET["totalTime"],
     $_GET["name"],
+    $_GET["triggerID"]
 )
 
 ?>

@@ -79,13 +79,13 @@ $_SESSION["current_page"] = "Timer Study Session";
 
                 <div class="d-flex justify-content-center sm-6 mt-1">
                     <button class="btn btn-secondary  text-start dropdown-toggle " type="button"
-                        data-bs-toggle="dropdown" id="selectCourseTitle">
+                        data-bs-toggle="dropdown" id="selectTriggerTitle">
                         Selecciona trigger
 
                     </button>
-                    <ul class="dropdown-menu" id="selectCourse">
+                    <ul class="dropdown-menu" id="selectTrigger">
                         <li><a class="dropdown-item"
-                                onclick=" courseClicked({courseID:-1,courseName:'Undefined'}) ">Undefined</a></li>
+                                onclick=" triggerClicked({triggerID:-1,triggerName:'Undefined'}) ">Undefined</a></li>
                         <?php include "./triggerDropdownMenu.php" ?>
                     </ul>
                 </div>

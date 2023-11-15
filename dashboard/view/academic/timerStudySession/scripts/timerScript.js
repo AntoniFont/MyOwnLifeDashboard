@@ -24,7 +24,7 @@ $(document).ready(function () {
             //disable all the options buttons
             $("#selectCourseTitle").prop('disabled', true);
             $("#selectProjectTitle").prop('disabled', true);
-            $("#selectTypeOfStudyTitle").prop('disabled', true);
+            $("#selectTriggerTitle").prop('disabled', true);
             //ADD A "ARE YOU SURE YOU WANT TO EXIT?" popup
             window.onbeforeunload = function() {
                 return true;
@@ -41,7 +41,7 @@ $(document).ready(function () {
             $("#timer").html("00:00:00");
             $("#selectCourseTitle").prop('disabled', false);
             $("#selectProjectTitle").prop('disabled', false);
-            $("#selectTypeOfStudyTitle").prop('disabled', false);
+            $("#selectTriggerTitle").prop('disabled', false);
             //remove the "are you sure you want to exit" popup
             window.onbeforeunload = null;
             }
@@ -55,9 +55,8 @@ $(document).ready(function () {
                 totalTime: seconds,
                 courseID: dataSelected["courseID"],
                 projectID: dataSelected["projectID"],
-                typeOfStudyID: dataSelected["typeOfStudyID"],
+                triggerID: dataSelected["triggerID"],
                 name: username,
-                description: encodeURI(dataSelected["description"]),
             },
             error: function(){
                 alert("Error al enviar los datos")

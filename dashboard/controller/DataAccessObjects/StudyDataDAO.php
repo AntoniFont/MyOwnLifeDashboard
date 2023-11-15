@@ -47,7 +47,7 @@ class StudyDataDAO extends DataAccessObject
     }
 
 
-    function insertStudyDataFromForm($courseID, $projectID, $totalTime, $username, $initialTime)
+    function insertStudyDataFromForm($courseID, $projectID, $totalTime, $username, $initialTime,$triggerID)
     {
         if ((strcmp($courseID, "-1") == 0) || (!isset($courseID))) {
             $courseID = null;
@@ -57,30 +57,36 @@ class StudyDataDAO extends DataAccessObject
             $projectID = null;
         }
 
+        if ((strcmp($triggerID, "-1") == 0) || (!isset($triggerID))) {
+            $triggerID = null;
+        }
+
+
         $this->dbManager->openIfItWasClosed();
 
         $sql = "insert into studydata100 (courseID,projectID,initialTime,";
-        $sql .= "duration,userID)";
+        $sql .= "duration,userID,triggerID)";
 
         $sql .= " values (:courseID, :projectID, :initialTime,";
-        $sql .= ":duration,  :userID)";
+        $sql .= ":duration,  :userID,:triggerID)";
         $values = [
             "courseID" => $courseID,
             "projectID" => $projectID,
             "initialTime" => $initialTime,
             "duration" => $totalTime,
             "userID" => ((new UserDAO())->getUserFromNickname($username))->getId(),
+            "triggerID" => $triggerID
         ];
         $this->dbManager->query($sql, $values);
         $this->dbManager->close();
     }
 
-    function insertStudyDataFromTimer($courseID, $projectID,  $totalTime, $username)
+    function insertStudyDataFromTimer($courseID, $projectID,  $totalTime, $username,$triggerID)
     {
         //To prevent errors with different timezones, the initialTime (unixTimestamp) is calculated in the server,
         //it is the current time in the server minus the duration of the activity
         $initialTime = time() - $totalTime;
-        self::insertStudyDataFromForm($courseID, $projectID, $totalTime, $username, $initialTime);
+        self::insertStudyDataFromForm($courseID, $projectID, $totalTime, $username, $initialTime,$triggerID);
     }
 
     function getStudyDataBetweenTwoDatetimes($user, $initialDate, $finalDate)
