@@ -3,7 +3,6 @@
     $studyDataDAO = new StudyDataDAO();
     $course = $_GET["course"];
     $project = $_GET["project"];
-    $typeOfStudy = $_GET["typeOfStudy"];
     $date = $_GET["date"];
     $time = $_GET["time"];
     $duration = $_GET["duration"];
@@ -18,7 +17,7 @@
     //transform the datetime into unix timestamp
     $dateTime = strtotime($dateTime);
 
-    $studyDataDAO->insertStudyDataFromForm($course,$typeOfStudy,$project,$description,$duration,$username,$dateTime);
+    $studyDataDAO->insertStudyDataFromForm($course,$project,$duration,$username,$dateTime);
     echo "<p>If you don't see any error, the following data was added correctly to the database:</p>";
 ?>
 
@@ -42,10 +41,6 @@
     <tr>
         <td>Project</td>
         <td><?php echo $project?></td>
-    </tr>
-    <tr>
-        <td>Type of study</td>
-        <td><?php echo $typeOfStudy?></td>
     </tr>
     <tr>
         <td>Date</td>

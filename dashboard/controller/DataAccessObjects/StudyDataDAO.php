@@ -27,23 +27,13 @@ class StudyDataDAO extends DataAccessObject
          *
          **/
         $this->dbManager->openIfItWasClosed();
-        $coursesDao = new CoursesDAO();
         $result = array();
 
         for ($i = 0; $i < 14; $i++) {
             $newDay = new DateTime(); //today
             $newDay->modify("-$i days");
-
-            $courses = $coursesDao->getBottom50PercentLeastStudiedCoursesInInterval($newDay->format("Y-m-d"), $user->getId(), 14);
-            $studySessions = $this->getStudySessionsOfADay($user, $newDay->format("Y-m-d"));
-            $realTime = 0;
-            foreach($studySessions as $session){
-                foreach($courses as $course){
-                    if($session->getCourseID() == $course->getId()){
-                        $realTime += $session->getDuration(); 
-                    }
-                }
-            }
+            $newDayString = $newDay->format("Y-m-d");
+            $realTime = self::getCriticalSecondsStudiedOfTheDay($user, $newDayString, $DAYS_DISPLAYED);
             array_push($result,[$realTime,$newDay->format("d-m-Y"),$DAYS_DISPLAYED-$i]);
         }
         return json_encode($result, JSON_UNESCAPED_UNICODE); //for the spanish and catalan languages
@@ -57,14 +47,10 @@ class StudyDataDAO extends DataAccessObject
     }
 
 
-    function insertStudyDataFromForm($courseID, $typeOfStudyData, $projectID, $totalTime, $username, $initialTime)
+    function insertStudyDataFromForm($courseID, $projectID, $totalTime, $username, $initialTime)
     {
         if ((strcmp($courseID, "-1") == 0) || (!isset($courseID))) {
             $courseID = null;
-        }
-
-        if ((strcmp($typeOfStudyData, "-1") == 0) || (!isset($typeOfStudyData))) {
-            $typeOfStudyData = null;
         }
 
         if ((strcmp($projectID, "-1") == 0) || (!isset($projectID))) {
@@ -73,14 +59,13 @@ class StudyDataDAO extends DataAccessObject
 
         $this->dbManager->openIfItWasClosed();
 
-        $sql = "insert into studydata100 (courseID,typeID,projectID,initialTime,";
+        $sql = "insert into studydata100 (courseID,projectID,initialTime,";
         $sql .= "duration,userID)";
 
-        $sql .= " values (:courseID, :typeID, :projectID, :initialTime,";
+        $sql .= " values (:courseID, :projectID, :initialTime,";
         $sql .= ":duration,  :userID)";
         $values = [
             "courseID" => $courseID,
-            "typeID" => $typeOfStudyData,
             "projectID" => $projectID,
             "initialTime" => $initialTime,
             "duration" => $totalTime,
@@ -90,12 +75,12 @@ class StudyDataDAO extends DataAccessObject
         $this->dbManager->close();
     }
 
-    function insertStudyDataFromTimer($courseID, $typeOfStudyData, $projectID,  $totalTime, $username)
+    function insertStudyDataFromTimer($courseID, $projectID,  $totalTime, $username)
     {
         //To prevent errors with different timezones, the initialTime (unixTimestamp) is calculated in the server,
         //it is the current time in the server minus the duration of the activity
         $initialTime = time() - $totalTime;
-        self::insertStudyDataFromForm($courseID, $typeOfStudyData, $projectID, $totalTime, $username, $initialTime);
+        self::insertStudyDataFromForm($courseID, $projectID, $totalTime, $username, $initialTime);
     }
 
     function getStudyDataBetweenTwoDatetimes($user, $initialDate, $finalDate)
@@ -132,12 +117,19 @@ class StudyDataDAO extends DataAccessObject
         return $this->getStudyDataBetweenTwoDatetimes($user, $initialTime, $finalTime);
     }
 
-    public function getSecondsStudiedOfTheDay($user, $day)
+    public function getCriticalSecondsStudiedOfTheDay($user, $day, $DAYS_DISPLAYED)
     {
         $studySessions = $this->getStudySessionsOfADay($user, $day);
+        $coursesDao = new CoursesDAO();
+        $courses = $coursesDao->getBottom50PercentLeastStudiedCoursesInInterval($day, $user->getId(), $DAYS_DISPLAYED);
+
         $totalSeconds = 0;
-        foreach ($studySessions as $studySession) {
-            $totalSeconds += $studySession->getDuration();
+        foreach($studySessions as $session){
+            foreach($courses as $course){
+                if($session->getCourseID() == $course->getId()){
+                    $totalSeconds += $session->getDuration(); 
+                }
+            }
         }
         return $totalSeconds;
     }

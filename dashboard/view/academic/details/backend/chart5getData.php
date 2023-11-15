@@ -6,6 +6,6 @@ $StudyDataDAO = new StudyDataDAO();
 $user = (new UserDAO())->getUserFromNickname($_GET["name"]);
 $today = date("Y-m-d");
 $yesterday = date("Y-m-d", strtotime("-1 day"));
-$studyData = $StudyDataDAO->getSecondsStudiedOfTheDay($user,$today);
+$studyData = $StudyDataDAO->getCriticalSecondsStudiedOfTheDay($user,$today,14);
 echo $studyData;
 ?>
