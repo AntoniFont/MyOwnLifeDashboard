@@ -4,7 +4,6 @@ require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controll
 $StudyDataDAO = new StudyDataDAO();
 $StudyDataDAO->insertStudyDataFromTimer(
     $_GET["courseID"],
-    $_GET["typeOfStudyID"],
     $_GET["projectID"],
     $_GET["totalTime"],
     $_GET["name"],
