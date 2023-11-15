@@ -13,6 +13,7 @@ $deleteStudySessionText = "";
 $StudyTimeCategorizerText = "";
 $detailsText = "";
 $infoText = "";
+$newObjectiveText = "";
 
 
 if ($_SESSION["current_page"] == "Timer Study Session") {
@@ -31,6 +32,8 @@ if ($_SESSION["current_page"] == "Timer Study Session") {
   $editStudySessionText = "(current)";
 }else if ($_SESSION["current_page"] == "Delete Study Session") {
   $deleteStudySessionText = "(current)";
+}else if ($_SESSION["current_page"] == "New Objective") {
+  $newObjectiveText = "(current)";
 }
 
 if($addStudySessionText != "" || $editStudySessionText != "" || $deleteStudySessionText != ""){
@@ -118,6 +121,13 @@ if ($addProjectText != "" || $editProjectText != "") {
                 </a>
               </li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+              href="<?php echo '/myownlifedashboard/dashboard/view/academic/newObjective/index.php?name=' . $name ?>"
+              >
+              New objective <?php echo $newObjectiveText ?>
+            </a>
           </li>
         </ul>
       </div>

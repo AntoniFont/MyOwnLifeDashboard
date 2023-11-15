@@ -16,6 +16,13 @@ class ObjectiveDAO extends DataAccessObject
         return new ConsistencyObjective($resultado[0][0],$resultado[0][1]);
     }
 
+    function newConsistencyObjective($objective,$user){
+        $this->dbManager->openIfItWasClosed();
+        $sql = "insert into consistencygoal set texto= :html , number= :numero, user=:usuario";
+        $resultado = $this->dbManager->query($sql, ["html" => $objective->getText(),"numero"=> $objective->getNumber(),"usuario"=>$user->getId()]);
+        $this->dbManager->close();
+    }
+
     
 }
 
