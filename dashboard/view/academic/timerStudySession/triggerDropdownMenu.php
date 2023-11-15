@@ -9,8 +9,14 @@ $triggers = $triggerDAO->getUserTriggers($user);
 
 //the triggers
 foreach($triggers as $trigger){
+    $id = str_replace(array("\r", "\n"), '', $trigger->getId());
+    $name = str_replace(array("\r", "\n"), '', $trigger->getName());
+    $description = str_replace(array("\r", "\n"), '', $trigger->getDescription());
     $triggerDropdown = "<li><a class='dropdown-item' " ;
-    $triggerDropdown .= "onclick=\" triggerClicked({triggerID:".$trigger->getId().",triggerName:'".$trigger->getName()."'}) \" >";
+    $triggerDropdown .= "onclick=\" triggerClicked({";
+    $triggerDropdown .= "triggerID:'".$id;
+    $triggerDropdown .= "',triggerName:'".$name;
+    $triggerDropdown .= "',triggerDescription:'".$description."'}) \" >";
     $triggerDropdown .= $trigger->getName()."</a></li>";
     echo $triggerDropdown;
 }

@@ -89,6 +89,7 @@ $_SESSION["current_page"] = "Timer Study Session";
                         <?php include "./triggerDropdownMenu.php" ?>
                     </ul>
                 </div>
+                <p id="triggerDescription">WIP: Trigger Description</p>
 
             </div>
 

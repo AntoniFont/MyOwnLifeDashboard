@@ -45,6 +45,7 @@ function courseClicked(data) {
 function triggerClicked(data) {
     triggerSelected = data.triggerID;
     $("#selectTriggerTitle").text(data.triggerName);
+    $("#triggerDescription").text(data.triggerDescription);
 }
 //SAVE THE PROJECT SELECTED FOR LATER AND CHANGE THE DROPDOWN PLACEHOLDER
 function projectClicked(event) {
