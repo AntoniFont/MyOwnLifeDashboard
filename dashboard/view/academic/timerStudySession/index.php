@@ -1,6 +1,7 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/loginLogic.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/CoursesDAO.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/TriggerDAO.php");
 
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
 
@@ -73,6 +74,19 @@ $_SESSION["current_page"] = "Timer Study Session";
                     <ul class="dropdown-menu" id="selectProject">
                         <li><a class='dropdown-item'
                                 onclick="projectClicked({ projectID: -1, projectName: 'Undefined' })">Undefined</a></li>
+                    </ul>
+                </div>
+
+                <div class="d-flex justify-content-center sm-6 mt-1">
+                    <button class="btn btn-secondary  text-start dropdown-toggle " type="button"
+                        data-bs-toggle="dropdown" id="selectCourseTitle">
+                        Selecciona trigger
+
+                    </button>
+                    <ul class="dropdown-menu" id="selectCourse">
+                        <li><a class="dropdown-item"
+                                onclick=" courseClicked({courseID:-1,courseName:'Undefined'}) ">Undefined</a></li>
+                        <?php include "./triggerDropdownMenu.php" ?>
                     </ul>
                 </div>
 
