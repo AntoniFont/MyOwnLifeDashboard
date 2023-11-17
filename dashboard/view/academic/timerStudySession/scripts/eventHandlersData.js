@@ -1,6 +1,7 @@
 let courseSelected = -1;
 let triggerSelected = -1;
 let projectSelected = -1;
+let studyCharacteristicsSelected = -1;
 
 //SAVE THE COURSE SELECTED FOR LATER, LOAD THE PROJECTS LINKED TO THAT PROJECT, AND CHANGE THE DROPDOWN PLACEHOLDER
 function courseClicked(data) {
@@ -52,6 +53,11 @@ function projectClicked(event) {
     projectSelected = event.data.projectID;
     $("#selectProjectTitle").text(event.data.projectName);
 }
+function studyCharacteristicsClicked(data) {
+    studyCharacteristicsSelected = data.studyCharacteristicsID;
+    $("#selectStudyCharacteristicsTitle").text(data.studyCharacteristicsName);
+    $("#studyCharacteristicsDescription").text(data.studyCharacteristicsDescription)
+}
 
 
 function getSelectedThings() {
@@ -60,5 +66,6 @@ function getSelectedThings() {
     result["courseID"] = courseSelected.toString();
     result["triggerID"] = triggerSelected.toString();
     result["projectID"] = projectSelected.toString();
+    result["studyCharacteristicsID"] = studyCharacteristicsSelected.toString();
     return result;
 }

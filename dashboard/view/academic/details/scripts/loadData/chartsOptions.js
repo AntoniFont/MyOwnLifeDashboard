@@ -50,6 +50,58 @@ let chart2Options = {
 
 };
 
+let chart6Options = {
+    chart: {
+        backgroundColor: "#FCFCF8",
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+    },
+    title: {
+        text: ''//'¿Study routine breakdown?'
+    },
+    subtitle: {
+        text: ''
+    },
+    tooltip: {
+        pointFormat: '<b>{point.y} h</b><br><b>{point.percentage:.1f} %</b> <br>{point.description}'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                overflow: "allow",
+                enabled: true,
+                format: '{point.name} <br> {point.percentage: .1f} % , {point.y} h'
+            }
+        }
+    },
+    series: [{
+        name: 'Triggers',
+        data: [], //TO BE FILLED
+    }],
+
+    drilldown: {
+        name: 'Study Characteristics',
+        series: [] //TO BE FILLED
+    },
+    credits: {
+        enabled: false
+    },
+
+};
+
+
+
+
+
 let chart1Options = {
     chart: {
         backgroundColor: "#FCFCF8",

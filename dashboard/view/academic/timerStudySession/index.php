@@ -2,7 +2,7 @@
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/loginLogic.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/CoursesDAO.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/TriggerDAO.php");
-
+require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/StudyCharacteristicsDAO.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
 
 $_SESSION["current_page"] = "Timer Study Session";
@@ -47,7 +47,7 @@ $_SESSION["current_page"] = "Timer Study Session";
                 <div class="d-flex justify-content-center">
                     <h1 class="display-1" id="timer">00:00:00</h1>
                 </div>
-                
+
             </div>
 
 
@@ -88,14 +88,33 @@ $_SESSION["current_page"] = "Timer Study Session";
                                 onclick=" triggerClicked({triggerID:-1,triggerName:'Undefined'}) ">Undefined</a></li>
                         <?php include "./triggerDropdownMenu.php" ?>
                     </ul>
+                </div> 
+                <div class="d-flex justify-content-center sm-6 mt-1">
+                    <button class="btn btn-secondary  text-start dropdown-toggle " type="button"
+                        data-bs-toggle="dropdown" id="selectStudyCharacteristicsTitle">
+                        Selecciona study characteristics
+
+                    </button>
+                    <ul class="dropdown-menu" id="selectStudyCharacteristics">
+                        <li><a class="dropdown-item"
+                                onclick=" studyCharacteristicsClicked({studyCharacteristicsID:-1,studyCharacteristicsName:'Undefined'}) ">Undefined</a>
+                        </li>
+                        <?php include "./studyCharacteristicsDropdownMenu.php" ?>
+                    </ul>
                 </div>
-                <p id="triggerDescription">WIP: Trigger Description</p>
+                <div class="d-flex justify-content-center sm-6 mt-1">
+                    <p id="triggerDescription">WIP: Trigger Description</p>
+                </div>
+                <div class="d-flex justify-content-center sm-6">
+                    <p id="studyCharacteristicsDescription">WIP: Study Characteristics Description</p>
+                </div>
+
 
             </div>
 
         </div>
 
-        
+
         <div class="row">
         </div>
 

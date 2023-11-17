@@ -25,6 +25,7 @@ $(document).ready(function () {
             $("#selectCourseTitle").prop('disabled', true);
             $("#selectProjectTitle").prop('disabled', true);
             $("#selectTriggerTitle").prop('disabled', true);
+            $("#selectStudyCharacteristicsTitle").prop('disabled',true);
             //ADD A "ARE YOU SURE YOU WANT TO EXIT?" popup
             window.onbeforeunload = function() {
                 return true;
@@ -42,6 +43,7 @@ $(document).ready(function () {
             $("#selectCourseTitle").prop('disabled', false);
             $("#selectProjectTitle").prop('disabled', false);
             $("#selectTriggerTitle").prop('disabled', false);
+            $("#selectStudyCharacteristicsTitle").prop('disabled',false);
             //remove the "are you sure you want to exit" popup
             window.onbeforeunload = null;
             }
@@ -56,6 +58,7 @@ $(document).ready(function () {
                 courseID: dataSelected["courseID"],
                 projectID: dataSelected["projectID"],
                 triggerID: dataSelected["triggerID"],
+                studyCharacteristicsID: dataSelected["studyCharacteristicsID"],
                 name: username,
             },
             error: function(){

@@ -40,14 +40,7 @@ class StudyDataDAO extends DataAccessObject
     }
 
 
-
-    function updateStudyData($studyData)
-    {
-
-    }
-
-
-    function insertStudyDataFromForm($courseID, $projectID, $totalTime, $username, $initialTime,$triggerID)
+    function insertStudyDataFromForm($courseID, $projectID, $totalTime, $username, $initialTime,$triggerID,$studyCharacteristicsID)
     {
         if ((strcmp($courseID, "-1") == 0) || (!isset($courseID))) {
             $courseID = null;
@@ -61,32 +54,37 @@ class StudyDataDAO extends DataAccessObject
             $triggerID = null;
         }
 
+        
+        if ((strcmp($studyCharacteristicsID, "-1") == 0) || (!isset($studyCharacteristicsID))) {
+            $studyCharacteristicsID = null;
+        }
 
         $this->dbManager->openIfItWasClosed();
 
         $sql = "insert into studydata100 (courseID,projectID,initialTime,";
-        $sql .= "duration,userID,triggerID)";
+        $sql .= "duration,userID,triggerID,studyCharacteristicsID)";
 
         $sql .= " values (:courseID, :projectID, :initialTime,";
-        $sql .= ":duration,  :userID,:triggerID)";
+        $sql .= ":duration,  :userID,:triggerID,:studyCharacteristicsID)";
         $values = [
             "courseID" => $courseID,
             "projectID" => $projectID,
             "initialTime" => $initialTime,
             "duration" => $totalTime,
             "userID" => ((new UserDAO())->getUserFromNickname($username))->getId(),
-            "triggerID" => $triggerID
+            "triggerID" => $triggerID, 
+            "studyCharacteristicsID" => $studyCharacteristicsID
         ];
         $this->dbManager->query($sql, $values);
         $this->dbManager->close();
     }
 
-    function insertStudyDataFromTimer($courseID, $projectID,  $totalTime, $username,$triggerID)
+    function insertStudyDataFromTimer($courseID, $projectID,  $totalTime, $username,$triggerID,$studyCharacteristicsID)
     {
         //To prevent errors with different timezones, the initialTime (unixTimestamp) is calculated in the server,
         //it is the current time in the server minus the duration of the activity
         $initialTime = time() - $totalTime;
-        self::insertStudyDataFromForm($courseID, $projectID, $totalTime, $username, $initialTime,$triggerID);
+        self::insertStudyDataFromForm($courseID, $projectID, $totalTime, $username, $initialTime,$triggerID,$studyCharacteristicsID);
     }
 
     function getStudyDataBetweenTwoDatetimes($user, $initialDate, $finalDate)

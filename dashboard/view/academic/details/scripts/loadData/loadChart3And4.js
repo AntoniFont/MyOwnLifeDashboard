@@ -26,7 +26,6 @@ $(document).ready(function () {
                 let objetivo
                 $.ajax("./backend/getConsistencyObjectiveNumber.php",{
                     method:"GET",data:{"name":username},success:function(numberText){
-                        console.log("numberText" + numberText)
                         objetivo = JSON.parse(numberText)
                         if(dataChart4 < objetivo){
                             $("#consistencyObjective").css("color", "red");

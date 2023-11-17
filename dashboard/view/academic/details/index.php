@@ -46,6 +46,7 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
     <script src="./scripts/loadData/loadChart1And2.js"></script>
     <script src="./scripts/loadData/loadChart3And4.js"></script>
     <script src="./scripts/loadData/loadChart5.js"></script>
+    <script src="./scripts/loadData/loadChart6.js"></script>
 </head>
 
 <body>
@@ -174,16 +175,21 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
                 </div>
             </div>
 
-            <div class="mt-5" style="background-color:rgb(252, 252, 248); border: 1px solid rgba(0,0,0,0.125);">
-                <div class="row ">
-                    <div class="d-flex justify-content-center align-items-start">
-                        <h1 class="pe-3">Routine analysis
-                        </h1>
-                    </div>
+
+
+        </div>
+        <div class="mt-5" style="background-color:rgb(252, 252, 248); border: 1px solid rgba(0,0,0,0.125);">
+            <div class="row ">
+                <div class="d-flex justify-content-center align-items-start">
+                    <h1 class="pe-3">Routine analysis
+                    </h1>
                 </div>
             </div>
-
-
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <div id="chart6Container"></div>
+                </div>
+            </div>
         </div>
     </div>
 
