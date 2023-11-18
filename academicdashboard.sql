@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3307
--- Tiempo de generación: 17-11-2023 a las 21:03:09
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.0.28
+-- Servidor: localhost
+-- Tiempo de generación: 18-11-2023 a las 18:08:01
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -49,7 +49,7 @@ group by
 END$$
 
 DROP PROCEDURE IF EXISTS `triggersumdurationbystudycharacteristic`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `triggersumdurationbystudycharacteristic` (IN `userID` INT, IN `initialTimeUnixTimestamp` INT, IN `finalTimeUnixTimestamp` INT, IN `triggerID` INT)   begin
+CREATE DEFINER=`superRoot`@`localhost` PROCEDURE `triggersumdurationbystudycharacteristic` (IN `userID` INT, IN `initialTimeUnixTimestamp` INT, IN `finalTimeUnixTimestamp` INT, IN `triggerID` INT)   begin
 	/*In each instance of a study session you have a trigger and a 
 	 * studyCharacteristicsSet. This procedure given a trigger, returns
 	 * the breakdown of which studyCharacteristicsSet was chosen when that
@@ -231,8 +231,22 @@ DROP TABLE IF EXISTS `user100`;
 CREATE TABLE IF NOT EXISTS `user100` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nickname` varchar(50) NOT NULL,
+  `passwordHash` varchar(100) NOT NULL,
+  `specialSpotifyFeatureEnabled` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nickname` (`nickname`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user_spotifyPassword`
+--
+
+DROP TABLE IF EXISTS `user_spotifyPassword`;
+CREATE TABLE IF NOT EXISTS `user_spotifyPassword` (
+  `userID` int(11) NOT NULL,
+  `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -243,7 +257,7 @@ CREATE TABLE IF NOT EXISTS `user100` (
 DROP TABLE IF EXISTS `horasporasignatura`;
 
 DROP VIEW IF EXISTS `horasporasignatura`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `horasporasignatura`  AS SELECT `courses100`.`name` AS `asignatura`, sum(`studydata100`.`duration`) / 3600 AS `horas`, `user100`.`nickname` AS `nickname` FROM ((`studydata100` join `courses100` on(`courses100`.`courseID` = `studydata100`.`courseID`)) join `user100` on(`studydata100`.`userID` = `user100`.`id`)) GROUP BY `studydata100`.`courseID` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `horasporasignatura`  AS SELECT `courses100`.`name` AS `asignatura`, sum(`studydata100`.`duration`) / 3600 AS `horas`, `user100`.`nickname` AS `nickname` FROM ((`studydata100` join `courses100` on(`courses100`.`courseID` = `studydata100`.`courseID`)) join `user100` on(`studydata100`.`userID` = `user100`.`id`)) GROUP BY `studydata100`.`courseID``courseID`  ;
 
 -- --------------------------------------------------------
 
@@ -253,7 +267,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `horasporproyecto`;
 
 DROP VIEW IF EXISTS `horasporproyecto`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `horasporproyecto`  AS SELECT `projects100`.`name` AS `proyecto`, `courses100`.`name` AS `asignatura`, sum(`studydata100`.`duration`) / 3600 AS `horas`, `user100`.`nickname` AS `nickname` FROM (((`studydata100` join `projects100` on(`projects100`.`projectID` = `studydata100`.`projectID`)) join `courses100` on(`courses100`.`courseID` = `projects100`.`courseID`)) join `user100` on(`studydata100`.`userID` = `user100`.`id`)) GROUP BY `studydata100`.`projectID` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `horasporproyecto`  AS SELECT `projects100`.`name` AS `proyecto`, `courses100`.`name` AS `asignatura`, sum(`studydata100`.`duration`) / 3600 AS `horas`, `user100`.`nickname` AS `nickname` FROM (((`studydata100` join `projects100` on(`projects100`.`projectID` = `studydata100`.`projectID`)) join `courses100` on(`courses100`.`courseID` = `projects100`.`courseID`)) join `user100` on(`studydata100`.`userID` = `user100`.`id`)) GROUP BY `studydata100`.`projectID``projectID`  ;
 
 --
 -- Restricciones para tablas volcadas
