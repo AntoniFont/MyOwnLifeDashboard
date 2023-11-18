@@ -55,7 +55,22 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
         <div class="row mb-3" id="emojisCelebracion" hidden>
             <h2 class="display-2 text-center">¡Sigue así!</h2>
             <h1 class="display-3 text-center">👏👏🎊🎉🎉🎊👏👏</h1>
+            <p class="text-center">
+                Como recompensa aqui tienes la contraseña del spotify:
+                <?php
+                $userDAO = new UserDAO();
+                $user = $userDAO->getUserFromNickname($_GET["name"]);
+                if ($_SESSION["username"] == $_GET["name"] and $user->isSpotifyFeatureEnabled()) {
+                    $dbManager = new DatabaseManager();
+                    $dbManager->useSpecialCredentials();
+                    $sql = "SELECT password FROM user_spotifyPassword WHERE userID=:userID";
+                    $result = $dbManager->query($sql, ["userID" => $user->getId()]);
+                    echo $result[0][0];
+                }
+                ?>
+            </p>
         </div>
+
         <div style="background-color:rgb(252, 252, 248); border: 1px solid rgba(0,0,0,0.125);">
             <div class="row">
                 <div class="d-flex justify-content-center align-items-start">
