@@ -44,6 +44,8 @@ class DatabaseManager
 
     public function useSpecialCredentials(){
         $this->loadCredentials("/passwords/specialSpotifyFeatureCredentials.json");
+        $this->close(); //reopen
+        $this->openIfItWasClosed();
     }
 
     public function query($queryString, $values)
