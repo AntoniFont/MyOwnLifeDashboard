@@ -10,8 +10,9 @@ let timerStarted = false;
 let timerVar;
 let secondsEllapsed = 0
 let initialTimeDate = 0;
+let spotifySpecialFeatureEnabled = "false";
 $(document).ready(function () {
-
+    
     $("#timerButton").click(function () {
         if (timerStarted == false) {
             //start the timer and get starting time
@@ -30,6 +31,20 @@ $(document).ready(function () {
             window.onbeforeunload = function() {
                 return true;
             };
+            $.ajax("./backend/getSpotifySpecialFeature.php",{
+                method: "get",
+                data:{
+                    username: username,
+                },
+                success: function(responseText){
+                    jsont = JSON.parse(responseText);
+                    spotifySpecialFeatureEnabled = jsont[0];
+                    $("#spotifySpecialFeatureText").text("Spotify pass: "+ jsont[1]);
+                  },
+                error: function(){
+                    alert("Error al obtener los datos spoti")
+                }
+            })
         } else {
             //We save the seconds elapsed
             saveTime(secondsEllapsed);
@@ -46,6 +61,10 @@ $(document).ready(function () {
             $("#selectStudyCharacteristicsTitle").prop('disabled',false);
             //remove the "are you sure you want to exit" popup
             window.onbeforeunload = null;
+            }
+            if(spotifySpecialFeatureEnabled == "true"){
+                $("#spotifySpecialFeatureText").text("");
+                window.open("https://accounts.spotify.com/revoke_sessions/"); //Close all sessions 
             }
     });
 

@@ -4,10 +4,16 @@ class User
     private $id;
     private $username;
 
-    function __construct($id, $username)
+    private $passwordHash;
+
+    private $spotifyFeatureEnabled;
+
+    function __construct($id, $username,$passwordHash,$spotifyFeatureEnabled)
     {
         $this->id = $id;
         $this->username = $username;
+        $this->passwordHash = $passwordHash;
+        $this->spotifyFeatureEnabled = $spotifyFeatureEnabled;
     }
 
     function getId()
@@ -18,6 +24,14 @@ class User
     function getUsername()
     {
         return $this->username;
+    }
+
+    function getPasswordHash(){
+        return $this->passwordHash;
+    }
+
+    function isSpotifyFeatureEnabled(){
+        return $this->spotifyFeatureEnabled;
     }
 
 }

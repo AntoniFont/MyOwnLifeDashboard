@@ -15,8 +15,9 @@ class UserDAO extends DataAccessObject
         $sql = "select * from user100 where nickname=:nickname";
         $userID = $this->dbManager->query($sql, ["nickname" => $nickname]);
         $this->dbManager->close();
-        return new User($userID[0][0], $userID[0][1]);
+        return new User($userID[0][0], $userID[0][1],$userID[0][2],$userID[0][3]);
     }
+
 }
 
 ?>

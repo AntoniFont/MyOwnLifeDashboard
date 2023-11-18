@@ -17,10 +17,10 @@ class DatabaseManager
 
     function __construct()
     { 
-       $this->loadCredentials();
+       $this->loadCredentials("/passwords/databaseCredentials.json");
        $this->openIfItWasClosed();
     }
-    private function loadCredentials(){
+    private function loadCredentials($credentialsDIR){
         try{
             //Why is php so weird? I have to use this to catch the error.
             //file_get_contents throws a warning if the file does not exist instead of an exception.
@@ -29,19 +29,21 @@ class DatabaseManager
                 throw new \ErrorException($message, $severity, $severity, $file, $line);
             });
             
-            $json = file_get_contents(__DIR__."/databaseCredentials.json");
+            $json = file_get_contents($credentialsDIR);
             
             restore_error_handler(); //Restore the error handler to the default one.
 
             $credentials = json_decode($json, true);
-            $this->host = $credentials["host"];
             $this->db = $credentials["database"];
             $this->user = $credentials["user"];
             $this->pass = $credentials["password"];
-            $this->charset = $credentials["charset"];
         }catch(Exception $e){
             //do nothing, use the default values.
         }
+    }
+
+    public function useSpecialCredentials(){
+        $this->loadCredentials("/passwords/specialSpotifyFeatureCredentials.json");
     }
 
     public function query($queryString, $values)

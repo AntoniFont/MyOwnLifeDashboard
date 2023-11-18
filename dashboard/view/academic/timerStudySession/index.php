@@ -132,7 +132,7 @@ $_SESSION["current_page"] = "Timer Study Session";
                         <p>Start Timer</p>
                     </button>
                 </div>
-
+                <p id="spotifySpecialFeatureText"></p>
             </div>
         </div>
 
