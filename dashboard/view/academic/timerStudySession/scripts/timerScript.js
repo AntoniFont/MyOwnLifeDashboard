@@ -5,71 +5,125 @@ AND THE FUNCTION THAT SENDS THE TIME(AND OTHER DATA) TO THE BACKEND, THAT WILL P
 SAVE IT TO THE DATABSE
 */
 
-
 let timerStarted = false;
+let smallPauseStarted = false;
 let timerVar;
+let smallPauseVar;
 let secondsEllapsed = 0
 let initialTimeDate = 0;
 let spotifySpecialFeatureEnabled = "false";
+let SMALL_PAUSE_SECONDS = 10;
+
 $(document).ready(function () {
     
     $("#timerButton").click(function () {
         if (timerStarted == false) {
-            //start the timer and get starting time
-            timerVar = setInterval(visualTimer, 1000); //start the ticking
-            initialTimeDate = Math.floor(Date.now() / 1000);
-            timerStarted = true;
-            //change the start timer text and color from start timer to stop timer
-            $("#timerButton p").text("Stop Timer");
-            $("#timerButton").attr("class", "btn btn-info");
-            //disable all the options buttons
-            $("#selectCourseTitle").prop('disabled', true);
-            $("#selectProjectTitle").prop('disabled', true);
-            $("#selectTriggerTitle").prop('disabled', true);
-            $("#selectStudyCharacteristicsTitle").prop('disabled',true);
-            //ADD A "ARE YOU SURE YOU WANT TO EXIT?" popup
-            window.onbeforeunload = function() {
-                return true;
-            };
-            $.ajax("./backend/getSpotifySpecialFeature.php",{
-                method: "get",
-                data:{
-                    username: username,
-                },
-                success: function(responseText){
-                    jsont = JSON.parse(responseText);
-                    spotifySpecialFeatureEnabled = jsont[0];
-                    $("#spotifySpecialFeatureText").text("Spotify pass: "+ jsont[1]);
-                  },
-                error: function(){
-                    alert("Error al obtener los datos spoti")
-                }
-            })
+            startTimer();            
         } else {
-            //We save the seconds elapsed
-            saveTime(secondsEllapsed);
-            clearInterval(timerVar); //stop the ticking
-            timerStarted = false;
-            secondsEllapsed = 0;
-            //Re enable options and change the text from "stop timer" to "start timer"
-            $("#timerButton").attr("class", "btn btn-primary");
-            $("#timerButton p").text("Start Timer");
-            $("#timer").html("00:00:00");
-            $("#selectCourseTitle").prop('disabled', false);
-            $("#selectProjectTitle").prop('disabled', false);
-            $("#selectTriggerTitle").prop('disabled', false);
-            $("#selectStudyCharacteristicsTitle").prop('disabled',false);
+            stopTimer();
             //remove the "are you sure you want to exit" popup
             window.onbeforeunload = null;
-            if(spotifySpecialFeatureEnabled == "true"){
-                $("#spotifySpecialFeatureText").text("");
-                window.open("https://accounts.spotify.com/revoke_sessions/"); //Close all sessions 
-            }    
+            stopSpotify();
         }
             
     });
 
-    function saveTime(seconds) {
+    $("#smallPauseButton").click(function(){
+        if(timerStarted == false && smallPauseStarted == false){
+            alert("You can't start a pause if you aren't working!")
+        }else if (timerStarted == true && smallPauseStarted == false){
+            stopTimer();
+            changeTimer(SMALL_PAUSE_SECONDS)
+            smallPauseStarted = true;
+            $("#timer").css("color", "red");
+            $("#smallPauseButton p").text("Stop small pause");
+            $("#smallPauseButton").attr("class", "btn btn-info");
+            initialTimeDate = Math.floor(Date.now() / 1000);
+            smallPauseVar = setInterval(smallPauseTimer,1000);
+        }else if(timerStarted == false && smallPauseStarted==true){
+            smallPauseStarted = false;
+            $("#timer").css("color", "black");
+            $("#smallPauseButton p").text("Start small pause")
+            $("#smallPauseButton").attr("class", "btn btn-primary");
+            clearInterval(smallPauseVar)
+            startTimer();
+        }
+        
+    })
+
+    function smallPauseTimer(){
+        secondsEllapsed = Math.floor(Date.now()/1000) - initialTimeDate;
+        number = SMALL_PAUSE_SECONDS - secondsEllapsed;
+        changeTimer(number);
+        if(number <= 0){
+            clearInterval(smallPauseVar)
+            smallPauseStarted = false;
+            $("#timer").css("color", "black");
+            $("#smallPauseButton p").text("Start small pause")
+            $("#smallPauseButton").attr("class", "btn btn-primary");
+            stopSpotify()
+        }
+    }
+
+    function startTimer(){
+        $("#timer").html("00:00:00");
+        //start the timer and get starting time
+        timerVar = setInterval(updateTimer, 1000); //start the ticking
+        initialTimeDate = Math.floor(Date.now() / 1000);
+        timerStarted = true;
+        //change the start timer text and color from start timer to stop timer
+        $("#timerButton p").text("Stop Timer");
+        $("#timerButton").attr("class", "btn btn-info");
+        //disable all the options buttons
+        $("#selectCourseTitle").prop('disabled', true);
+        $("#selectProjectTitle").prop('disabled', true);
+        $("#selectTriggerTitle").prop('disabled', true);
+        $("#selectStudyCharacteristicsTitle").prop('disabled',true);
+        //ADD A "ARE YOU SURE YOU WANT TO EXIT?" popup
+        window.onbeforeunload = function() {
+            return true;
+        };
+        $.ajax("./backend/getSpotifySpecialFeature.php",{
+            method: "get",
+            data:{
+                username: username,
+            },
+            success: function(responseText){
+                jsont = JSON.parse(responseText);
+                spotifySpecialFeatureEnabled = jsont[0];
+                $("#spotifySpecialFeatureText").text("Spotify pass: "+ jsont[1]);
+              },
+            error: function(){
+                alert("Error al obtener los datos spoti")
+            }
+        })
+    }
+
+
+    function stopTimer(){
+        //We save the seconds elapsed
+        insertTimeDatabase(secondsEllapsed);
+        clearInterval(timerVar); //stop the ticking
+        timerStarted = false;
+        secondsEllapsed = 0;
+        //Re enable options and change the text from "stop timer" to "start timer"
+        $("#timerButton").attr("class", "btn btn-primary");
+        $("#timerButton p").text("Start Timer");
+        $("#timer").html("00:00:00");
+        $("#selectCourseTitle").prop('disabled', false);
+        $("#selectProjectTitle").prop('disabled', false);
+        $("#selectTriggerTitle").prop('disabled', false);
+        $("#selectStudyCharacteristicsTitle").prop('disabled',false);
+    }
+
+    function stopSpotify(){
+        if(spotifySpecialFeatureEnabled == "true"){
+            $("#spotifySpecialFeatureText").text("");
+            window.open("https://accounts.spotify.com/revoke_sessions/"); //Close all sessions 
+        }
+    }
+
+    function insertTimeDatabase(seconds) {
         let dataSelected = getSelectedThings();
         $.ajax("./backend/insertTime.php",{
             method: "get",
@@ -87,9 +141,14 @@ $(document).ready(function () {
         })
     }
 
-
-    function visualTimer() {
+    function updateTimer() {
         secondsEllapsed = Math.floor(Date.now()/1000) - initialTimeDate;
+        changeTimer(secondsEllapsed);
+    }
+
+
+
+    function changeTimer(secondsEllapsed){
         var hour = Math.floor(secondsEllapsed / 3600);
         var minute = Math.floor((secondsEllapsed - hour * 3600) / 60);
         var seconds = secondsEllapsed - (hour * 3600 + minute * 60);
@@ -101,4 +160,7 @@ $(document).ready(function () {
             seconds = "0" + seconds;
         $("#timer").html(hour + ":" + minute + ":" + seconds);
     }
+
+
+    
 })

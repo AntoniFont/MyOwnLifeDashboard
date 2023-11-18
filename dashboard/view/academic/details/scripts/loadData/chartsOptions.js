@@ -274,7 +274,7 @@ let chart5Options= {
             data: [80], // The data point value
             dataLabels: {
                 format: '<div style="text-align:center"><span style="font-size:25px;color:black">{y}%</span><br/>' +
-                    '<span style="font-size:10px;color:silver">Porcentaje diario completado</span></div>',
+                    '<span style="font-size:10px;color:silver">Porcentaje diario crítico completado</span></div>',
             },
         },
     ],

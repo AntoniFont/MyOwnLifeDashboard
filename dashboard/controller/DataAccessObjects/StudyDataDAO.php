@@ -138,68 +138,6 @@ class StudyDataDAO extends DataAccessObject
         return $totalSeconds;
     }
 
-    /*
-    Given a study data id, it updates the study data ranking
-    */
-    public function updateStudyDataRanking($studyDataID, $ranking)
-    {
-        $this->dbManager->openIfItWasClosed();
-        $sql = "UPDATE studydata100 SET ranking = :ranking WHERE id = :id";
-        $values = [
-            "ranking" => $ranking,
-            "id" => $studyDataID
-        ];
-        $this->dbManager->query($sql, $values);
-        $this->dbManager->close();
-    }
-    /*Given two unix timestamps, returns the duration of each type of
-    studydata between those two timestamps (typical 'group by ranking' in sql). 
-    For example:
-    1 hour of ranking bronze
-    3 hours of ranking silver
-    2 hours of ranking gold
-    etc
-    */
-    public function getRankedStudyData($initialTime, $finalTime, $user)
-    {
-        $this->dbManager->openIfItWasClosed();
-        $sql = "select
-                    ranking.name,
-                    IFNULL(sum(duration), 0) as duration
-                from
-                    ranking
-                left join studydata100 on
-                    studydata100.ranking = ranking.id
-                    and userID = :userID
-                    and initialTime >= :initialTime
-                    and initialTime <= :finalTime
-                group by
-                    ranking.id
-                order by
-                    ranking.id desc
-        ";
-        $values = [
-            "userID" => $user->getId(),
-            "initialTime" => $initialTime,
-            "finalTime" => $finalTime
-        ];
-        $resultadoQuery = $this->dbManager->query($sql, $values);
-        /*
-        Convert the result into an array
-        Ranking => duration
-        Bronze => 1
-        Silver => 3
-        Gold => 2
-        
-        */
-        $resultado = array();
-        foreach ($resultadoQuery as $query) {
-            $resultado[$query[0]] = $query[1];
-        }
-        $this->dbManager->close();
-        return $resultado;
-    }
-
 }
 
 ?>
