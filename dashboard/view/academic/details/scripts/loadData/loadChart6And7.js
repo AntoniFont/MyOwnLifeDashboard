@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $.ajax("./backend/chart6getData.php", {
+    $.ajax("./backend/chart6And7getData.php", {
         method: "GET",
         data: {
             name: username
@@ -16,9 +16,10 @@ $(document).ready(function () {
                 dataCharacteristics = responseJSON[1];
                 //FILLED BOTH OPTIONS OBJECT WITH THE DATA (both objects share the same data but different configs)
                 chart6Options.series[0].data = dataTriggers;
-                chart6Options.drilldown.series = dataCharacteristics;
+                chart7Options.series[0].data = dataTriggers;
                 //CREATE THE 2 CHARTS FROM THE SHARED OPTIONS
                 Highcharts.chart("chart6Container", chart6Options);
+                Highcharts.chart("chart7Container", chart7Options);
             } catch (error) {
                 alert("Error en los datos recibidos para la gráficas 6 \n" + error + "\nDatos: " +  responseText);
             }

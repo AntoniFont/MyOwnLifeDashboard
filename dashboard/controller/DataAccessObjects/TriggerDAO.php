@@ -24,6 +24,17 @@ class TriggerDAO extends DataAccessObject
         return $triggers;
     }
 
+    function getUnusedTriggers($user,$initialTime,$finalTime){
+        $this->dbManager->openIfItWasClosed();
+        $sql = " CALL `getUnusedTriggersByUserInPeriod`(:userID, :initialTime, :finalTime); ";
+        $res = $this->dbManager->query($sql,[":userID" => $user->getId(), "initialTime" => $initialTime, "finalTime" => $finalTime]);
+        $triggers = [];
+        foreach ($res as $row){
+            $triggers[] = new Trigger(null, $row[0],$row[1]);
+        }
+        return $triggers;
+    }
+
     
 }
 

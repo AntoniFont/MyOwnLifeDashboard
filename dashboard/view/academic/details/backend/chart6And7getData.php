@@ -21,26 +21,7 @@ foreach ($resultsFirstQuery as $row){
         "name" => $triggerName,
         "description" => $triggerDescription,
         "y" => $triggerDuration,
-        "drilldown" => $triggerName
     ));
-    //Get the triggerBreakdownByStudyCharacteristics for this trigger
-    $sql = "call triggersumdurationbystudycharacteristic(:userID,:initialTime,:finalTime,:triggerID)";
-    $resultsSecondQuery = $dbManager->query($sql,["triggerID"=>$triggerID,"userID"=>$user->getId(),"initialTime" => $initialTime, "finalTime" => $finalTime]);
-    $dataStudyCharacteristics = array();
-    foreach ($resultsSecondQuery as $roww){
-        $studyCharacteristicsName = $roww[1];
-        $studyCharacteristicsDescription = $roww[2];
-        $studyCharacteristicsDuration = floatval($roww[3]);
-        array_push($dataStudyCharacteristics,array($studyCharacteristicsName,$studyCharacteristicsDuration));
-    }
-    array_push($finalResultsByStudyCharacteristics,array(
-        "name" => $triggerName,
-        "id" => $triggerName,
-        "description" => $studyCharacteristicsDescription,
-        "data" => $dataStudyCharacteristics
-    ));
-
-
 }
-echo json_encode(array($finalResultsByTrigger,$finalResultsByStudyCharacteristics),JSON_UNESCAPED_UNICODE)
+echo json_encode(array($finalResultsByTrigger),JSON_UNESCAPED_UNICODE)
 ?>

@@ -87,11 +87,6 @@ let chart6Options = {
         name: 'Triggers',
         data: [], //TO BE FILLED
     }],
-
-    drilldown: {
-        name: 'Study Characteristics',
-        series: [] //TO BE FILLED
-    },
     credits: {
         enabled: false
     },
@@ -99,6 +94,58 @@ let chart6Options = {
 };
 
 
+let chart7Options = {
+    chart: {
+        backgroundColor: "#FCFCF8",
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'column'
+    },
+    title: {
+        text: ' '
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        visible: false
+    },
+    yAxis: {
+        title: "Numero de horas",
+        visible: true
+    },
+    tooltip: {
+        pointFormat: '<b>{point.y} h</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        column: {
+            allowPointSelect: true,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y} h'
+            },
+            dataSorting: {
+                enabled: true
+            },
+        }
+    },
+    series: [{
+        name: 'Triggers',
+        colorByPoint: true,
+        data: [], //TO BE FILLED
+        legendType: "point"
+    }],
+    credits: {
+        enabled: false
+    },
+
+};
 
 
 

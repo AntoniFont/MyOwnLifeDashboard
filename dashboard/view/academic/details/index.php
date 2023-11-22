@@ -46,7 +46,7 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
     <script src="./scripts/loadData/loadChart1And2.js"></script>
     <script src="./scripts/loadData/loadChart3And4.js"></script>
     <script src="./scripts/loadData/loadChart5.js"></script>
-    <script src="./scripts/loadData/loadChart6.js"></script>
+    <script src="./scripts/loadData/loadChart6And7.js"></script>
 </head>
 
 <body>
@@ -94,7 +94,7 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
                         <h3 class='text-center'>Las asignaturas que estudiar hoy son: </h3>
                     </div>
                     <div class="row ms-2">
-                        <div class="d-flex">
+                        <div class="d-flex ">
                             <?php
                             require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/CoursesDAO.php");
                             require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
@@ -201,8 +201,44 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
                 </div>
             </div>
             <div class="row">
-                <div class="d-flex justify-content-center">
+                <div class="col-xs-12 col-sm-6">
                     <div id="chart6Container"></div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div id="chart7Container"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="d-flex">
+                    <strong>Unused triggers</strong>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <?php
+                    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/TriggerDAO.php");
+                    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
+
+                    $triggerDAO = new TriggerDAO();
+                    $userDAO = new UserDAO();
+                    $user = $userDAO->getUserFromNickname($_GET["name"]);
+                    $triggers = $triggerDAO->getUnusedTriggers($user, time() - 86400 * 14, time());
+                    //PRINT THE COURSES
+                    echo "<table class='table table-striped table-hover'>";
+                    echo "<thead>";
+                    echo "<tr>";
+                    echo "<th scope='col'>Trigger name</th>";
+                    echo "<th scope='col'>Trigger description</th>";
+                    echo "</tr>";
+                    echo "</thead>";
+                    echo "<tbody>";
+                    foreach ($triggers as $trigger) {
+                        echo "<tr>";
+                        echo "<td>" . $trigger->getName() . "</td>";
+                        echo "<td>" . $trigger->getDescription() . "</td>";
+                        echo "</tr>";
+                    }
+                    echo "</tbody>";
+                    echo "</table>";
+                    ?>
                 </div>
             </div>
         </div>
