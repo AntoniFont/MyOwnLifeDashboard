@@ -230,6 +230,10 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
                     echo "</tr>";
                     echo "</thead>";
                     echo "<tbody>";
+                    echo "<tr>";
+                        echo "<td>" . "<strong>BUG!!: </strong>". "</td>";
+                        echo "<td>" . "<strong>Los unused triggers que tienen como userID NULL no salen en esta lista. Es un problema del procedure getUnusedTriggers</strong>" . "</td>";
+                    echo "</tr>";
                     foreach ($triggers as $trigger) {
                         echo "<tr>";
                         echo "<td>" . $trigger->getName() . "</td>";

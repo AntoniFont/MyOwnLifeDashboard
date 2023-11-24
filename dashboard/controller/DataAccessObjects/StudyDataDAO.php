@@ -40,7 +40,7 @@ class StudyDataDAO extends DataAccessObject
     }
 
 
-    function insertStudyDataFromForm($courseID, $projectID, $totalTime, $username, $initialTime,$triggerID,$studyCharacteristicsID)
+    function insertStudyDataFromForm($courseID, $projectID, $totalTime, $username, $initialTime,$triggersID,$studyCharacteristicsID)
     {
         if ((strcmp($courseID, "-1") == 0) || (!isset($courseID))) {
             $courseID = null;
@@ -50,41 +50,40 @@ class StudyDataDAO extends DataAccessObject
             $projectID = null;
         }
 
-        if ((strcmp($triggerID, "-1") == 0) || (!isset($triggerID))) {
-            $triggerID = null;
-        }
-
+        $triggersID = json_decode($triggersID);
         
-        if ((strcmp($studyCharacteristicsID, "-1") == 0) || (!isset($studyCharacteristicsID))) {
-            $studyCharacteristicsID = null;
-        }
-
         $this->dbManager->openIfItWasClosed();
 
         $sql = "insert into studydata100 (courseID,projectID,initialTime,";
-        $sql .= "duration,userID,triggerID,studyCharacteristicsID)";
+        $sql .= "duration,userID)";
 
         $sql .= " values (:courseID, :projectID, :initialTime,";
-        $sql .= ":duration,  :userID,:triggerID,:studyCharacteristicsID)";
+        $sql .= ":duration,  :userID)";
         $values = [
             "courseID" => $courseID,
             "projectID" => $projectID,
             "initialTime" => $initialTime,
             "duration" => $totalTime,
             "userID" => ((new UserDAO())->getUserFromNickname($username))->getId(),
-            "triggerID" => $triggerID, 
-            "studyCharacteristicsID" => $studyCharacteristicsID
         ];
         $this->dbManager->query($sql, $values);
+        $lastInsertID = $this->dbManager->lastInsertId();
+        foreach ($triggersID as $triggerID){
+            if((strcmp($triggerID, "-1") != 0)){
+                echo "lastInsertID: ".$lastInsertID.", triggerID: ".$triggerID;
+                $sql = "insert into studydata_triggers (studydataID,triggerID) values (:studydataID,:triggerID)";
+                $this->dbManager->query($sql, ["studydataID" => $lastInsertID, "triggerID" => $triggerID]);
+            }
+        }
         $this->dbManager->close();
     }
 
-    function insertStudyDataFromTimer($courseID, $projectID,  $totalTime, $username,$triggerID,$studyCharacteristicsID)
+    function insertStudyDataFromTimer($courseID, $projectID,  $totalTime, $username,$triggersID,$studyCharacteristicsID)
     {
         //To prevent errors with different timezones, the initialTime (unixTimestamp) is calculated in the server,
         //it is the current time in the server minus the duration of the activity
         $initialTime = time() - $totalTime;
-        self::insertStudyDataFromForm($courseID, $projectID, $totalTime, $username, $initialTime,$triggerID,$studyCharacteristicsID);
+        self::insertStudyDataFromForm($courseID, $projectID, $totalTime, $username, $initialTime,$triggersID,$studyCharacteristicsID);
     }
 
     function getStudyDataBetweenTwoDatetimes($user, $initialDate, $finalDate)

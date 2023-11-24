@@ -67,6 +67,10 @@ class DatabaseManager
         return $normalArray;
     }
 
+    public function lastInsertID(){
+        return intval($this->pdo->lastInsertId());
+    }
+
     public function close()
     {
         $this->pdo = null;

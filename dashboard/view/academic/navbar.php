@@ -101,23 +101,23 @@ if ($addProjectText != "" || $editProjectText != "") {
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
-              Study Session <?php echo $studySessionText; ?>
+              Study Session [NO FUNCIONA] <?php echo $studySessionText; ?>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li>
                 <a class="dropdown-item"
                   href="<?php echo '/myownlifedashboard/dashboard/view/academic/addStudySession/index.php?name=' . $name ?>">
-                  Add Study Session <?php echo $addStudySessionText ?>
+                  Add Study Session [NO FUNCIONA] <?php echo $addStudySessionText ?>
                 </a>
               </li>
               <li>
                 <a class="dropdown-item"
                   href="<?php echo '/myownlifedashboard/dashboard/view/academic/editStudySession/index.php?name=' . $name ?>">
-                  Edit Study Session <?php echo $editStudySessionText ?>
+                  Edit Study Session [NO FUNCIONA]<?php echo $editStudySessionText ?>
                 </a>
                 <a class="dropdown-item"
                   href="<?php echo '/myownlifedashboard/dashboard/view/academic/deleteStudySession/index.php?name=' . $name ?>">
-                  Delete Study Session <?php echo $deleteStudySessionText ?>
+                  Delete Study Session [NO FUNCIONA]<?php echo $deleteStudySessionText ?>
                 </a>
               </li>
             </ul>

@@ -34,6 +34,9 @@ $year = TimeAuxi::getYear($nowTimestamp);
 
 <body>
     <?php include '../navbar.php'; ?>
+    <script>
+    alert("ESTA PAGINA NO ESTA ACABADA .N O FUNCIONA");
+    </script>
     <div class="container">
     <input type="text" id="username"name="username" class="form-control" value="<?php echo $_GET['name'] ?>" hidden>
             

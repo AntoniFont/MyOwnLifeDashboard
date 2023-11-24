@@ -1,5 +1,5 @@
 let courseSelected = -1;
-let triggerSelected = -1;
+let triggersSelected = ["-1"];
 let projectSelected = -1;
 let studyCharacteristicsSelected = -1;
 
@@ -44,9 +44,14 @@ function courseClicked(data) {
 }
 //SAVE THE TYPE OF STUDY SELECTED FOR LATER AND CHANGE THE DROPDOWN PLACEHOLDER
 function triggerClicked(data) {
-    triggerSelected = data.triggerID;
-    $("#selectTriggerTitle").text(data.triggerName);
-    $("#triggerDescription").text(data.triggerDescription);
+    if(data.triggerID != -1 && triggersSelected.includes(data.triggerID)){
+        alert("Repeated triggers won't be counted twice");
+    }else{
+        triggersSelected[triggersSelected.length] = data.triggerID; //triggersSelected.append(data.triggerID)
+        $("#selectTriggerTitle" + data.triggerButtonID).text(data.triggerName);
+        $("#triggerDescription").text(data.triggerDescription);
+    }
+
 }
 //SAVE THE PROJECT SELECTED FOR LATER AND CHANGE THE DROPDOWN PLACEHOLDER
 function projectClicked(event) {
@@ -64,7 +69,7 @@ function getSelectedThings() {
     let result = {};
     result["description"] = $("#description").val();
     result["courseID"] = courseSelected.toString();
-    result["triggerID"] = triggerSelected.toString();
+    result["triggersID"] = JSON.stringify(triggersSelected);
     result["projectID"] = projectSelected.toString();
     result["studyCharacteristicsID"] = studyCharacteristicsSelected.toString();
     return result;

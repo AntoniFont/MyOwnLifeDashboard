@@ -27,8 +27,11 @@ $_SESSION["current_page"] = "Add Study Session";
     <script src="./script.js"></script>
 </head>
 
-<body>
+<body> 
     <?php include '../navbar.php'; ?>
+    <script>
+        alert("WIP: ESTO YA NO FUNCIONA, FALTA AÑADIR LO DE LOS TRIGGERS. NO USAR ESTA PAGINA. USAR EL PHPMYADMIN");
+    </script>
     <div class="container">
         <form target="_blank" action="./backend/addStudySession.php" method="get">
             <!--invisible username input-->

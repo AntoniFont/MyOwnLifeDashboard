@@ -2,7 +2,6 @@
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/loginLogic.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/CoursesDAO.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/TriggerDAO.php");
-require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/StudyCharacteristicsDAO.php");
 require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
 
 $_SESSION["current_page"] = "Timer Study Session";
@@ -37,6 +36,7 @@ $_SESSION["current_page"] = "Timer Study Session";
 
 
 
+<?php include "./triggerDropdownMenu.php";?>
 
 <body>
 
@@ -79,36 +79,72 @@ $_SESSION["current_page"] = "Timer Study Session";
 
                 <div class="d-flex justify-content-center sm-6 mt-1">
                     <button class="btn btn-secondary  text-start dropdown-toggle " type="button"
-                        data-bs-toggle="dropdown" id="selectTriggerTitle">
+                        data-bs-toggle="dropdown" id="selectTriggerTitle1">
                         Selecciona trigger
 
                     </button>
-                    <ul class="dropdown-menu" id="selectTrigger">
+                    <ul class="dropdown-menu" id="selectTrigger1">
                         <li><a class="dropdown-item"
-                                onclick=" triggerClicked({triggerID:-1,triggerName:'Undefined'}) ">Undefined</a></li>
-                        <?php include "./triggerDropdownMenu.php" ?>
+                                onclick=" triggerClicked({triggerID:-1,triggerButtonID:1,triggerName:'Undefined'}) ">Undefined</a>
+                        </li>
+                        <?php includeTriggerButtonContent(1); ?>
                     </ul>
-                </div> 
+                </div>
                 <div class="d-flex justify-content-center sm-6 mt-1">
                     <button class="btn btn-secondary  text-start dropdown-toggle " type="button"
-                        data-bs-toggle="dropdown" id="selectStudyCharacteristicsTitle">
-                        Selecciona study characteristics
+                        data-bs-toggle="dropdown" id="selectTriggerTitle2">
+                        Selecciona trigger
 
                     </button>
-                    <ul class="dropdown-menu" id="selectStudyCharacteristics">
+                    <ul class="dropdown-menu" id="selectTrigger2">
                         <li><a class="dropdown-item"
-                                onclick=" studyCharacteristicsClicked({studyCharacteristicsID:-1,studyCharacteristicsName:'Undefined'}) ">Undefined</a>
+                                onclick=" triggerClicked({triggerID:-1,triggerButtonID:2,triggerName:'Undefined'}) ">Undefined</a>
                         </li>
-                        <?php include "./studyCharacteristicsDropdownMenu.php" ?>
+                        <?php includeTriggerButtonContent(2); ?>
+                    </ul>
+                </div>
+                <div class="d-flex justify-content-center sm-6 mt-1">
+                    <button class="btn btn-secondary  text-start dropdown-toggle " type="button"
+                        data-bs-toggle="dropdown" id="selectTriggerTitle3">
+                        Selecciona trigger
+
+                    </button>
+                    <ul class="dropdown-menu" id="selectTrigger3">
+                        <li><a class="dropdown-item"
+                                onclick=" triggerClicked({triggerID:-1,triggerButtonID:3,triggerName:'Undefined'}) ">Undefined</a>
+                        </li>
+                        <?php includeTriggerButtonContent(3); ?>
+                    </ul>
+                </div>
+                <div class="d-flex justify-content-center sm-6 mt-1">
+                    <button class="btn btn-secondary  text-start dropdown-toggle " type="button"
+                        data-bs-toggle="dropdown" id="selectTriggerTitle4">
+                        Selecciona trigger
+
+                    </button>
+                    <ul class="dropdown-menu" id="selectTrigger4">
+                        <li><a class="dropdown-item"
+                                onclick=" triggerClicked({triggerID:-1,triggerButtonID:4,triggerName:'Undefined'}) ">Undefined</a>
+                        </li>
+                        <?php includeTriggerButtonContent(4); ?>
+                    </ul>
+                </div>
+                <div class="d-flex justify-content-center sm-6 mt-1">
+                    <button class="btn btn-secondary  text-start dropdown-toggle " type="button"
+                        data-bs-toggle="dropdown" id="selectTriggerTitle5">
+                        Selecciona trigger
+
+                    </button>
+                    <ul class="dropdown-menu" id="selectTrigger5">
+                        <li><a class="dropdown-item"
+                                onclick=" triggerClicked({triggerID:-1,triggerButtonID:5,triggerName:'Undefined'}) ">Undefined</a>
+                        </li>
+                        <?php includeTriggerButtonContent(5); ?>
                     </ul>
                 </div>
                 <div class="d-flex justify-content-center sm-6 mt-1">
                     <p id="triggerDescription">WIP: Trigger Description</p>
                 </div>
-                <div class="d-flex justify-content-center sm-6">
-                    <p id="studyCharacteristicsDescription">WIP: Study Characteristics Description</p>
-                </div>
-
 
             </div>
 

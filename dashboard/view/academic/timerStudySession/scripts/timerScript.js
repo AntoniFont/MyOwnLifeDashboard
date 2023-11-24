@@ -131,7 +131,7 @@ $(document).ready(function () {
                 totalTime: seconds,
                 courseID: dataSelected["courseID"],
                 projectID: dataSelected["projectID"],
-                triggerID: dataSelected["triggerID"],
+                triggersID: dataSelected["triggersID"],
                 studyCharacteristicsID: dataSelected["studyCharacteristicsID"],
                 name: username,
             },
