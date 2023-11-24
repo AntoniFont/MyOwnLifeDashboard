@@ -119,7 +119,7 @@ $(document).ready(function () {
     function stopSpotify(){
         if(spotifySpecialFeatureEnabled == "true"){
             $("#spotifySpecialFeatureText").text("");
-            window.open("https://accounts.spotify.com/revoke_sessions/"); //Close all sessions 
+            //window.open("https://accounts.spotify.com/revoke_sessions/"); //Close all sessions 
         }
     }
 
