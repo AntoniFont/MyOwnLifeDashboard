@@ -180,7 +180,6 @@ $_SESSION["current_page"] = "Timer Study Session";
                         <p>Start small pause</p>
                     </button>
                 </div>
-                <p id="spotifySpecialFeatureText"></p>
             </div>
         </div>
 
