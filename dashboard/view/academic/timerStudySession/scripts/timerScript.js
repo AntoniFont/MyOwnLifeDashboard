@@ -12,15 +12,29 @@ let smallPauseVar;
 let secondsEllapsed = 0
 let initialTimeDate = 0;
 let spotifySpecialFeatureEnabled = "false";
-let SMALL_PAUSE_SECONDS = 10;
+let SMALL_PAUSE_SECONDS = 180;
 
 $(document).ready(function () {
     
     $("#timerButton").click(function () {
         if (timerStarted == false) {
-            startTimer();            
+            startTimer();     
+            $.ajax("./backend/setCurrentlyStudying.php",{
+                method: "get",
+                data:{
+                    value: 1,
+                    name: username,
+                }
+            });
         } else {
             stopTimer();
+            $.ajax("./backend/setCurrentlyStudying.php",{
+                method: "get",
+                data:{
+                    value: 0,
+                    name: username,
+                }
+            });
             //remove the "are you sure you want to exit" popup
             window.onbeforeunload = null;
         }
