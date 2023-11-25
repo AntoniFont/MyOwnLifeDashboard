@@ -23,7 +23,6 @@ $(document).ready(function () {
             stopTimer();
             //remove the "are you sure you want to exit" popup
             window.onbeforeunload = null;
-            stopSpotify();
         }
             
     });
@@ -61,7 +60,6 @@ $(document).ready(function () {
             $("#timer").css("color", "black");
             $("#smallPauseButton p").text("Start small pause")
             $("#smallPauseButton").attr("class", "btn btn-primary");
-            stopSpotify()
         }
     }
 
@@ -83,20 +81,6 @@ $(document).ready(function () {
         window.onbeforeunload = function() {
             return true;
         };
-        $.ajax("./backend/getSpotifySpecialFeature.php",{
-            method: "get",
-            data:{
-                username: username,
-            },
-            success: function(responseText){
-                jsont = JSON.parse(responseText);
-                spotifySpecialFeatureEnabled = jsont[0];
-                $("#spotifySpecialFeatureText").text("Spotify pass: "+ jsont[1]);
-              },
-            error: function(){
-                alert("Error al obtener los datos spoti")
-            }
-        })
     }
 
 
@@ -114,13 +98,6 @@ $(document).ready(function () {
         $("#selectProjectTitle").prop('disabled', false);
         $("#selectTriggerTitle").prop('disabled', false);
         $("#selectStudyCharacteristicsTitle").prop('disabled',false);
-    }
-
-    function stopSpotify(){
-        if(spotifySpecialFeatureEnabled == "true"){
-            $("#spotifySpecialFeatureText").text("");
-            //window.open("https://accounts.spotify.com/revoke_sessions/"); //Close all sessions 
-        }
     }
 
     function insertTimeDatabase(seconds) {

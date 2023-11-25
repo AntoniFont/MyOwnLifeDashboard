@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 24-11-2023 a las 12:11:57
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.0.28
+-- Servidor: localhost
+-- Tiempo de generación: 25-11-2023 a las 17:50:16
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,12 +20,14 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `academicdashboard`
 --
+CREATE DATABASE IF NOT EXISTS `academicdashboard` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `academicdashboard`;
 
 DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getUnusedTriggersByUserInPeriod` (IN `userID` INT, IN `initialTimeUnixTimestamp` INT, IN `finalTimeUnixTimestamp` INT)   begin
+CREATE DEFINER=`superRoot`@`localhost` PROCEDURE `getUnusedTriggersByUserInPeriod` (IN `userID` INT, IN `initialTimeUnixTimestamp` INT, IN `finalTimeUnixTimestamp` INT)  SQL SECURITY INVOKER begin
 SELECT
     studysessiontrigger.name,
     studysessiontrigger.description
@@ -174,17 +176,6 @@ CREATE TABLE `user100` (
   `nickname` varchar(50) NOT NULL,
   `passwordHash` varchar(200) NOT NULL,
   `specialSpotifyFeatureEnabled` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `user_spotifypassword`
---
-
-CREATE TABLE `user_spotifypassword` (
-  `userID` int(11) NOT NULL,
-  `password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
