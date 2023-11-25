@@ -7,8 +7,8 @@ $user = (new UserDAO())->getUserFromNickname("toni");
 $today = date("Y-m-d");
 $seconds = $StudyDataDAO->getCriticalSecondsStudiedOfTheDay($user,$today,14);
 if($seconds>= 3600){
-    echo  "yes";
+    echo  "no";
 }else{
-    echo "no";
+    echo "yes";
 }
 ?>
