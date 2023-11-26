@@ -74,6 +74,13 @@ $(document).ready(function () {
             $("#timer").css("color", "black");
             $("#smallPauseButton p").text("Start small pause")
             $("#smallPauseButton").attr("class", "btn btn-primary");
+            $.ajax("./backend/setCurrentlyStudying.php",{
+                method: "get",
+                data:{
+                    value: 0,
+                    name: username,
+                }
+            });
         }
     }
 
