@@ -182,8 +182,13 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
         <div class="mt-5" style="background-color:rgb(252, 252, 248); border: 1px solid rgba(0,0,0,0.125);">
             <div class="row ">
                 <div class="d-flex justify-content-center align-items-start">
-                    <h1 class="pe-3">Routine analysis
+                    <h1 class="pe-3">Trigger analysis
                     </h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <p>Bajo que circunstancias te pones a trabajar y bajo que circunstancias no te pones a trabajar</p>
                 </div>
             </div>
             <div class="row">
@@ -194,10 +199,8 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
                     <div id="chart7Container"></div>
                 </div>
             </div>
+
             <div class="row">
-                <div class="d-flex">
-                    <strong>Unused triggers</strong>
-                </div>
                 <div class="d-flex justify-content-center">
                     <?php
                     require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/TriggerDAO.php");
@@ -210,6 +213,9 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
                     //PRINT THE COURSES
                     echo "<table class='table table-striped table-hover'>";
                     echo "<thead>";
+                    echo "<th scope='colgroup'>Unused triggers in the last 2 weeks</th>";
+                    echo "</thead>";
+                    echo "<thead>";
                     echo "<tr>";
                     echo "<th scope='col'>Trigger name</th>";
                     echo "<th scope='col'>Trigger description</th>";
@@ -217,8 +223,8 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
                     echo "</thead>";
                     echo "<tbody>";
                     echo "<tr>";
-                        echo "<td>" . "<strong>BUG!!: </strong>". "</td>";
-                        echo "<td>" . "<strong>Los unused triggers que tienen como userID NULL no salen en esta lista. Es un problema del procedure getUnusedTriggers</strong>" . "</td>";
+                    echo "<td>" . "<strong>BUG!!: </strong>" . "</td>";
+                    echo "<td>" . "<strong>Los unused triggers que tienen como userID NULL no salen en esta lista. Es un problema del procedure getUnusedTriggers</strong>" . "</td>";
                     echo "</tr>";
                     foreach ($triggers as $trigger) {
                         echo "<tr>";
@@ -232,6 +238,56 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
                 </div>
             </div>
         </div>
+
+        <div class="mt-5" style="background-color:rgb(252, 252, 248); border: 1px solid rgba(0,0,0,0.125);">
+            <div class="row ">
+                <div class="d-flex justify-content-center align-items-start">
+                    <h1 class="pe-3">Reward analysis
+                    </h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <p>Todos tus rewards deben de ser <strong>inmediatos</strong> y tener una serie de políticas y
+                        procedimientos que eviten que se <strong>corrompan</strong> a lo largo del tiempo </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="d-flex justify-content-center">
+                    <?php
+                    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/RewardDAO.php");
+                    require_once($_SERVER["DOCUMENT_ROOT"] . "/myownlifedashboard/dashboard/controller/DataAccessObjects/UserDAO.php");
+
+                    $rewardDAO = new RewardDAO();
+                    $userDAO = new UserDAO();
+                    $user = $userDAO->getUserFromNickname($_GET["name"]);
+                    $rewards = $rewardDAO->getUserRewards($user);
+                    //PRINT THE COURSES
+                    echo "<table class='table table-striped table-hover'>";
+                    echo "<thead>";
+                    echo "<th scope='colgroup'>Your rewards</th>";
+                    echo "</thead>";
+                    echo "<thead>";
+                    echo "<tr>";
+                    echo "<th scope='col'>Reward name</th>";
+                    echo "<th scope='col'>Reward description</th>";
+                    echo "</tr>";
+                    echo "</thead>";
+                    echo "<tbody>";
+                    foreach ($rewards as $reward) {
+                        echo "<tr>";
+                        echo "<td>" . $reward->getName() . "</td>";
+                        echo "<td>" . $reward->getDescription() . "</td>";
+                        echo "</tr>";
+                    }
+                    echo "</tbody>";
+                    echo "</table>";
+                    ?>
+                </div>
+            </div>
+
+        </div>
+    </div>
     </div>
 
     </div>
