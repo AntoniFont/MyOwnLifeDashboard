@@ -9,8 +9,10 @@ let timerStarted = false;
 let smallPauseStarted = false;
 let timerVar;
 let smallPauseVar;
-let secondsEllapsed = 0
-let initialTimeDate = 0;
+let studySecondsEllapsed = 0
+let initialStudyTimeDate = 0;
+let breakSecondsEllapsed = 0;
+let initialBreakTimeDate = 0;
 let spotifySpecialFeatureEnabled = "false";
 let SMALL_PAUSE_SECONDS = 180;
 
@@ -18,7 +20,7 @@ $(document).ready(function () {
     
     $("#timerButton").click(function () {
         if (timerStarted == false) {
-            startTimer();     
+            startStudyTimer();     
             $.ajax("./backend/setCurrentlyStudying.php",{
                 method: "get",
                 data:{
@@ -27,7 +29,7 @@ $(document).ready(function () {
                 }
             });
         } else {
-            stopTimer();
+            stopStudyTimer();
             $.ajax("./backend/setCurrentlyStudying.php",{
                 method: "get",
                 data:{
@@ -45,13 +47,13 @@ $(document).ready(function () {
         if(timerStarted == false && smallPauseStarted == false){
             alert("You can't start a pause if you aren't working!")
         }else if (timerStarted == true && smallPauseStarted == false){
-            stopTimer();
+            stopStudyTimer();
             changeTimer(SMALL_PAUSE_SECONDS)
             smallPauseStarted = true;
             $("#timer").css("color", "red");
             $("#smallPauseButton p").text("Stop small pause");
             $("#smallPauseButton").attr("class", "btn btn-info");
-            initialTimeDate = Math.floor(Date.now() / 1000);
+            initialBreakTimeDate = Math.floor(Date.now() / 1000);
             smallPauseVar = setInterval(smallPauseTimer,1000);
         }else if(timerStarted == false && smallPauseStarted==true){
             smallPauseStarted = false;
@@ -59,14 +61,14 @@ $(document).ready(function () {
             $("#smallPauseButton p").text("Start small pause")
             $("#smallPauseButton").attr("class", "btn btn-primary");
             clearInterval(smallPauseVar)
-            startTimer();
+            startStudyTimer();
         }
         
     })
 
     function smallPauseTimer(){
-        secondsEllapsed = Math.floor(Date.now()/1000) - initialTimeDate;
-        number = SMALL_PAUSE_SECONDS - secondsEllapsed;
+        breakSecondsEllapsed = Math.floor(Date.now()/1000) - initialBreakTimeDate;
+        number = SMALL_PAUSE_SECONDS - breakSecondsEllapsed;
         changeTimer(number);
         if(number <= 0){
             clearInterval(smallPauseVar)
@@ -84,11 +86,11 @@ $(document).ready(function () {
         }
     }
 
-    function startTimer(){
+    function startStudyTimer(){
         $("#timer").html("00:00:00");
         //start the timer and get starting time
         timerVar = setInterval(updateTimer, 1000); //start the ticking
-        initialTimeDate = Math.floor(Date.now() / 1000);
+        initialStudyTimeDate = Math.floor(Date.now() / 1000);
         timerStarted = true;
         //change the start timer text and color from start timer to stop timer
         $("#timerButton p").text("Stop Timer");
@@ -105,12 +107,12 @@ $(document).ready(function () {
     }
 
 
-    function stopTimer(){
+    function stopStudyTimer(){
         //We save the seconds elapsed
-        insertTimeDatabase(secondsEllapsed);
+        insertTimeDatabase(studySecondsEllapsed);
         clearInterval(timerVar); //stop the ticking
         timerStarted = false;
-        secondsEllapsed = 0;
+        studySecondsEllapsed = 0;
         //Re enable options and change the text from "stop timer" to "start timer"
         $("#timerButton").attr("class", "btn btn-primary");
         $("#timerButton p").text("Start Timer");
@@ -140,8 +142,8 @@ $(document).ready(function () {
     }
 
     function updateTimer() {
-        secondsEllapsed = Math.floor(Date.now()/1000) - initialTimeDate;
-        changeTimer(secondsEllapsed);
+        studySecondsEllapsed = Math.floor(Date.now()/1000) - initialStudyTimeDate;
+        changeTimer(studySecondsEllapsed);
     }
 
 
