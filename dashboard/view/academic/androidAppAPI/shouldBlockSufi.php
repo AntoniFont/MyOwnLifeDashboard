@@ -12,7 +12,6 @@ if($currently == 1){
     echo "no";
 }else{
     $currentHour = date('G');
-    echo $currentHour;
     if($currentHour < 16){
         echo "no";
     }else{

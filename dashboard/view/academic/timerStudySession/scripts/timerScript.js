@@ -20,14 +20,20 @@ $(document).ready(function () {
     
     $("#timerButton").click(function () {
         if (timerStarted == false) {
-            startStudyTimer();     
-            $.ajax("./backend/setCurrentlyStudying.php",{
+            if(smallPauseStarted){
+                alert("Una mini pausa esta en progreso. Para eso primero")
+            }else{
+                startStudyTimer();     
+                $.ajax("./backend/setCurrentlyStudying.php",{
                 method: "get",
                 data:{
                     value: 1,
                     name: username,
                 }
-            });
+                });
+            }
+
+            
         } else {
             stopStudyTimer();
             $.ajax("./backend/setCurrentlyStudying.php",{
