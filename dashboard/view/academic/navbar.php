@@ -10,11 +10,10 @@ $studySessionText = "";
 $addStudySessionText = "";
 $editStudySessionText = "";
 $deleteStudySessionText = "";
-$StudyTimeCategorizerText = "";
 $detailsText = "";
 $infoText = "";
 $newObjectiveText = "";
-
+$androidAppInfoText = "";
 
 if ($_SESSION["current_page"] == "Timer Study Session") {
   $timerStudySession = "(current)";
@@ -34,6 +33,8 @@ if ($_SESSION["current_page"] == "Timer Study Session") {
   $deleteStudySessionText = "(current)";
 }else if ($_SESSION["current_page"] == "New Objective") {
   $newObjectiveText = "(current)";
+}else if ($_SESSION["current_page"] == "Android App Info") {
+  $androidAppInfoText = "(current)";
 }
 
 if($addStudySessionText != "" || $editStudySessionText != "" || $deleteStudySessionText != ""){
@@ -127,6 +128,13 @@ if ($addProjectText != "" || $editProjectText != "") {
               href="<?php echo '/myownlifedashboard/dashboard/view/academic/newObjective/index.php?name=' . $name ?>"
               >
               New objective <?php echo $newObjectiveText ?>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"
+              href="<?php echo '/myownlifedashboard/dashboard/view/academic/androidAppAPI/index.php?name=' . $name ?>"
+              >
+              Android App Info <?php echo $androidAppInfoText ?>
             </a>
           </li>
         </ul>

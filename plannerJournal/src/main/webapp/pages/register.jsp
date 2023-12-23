@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
  <!-- Import Jquery -->
- <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-
+            <!-- Import Jquery -->
+            <script src="./jquery.js"></script>
 </head>
 <body>
 <!-- Ask for username, and password two times-->

@@ -11,8 +11,8 @@ public class DatabaseManager {
     //private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 	private static final String DB_URL = "jdbc:mysql://localhost:3306/plannerjournal?connectTimeout=60000&socketTimeout=60000";
-    private static final String USER = "root";
-    private static final String PASSWORD = "";
+    private static final String USER = "usuarioPlannerJournal";
+    private static final String PASSWORD = "38xNUADVjIt3o3WiGwtjXHk";
 
     private Connection connection = null;
 

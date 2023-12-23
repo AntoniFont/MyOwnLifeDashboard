@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
      <!-- Import Jquery -->
-     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-
+            <!-- Import Jquery -->
+            <script src="./jquery.js"></script>
 </head>
 <body>
     <!-- HTML FORM THAT ASKS FOR USERNAME AND PASSWORD-->

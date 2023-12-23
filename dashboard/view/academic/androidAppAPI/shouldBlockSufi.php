@@ -7,7 +7,7 @@ $userDao = (new UserDAO());
 $user = $userDao->getUserFromNickname("sufi.mago");
 $currently = $userDao->getCurrentlyStudying("sufi.mago");
 $today = date("Y-m-d");
-$seconds = $StudyDataDAO->getCriticalSecondsStudiedOfTheDay($user,$today,14);
+$secondsStudied = $StudyDataDAO->getCriticalSecondsStudiedOfTheDay($user,$today,14);
 if($currently == 1){
     echo "no";
 }else{
@@ -15,7 +15,7 @@ if($currently == 1){
     if($currentHour < 16){
         echo "no";
     }else{
-        if($seconds>= 3600){
+        if($secondsStudied>= 3600){
             echo "no";
         }else{
             echo "yes";
