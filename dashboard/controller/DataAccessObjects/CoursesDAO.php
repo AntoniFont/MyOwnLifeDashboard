@@ -77,7 +77,7 @@ class CoursesDAO extends DataAccessObject
                 order by
                     duracion asc, courses100.name asc";
 
-        $resultsCourses = $this->dbManager->query($sql, ["usuarioid" => $userID, "dayone" => $finalDayInitialHour, "daytwo" => $initialDayInitialHour, "daythree" => $initialDayInitialHour]);
+        $resultsCourses = $this->dbManager->query($sql, ["usuarioid" => $userID, "dayone" => $finalDayInitialHour, "daytwo" => $initialDayInitialHour, "daythree" => $finalDayInitialHour]);
         //Get the number of courses
         $numCourses = count($resultsCourses);
         //Get how many courses are in the bottom 50%
