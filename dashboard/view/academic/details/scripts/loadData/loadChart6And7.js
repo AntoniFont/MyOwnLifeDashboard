@@ -1,4 +1,4 @@
-$(document).ready(function () {
+function loadChart6And7() {
     $.ajax("./backend/chart6And7getData.php", {
         method: "GET",
         data: {
@@ -28,4 +28,6 @@ $(document).ready(function () {
 
     })
 
-});
+
+}
+

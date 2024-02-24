@@ -1,5 +1,8 @@
-let baseline = 0; //minutes
-$(document).ready(function () {
+
+
+function loadChart3And4() {
+
+
 
     $.ajax("./backend/getBaseline.php", {
         method: "GET",
@@ -17,8 +20,6 @@ $(document).ready(function () {
             }
         }
     })
-
-
     
     $.ajax("./backend/chart3And4getData.php",{
         method: "GET",
@@ -63,6 +64,7 @@ $(document).ready(function () {
         }
 
     })
+}
     
     function formatDataChart3(data, responseJSON) {
         for (let i = 0; i < responseJSON.length; i++) {
@@ -96,4 +98,3 @@ $(document).ready(function () {
         let averagePercentageOfBaseline = (average / baseline) * 100
         return averagePercentageOfBaseline.toFixed(2);
     }
-})

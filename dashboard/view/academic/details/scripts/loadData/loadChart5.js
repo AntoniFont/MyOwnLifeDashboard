@@ -1,4 +1,4 @@
-$(document).ready(function () {
+function loadChart5() {
     $.ajax("./backend/chart5getData.php", {
         method: "GET",
         data: {
@@ -28,8 +28,9 @@ $(document).ready(function () {
 
         }
 
-
     })
+
+}
 
     function fuegosArtificiales(){
         let durationSeconds = 15;
@@ -53,4 +54,3 @@ $(document).ready(function () {
                 }
                 }());
     }
-});

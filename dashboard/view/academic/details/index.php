@@ -43,6 +43,7 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.0/dist/confetti.browser.min.js"></script>
     <script src="./scripts/loadData/chartsOptions.js"></script>
     <script src="./scripts/loadData/warningsHandler.js"></script>
+    <script src="./scripts/loadData/loadEverything.js"></script>
     <script src="./scripts/loadData/loadChart1And2.js"></script>
     <script src="./scripts/loadData/loadChart3And4.js"></script>
     <script src="./scripts/loadData/loadChart5.js"></script>
