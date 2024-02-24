@@ -1,5 +1,23 @@
-let baseline = 3600; //minutes
+let baseline = 0; //minutes
 $(document).ready(function () {
+
+    $.ajax("./backend/getBaseline.php", {
+        method: "GET",
+        data: {
+            "username": username
+        },
+        error: function () {
+            alert("Error al hacer la petición para obtener el baseline");
+        },
+        success: function (responseText) {
+            try {
+                baseline = JSON.parse(responseText);
+            } catch (error) {
+                alert("Error en los datos recibidos para el baseline" + responseText);
+            }
+        }
+    })
+
 
     
     $.ajax("./backend/chart3And4getData.php",{

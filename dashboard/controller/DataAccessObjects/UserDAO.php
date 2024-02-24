@@ -35,6 +35,15 @@ class UserDAO extends DataAccessObject
         return $res[0][0];
     }
 
+    public function getBaseline($nickname){
+        $user = $this->getUserFromNickname($nickname);
+        $this->dbManager->openIfItWasClosed();
+        $sql = "select dailyMinimum from user100 where user100.id=:userID";
+        $res = $this->dbManager->query($sql,["userID"=>$user->getId()]);
+        $this->dbManager->close();
+        return $res[0][0];
+    }
+
 
 }
 
