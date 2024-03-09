@@ -30,6 +30,10 @@ class StudyCriteria{
     public function getFormattedCotoutMinuteString(){ //682 would be "11:22:00"
         $hours = floor($this->cotoutMinute / 60);
         $minutes = $this->cotoutMinute % 60;
+        //If the minutes are less than 10, we add a 0 at the beginning
+        if($minutes < 10){
+            $minutes = "0".$minutes;
+        }
         return $hours.":".$minutes.":00";
     }
 
@@ -57,15 +61,15 @@ function getSufiStudyCriteria(){
     return new StudyCriteria(
         [
             90, //You should study this minutes on Sunday
-            90, //You should study this minutes on Monday
-            50, //You should study this minutes on Tuesday
-            50, //You should study this minutes on Wednesday
-            90, //You should study this minutes on Thursday
+            30, //You should study this minutes on Monday
+            30, //You should study this minutes on Tuesday
+            30, //You should study this minutes on Wednesday
+            30, //You should study this minutes on Thursday
             90, //You should study this minutes on Friday
             90  //You should study this minutes on Saturday
         ],
-        "2024-03-03", //Exception day
-        18*60+0 //18:00
+        18*60+0, //18:00
+        "2024-03-03" //Exception day
     );
 
 }
@@ -75,14 +79,14 @@ function getToniStudyCriteria(){
         [
             90, //You should study this minutes on Sunday
             90, //You should study this minutes on Monday
-            50, //You should study this minutes on Tuesday
-            50, //You should study this minutes on Wednesday
+            90, //You should study this minutes on Tuesday
+            90, //You should study this minutes on Wednesday
             90, //You should study this minutes on Thursday
             90, //You should study this minutes on Friday
             90  //You should study this minutes on Saturday
         ],
-        "2024-03-04", //Exception day
-        11*60+22 //11:22
+        11*60+22, //11:22
+        "2024-03-04" //Exception day
     );
 }
 

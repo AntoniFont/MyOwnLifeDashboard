@@ -36,62 +36,216 @@ $user = $UserDAO->getUserFromNickname($_GET["name"]);
     <?php include '../navbar.php'; ?>
     <div class="container mt-3">
 
-        <h1>La hora actual en el servidor es
+        <h1>The current time is:
             <?php echo date("Y-m-d H:i:s"); ?>
         </h1>
-        <p>Existe una aplicacion para movil que bloquea ciertas apps según si has completado o no el mínimo diario.</p>
-        <p>Si estás estudiando, desbloquea las aplicaciones y una vez cumplas el minimo diario critico bajo unas
-            circustancias, las deja desbloqueadas
-            el resto del día.
+        <h1>Android app info</h1>
+        <p>He creado una aplicacion para movil que bloquea ciertas apps según lo que responda una api de este server.
         </p>
-        <p>Existen 2 sistemas, que se comportan de manera ligeramente diferente.</p>
-        <p>El sistema A esta diseñado para bloquear el Spotify y el B para bloquear el instagram.</p>
-        <p>El sistema A bloquea desde el primer momento del día, mientras que el sistema B bloquea a partir de las 16.
-        </p>
-        <p>En el sistema A realmente no siempre es necesario cumplir el 100% del mínimo diario critico, ya que tener que
-            cumplir 1 hora
-            a las 22:00 para solo poder disfrutar de 2 horas de ocio no es muy justo. Por eso, la exigencia se equilibra
-            en base a lo siguiente:
-        </p>
-        <ul>
-            <li>Hasta las 9, es necesario cumplir el 100% del minimo diario critico para desbloquear las aplicaciones el
-                resto del día.</li>
-            <li>De 9 a 10h30min, es necesario cumplir el 90% del minimo diario critico para desbloquear las aplicaciones
-                el
-                resto del día.</li>
-            <li>De 10h30min a 12h, es necesario cumplir el 80% del minimo diario critico para desbloquear las
-                aplicaciones
-                el resto del día.</li>
-            <li>De 12h a 13h30min, es necesario cumplir el 70% del minimo diario critico para desbloquear las
-                aplicaciones
-                el resto del día.</li>
-            <li>De 13h30min a 15h, es necesario cumplir el 60% del minimo diario critico para desbloquear las
-                aplicaciones
-                el resto del día.</li>
-            <li>De 15h a 16h30min, es necesario cumplir el 50% del minimo diario critico para desbloquear las
-                aplicaciones
-                el resto del día.</li>
-            <li>De 16h30min a 18h, es necesario cumplir el 40% del minimo diario critico para desbloquear las
-                aplicaciones
-                el resto del día.</li>
-            <li>De 18h a 19h30min, es necesario cumplir el 30% del minimo diario critico para desbloquear las
-                aplicaciones
-                el resto del día.</li>
-            <li>De 19h30min a 21h, es necesario cumplir el 20% del minimo diario critico para desbloquear las
-                aplicaciones
-                el resto del día.</li>
-            <li>De 21h a 22h30min, es necesario cumplir el 10% del minimo diario critico para desbloquear las
-                aplicaciones
-                el resto del día.</li>
-            <li>De 22h30min a 24h, es necesario cumplir el 5% del minimo diario critico para desbloquear las
-                aplicaciones el
-                resto del día.</li>
-        </ul>
-        <p>Finalmente, unos links de referencia.</p>
-        <li><a href="./setGoingToUIB.php">Pagina para desactivar el sistema A (toni) una vez al día durante 40 minutos
-                (simula
-                que estas en el trayecto a la uni)</a></li>
-        <li><a href="./shouldBlock.php">Pagina para comprobar si se debe bloquear o no el movil en el sistema A</a></li>
-        <li><a href="./shouldBlockSufi.php">Pagina para comprobar si se debe bloquear o no el movil en el sistema B</a></li>
+        <p>En general, he puesto que si has estudiado el suficiente tiempo hoy antes de cierta hora, no se bloquea el
+            movil.</p>
+        <p>De momento, los criterios para bloquear estan hardcodeados en el server, para los 2 usuarios que estamos
+            activo en la pagina, yo (toni) y mi amigo sufi.</p>
+        <p>Nos hemos puesto autobloqueo (obviamente) y bloqueo cruzado, es decir que si uno no ha estudiado lo
+            suficiente
+            hoy, se bloquea el movil del otro para mayor presión.</p>
+        <p>En el futuro, estos criterios deberian estar en una base de datos, y deberian ser configurables por el
+            usuario </p>
+
+        <p>Existen 2 versiones de la app, y cada uno tiene una de ellas instaladas. A mi me bloquea mis apps favoritas
+            (instagram)
+            y a mi amigo sus apps favoritas (tiktok,videojuegos...) </p>
+
+        <p> Para poder checkear rapidamente los criterios (que suelen ir cambiando de semana a semana) y el estado
+            actual, aqui se muestran</p>
+        <h1>Datos Toni</h1>
+        <?php
+        require_once("studyCriteria.php");
+        $datosToni = getToniStudyCriteria();
+        $studyBaselineByDays = $datosToni->getStudyBaselineByDays();
+        ?>
+        <!-- CAMPOS:
+         <th> La api ha devuelto que se debe bloquear el movil de toni?</th>
+                <th> Maximo a estudiar cada dia en minutos</th>
+                <th> Hora de corte</th>
+                <th> Dia de excepcion</th>
+                <th> Bloqueo progresivo</th>
+                <th> Media diaria</th>
+            -->
+        <!-- BOOTSTRAP STYLE TABLE -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th> Campo </th>
+                    <th> Valor </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> La api ha devuelto que se debe bloquear el movil de toni?</td>
+                    <td>
+                        <bold>
+                            <?php require_once("shouldBlockThePhoneOfToni.php"); ?>
+                        </bold>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Dice el server que ha estudiado suficiente en el momento actual?</td>
+                    <td>
+                        <bold>
+                            <?php require_once("shouldBlockAPhoneBackend.php");
+                            echo didUserStudyEnoughToday("toni", $datosToni) ? "si" : "no";
+                            ?>
+                        </bold>
+                    </td>
+                <tr>
+                    <td> Maximo a estudiar cada dia </td>
+                    <td>
+                        <ul>
+                            <li> Domingo:
+                                <?php echo $studyBaselineByDays[0]; ?> minutos
+                            </li>
+                            <li> Lunes:
+                                <?php echo $studyBaselineByDays[1]; ?> minutos
+                            </li>
+                            <li> Martes:
+                                <?php echo $studyBaselineByDays[2]; ?> minutos
+                            </li>
+                            <li> Miercoles:
+                                <?php echo $studyBaselineByDays[3]; ?> minutos
+                            </li>
+                            <li> Jueves:
+                                <?php echo $studyBaselineByDays[4]; ?> minutos
+                            </li>
+                            <li> Viernes:
+                                <?php echo $studyBaselineByDays[5]; ?> minutos
+                            </li>
+                            <li> Sabado:
+                                <?php echo $studyBaselineByDays[6]; ?> minutos
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Hora maxima a la que se tiene que haber cumplido el objetivo</td>
+                    <td>
+                        <?php echo $datosToni->getFormattedCotoutMinuteString(); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Dia de excepcion</td>
+                    <td>
+                        <?php echo $datosToni->getExceptionDay(); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Bloqueo progresivo</td>
+                    <td>
+                        <?php echo $datosToni->getProgressiveBlock(); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Media diaria esperada</td>
+                    <td>
+                        <?php echo $datosToni->getAverageDailyBaseline(); ?>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h1>Datos Sufi</h1>
+        <?php
+        $datosSufi = getSufiStudyCriteria();
+        $studyBaselineByDays = $datosSufi->getStudyBaselineByDays();
+        ?>
+        <!-- CAMPOS:
+         <th> La api ha devuelto que se debe bloquear el movil de toni?</th>
+                <th> Maximo a estudiar cada dia en minutos</th>
+                <th> Hora de corte</th>
+                <th> Dia de excepcion</th>
+                <th> Bloqueo progresivo</th>
+                <th> Media diaria</th>
+            -->
+        <!-- BOOTSTRAP STYLE TABLE -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th> Campo </th>
+                    <th> Valor </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> La api ha devuelto que se debe bloquear el movil de sufi?</td>
+                    <td>
+                        <bold>
+                            <?php require_once("shouldBlockThePhoneOfSufi.php"); ?>
+                        </bold>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Dice el server que ha estudiado suficiente en el momento actual?</td>
+                    <td>
+                        <bold>
+                            <?php require_once("shouldBlockAPhoneBackend.php");
+                            echo didUserStudyEnoughToday("sufi.mago", $datosSufi) ? "si" : "no";
+                            ?>
+                        </bold>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Maximo a estudiar cada dia </td>
+                    <td>
+                        <ul>
+                            <li> Domingo:
+                                <?php echo $studyBaselineByDays[0]; ?> minutos
+                            </li>
+                            <li> Lunes:
+                                <?php echo $studyBaselineByDays[1]; ?> minutos
+                            </li>
+                            <li> Martes:
+                                <?php echo $studyBaselineByDays[2]; ?> minutos
+                            </li>
+                            <li> Miercoles:
+                                <?php echo $studyBaselineByDays[3]; ?> minutos
+                            </li>
+                            <li> Jueves:
+                                <?php echo $studyBaselineByDays[4]; ?> minutos
+                            </li>
+                            <li> Viernes:
+                                <?php echo $studyBaselineByDays[5]; ?> minutos
+                            </li>
+                            <li> Sabado:
+                                <?php echo $studyBaselineByDays[6]; ?> minutos
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Hora maxima a la que se tiene que haber cumplido el objetivo</td>
+                    <td>
+                        <?php echo $datosSufi->getFormattedCotoutMinuteString(); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Dia de excepcion</td>
+                    <td>
+                        <?php echo $datosSufi->getExceptionDay(); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Bloqueo progresivo</td>
+                    <td>
+                        <?php echo $datosSufi->getProgressiveBlock(); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Media diaria esperada</td>
+                    <td>
+                        <?php echo $datosSufi->getAverageDailyBaseline(); ?>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
     </div>
 </body>
