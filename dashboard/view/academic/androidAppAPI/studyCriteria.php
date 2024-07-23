@@ -60,16 +60,16 @@ class StudyCriteria{
 function getSufiStudyCriteria(){
     return new StudyCriteria(
         [
-            90, //You should study this minutes on Sunday
-            30, //You should study this minutes on Monday
+            55, //You should study this minutes on Sunday
+            60, //You should study this minutes on Monday
             30, //You should study this minutes on Tuesday
-            30, //You should study this minutes on Wednesday
-            30, //You should study this minutes on Thursday
-            90, //You should study this minutes on Friday
-            90  //You should study this minutes on Saturday
+            35, //You should study this minutes on Wednesday
+            40, //You should study this minutes on Thursday
+            45, //You should study this minutes on Friday
+            50  //You should study this minutes on Saturday
         ],
-        18*60+0, //18:00
-        "2024-03-03" //Exception day
+        20*60+0, //20:00
+        "2024-07-22" //Exception day
     );
 
 }
@@ -77,16 +77,16 @@ function getSufiStudyCriteria(){
 function getToniStudyCriteria(){
     return new StudyCriteria(
         [
-            90, //You should study this minutes on Sunday
-            90, //You should study this minutes on Monday
-            90, //You should study this minutes on Tuesday
-            90, //You should study this minutes on Wednesday
-            90, //You should study this minutes on Thursday
-            90, //You should study this minutes on Friday
-            90  //You should study this minutes on Saturday
+            50, //You should study this minutes on Sunday
+            20, //You should study this minutes on Monday
+            25, //You should study this minutes on Tuesday
+            30, //You should study this minutes on Wednesday
+            35, //You should study this minutes on Thursday
+            40, //You should study this minutes on Friday
+            45  //You should study this minutes on Saturday
         ],
-        11*60+22, //11:22
-        "2024-03-04" //Exception day
+        9*60+10, //9:10
+        "2024-07-23" //Exception day
     );
 }
 
