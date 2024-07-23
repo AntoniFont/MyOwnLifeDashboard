@@ -1,7 +1,7 @@
 <?php
 require_once("shouldBlockAPhoneBackend.php");
 require_once("studyCriteria.php");
-if (didUserStudyEnoughToday("toni",getToniStudyCriteria()) && didUserStudyEnoughToday("sufi",getSufiStudyCriteria())) {
+if (didUserStudyEnoughToday("toni",getToniStudyCriteria()) && didUserStudyEnoughToday("sufi.mago",getSufiStudyCriteria())) {
     echo "no";
 } else {
     //If yourself (sufi) didnt study enough, then block your own phone.
